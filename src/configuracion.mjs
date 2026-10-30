@@ -5,7 +5,7 @@
 export const SITIO = "https://econplebs.org";
 
 // Correo público de contacto (nunca uno personal). Vacío = no se muestra.
-export const CORREO_PUBLICO = "";
+export const CORREO_PUBLICO = "contacto@econplebs.org";
 
 // Enlace «Herramientas ↗» del menú En el aula.
 // Vacío = el enlace no aparece. No pongas aquí ninguna web que lleve tu nombre.
