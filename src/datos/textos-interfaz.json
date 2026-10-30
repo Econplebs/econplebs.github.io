@@ -1,0 +1,812 @@
+[
+ {
+  "donde": "parts/footer.html",
+  "es": "De lo abstracto a lo concreto",
+  "ca": "De l’abstracte al concret"
+ },
+ {
+  "donde": "parts/footer.html",
+  "es": "Contacto",
+  "ca": "Contacte"
+ },
+ {
+  "donde": "parts/footer.html",
+  "es": "Privacidad",
+  "ca": "Privacitat"
+ },
+ {
+  "donde": "parts/footer.html",
+  "es": "Foto: M. Post Wolcott, 1939 (LoC)",
+  "ca": "Foto: M. Post Wolcott, 1939 (LoC)"
+ },
+ {
+  "donde": "parts/footer.html",
+  "es": "(copias reducidas)",
+  "ca": "(còpies reduïdes)"
+ },
+ {
+  "donde": "parts/footer.html",
+  "es": "Licencia CC BY-SA 4.0",
+  "ca": "Llicència CC BY-SA 4.0"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Investigación",
+  "ca": "Recerca"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Líneas de investigación",
+  "ca": "Línies de recerca"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Avances",
+  "ca": "Avanços"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Publicaciones",
+  "ca": "Publicacions"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "En el aula",
+  "ca": "A l’aula"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Enfoque",
+  "ca": "Enfocament"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Propuestas y experiencias",
+  "ca": "Propostes i experiències"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Materiales",
+  "ca": "Materials"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Herramientas ↗",
+  "ca": "Eines ↗"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Opinión",
+  "ca": "Opinió"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Todo",
+  "ca": "Tot"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Análisis de coyuntura",
+  "ca": "Anàlisi de conjuntura"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Sobre mí",
+  "ca": "Sobre mi"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Qué es Econplebs",
+  "ca": "Què és Econplebs"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Contacto",
+  "ca": "Contacte"
+ },
+ {
+  "donde": "parts/header.html",
+  "es": "Buscar",
+  "ca": "Cercar"
+ },
+ {
+  "donde": "parts/sidebar.html",
+  "es": "Quién escribe",
+  "ca": "Qui escriu"
+ },
+ {
+  "donde": "parts/sidebar.html",
+  "es": "Un profesor de Economía de secundaria que investiga cómo enseñar la economía y las ciencias sociales desde la teoría de la actividad: Vigotski, Iliénkov, Davídov.",
+  "ca": "Un professor d’Economia de secundària que investiga com ensenyar l’economia i les ciències socials des de la teoria de l’activitat: Vigotski, Iliénkov, Davídov."
+ },
+ {
+  "donde": "parts/sidebar.html",
+  "es": "Más sobre mí",
+  "ca": "Més sobre mi"
+ },
+ {
+  "donde": "parts/sidebar.html",
+  "es": "Por temas",
+  "ca": "Per temes"
+ },
+ {
+  "donde": "parts/sidebar.html",
+  "es": "Boletín",
+  "ca": "Butlletí"
+ },
+ {
+  "donde": "parts/sidebar.html",
+  "es": "Un correo cuando publique algo nuevo. Sin más.",
+  "ca": "Un correu quan publique alguna cosa nova. Res més."
+ },
+ {
+  "donde": "parts/sidebar.html",
+  "es": "Nada previsto por ahora.",
+  "ca": "Res previst per ara."
+ },
+ {
+  "donde": "templates/404.html",
+  "es": "Esta página no existe",
+  "ca": "Aquesta pàgina no existeix"
+ },
+ {
+  "donde": "templates/404.html",
+  "es": "Puede que el enlace esté mal escrito o que el texto se haya movido. Prueba a buscarlo.",
+  "ca": "Pot ser que l’enllaç estiga mal escrit o que el text s’haja mogut. Prova a buscar-lo."
+ },
+ {
+  "donde": "templates/404.html",
+  "es": "Buscar",
+  "ca": "Cercar"
+ },
+ {
+  "donde": "templates/404.html",
+  "es": "Volver a la portada",
+  "ca": "Tornar a la portada"
+ },
+ {
+  "donde": "templates/archive.html",
+  "es": "No hay nada publicado aquí todavía.",
+  "ca": "Encara no hi ha res publicat ací."
+ },
+ {
+  "donde": "templates/category-opinio.html",
+  "es": "IDEAS EN DEBATE",
+  "ca": "IDEES EN DEBAT"
+ },
+ {
+  "donde": "templates/category-opinio.html",
+  "es": "Opinión con argumentos.",
+  "ca": "Opinió amb arguments."
+ },
+ {
+  "donde": "templates/category-opinio.html",
+  "es": "Una posición explícita, abierta al contraste con los datos y con otras lecturas. Aquí se reúnen las columnas, los ensayos y los análisis de coyuntura.",
+  "ca": "Una posició explícita, oberta al contrast amb les dades i amb altres lectures. Ací es reunixen les columnes, els assajos i les anàlisis de conjuntura."
+ },
+ {
+  "donde": "templates/category-opinio.html",
+  "es": "No hay nada publicado aquí todavía.",
+  "ca": "Encara no hi ha res publicat ací."
+ },
+ {
+  "donde": "templates/category-opinion.html",
+  "es": "IDEAS EN DEBATE",
+  "ca": "IDEES EN DEBAT"
+ },
+ {
+  "donde": "templates/category-opinion.html",
+  "es": "Opinión con argumentos.",
+  "ca": "Opinió amb arguments."
+ },
+ {
+  "donde": "templates/category-opinion.html",
+  "es": "Una posición explícita, abierta al contraste con los datos y con otras lecturas. Aquí se reúnen las columnas, los ensayos y los análisis de coyuntura.",
+  "ca": "Una posició explícita, oberta al contrast amb les dades i amb altres lectures. Ací es reunixen les columnes, els assajos i les anàlisis de conjuntura."
+ },
+ {
+  "donde": "templates/category-opinion.html",
+  "es": "No hay nada publicado aquí todavía.",
+  "ca": "Encara no hi ha res publicat ací."
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "INVESTIGACIÓN EN DIDÁCTICA",
+  "ca": "RECERCA EN DIDÀCTICA"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Qué estoy investigando",
+  "ca": "Què estic investigant"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Cómo se forman los conceptos de economía y ciencias sociales en el aula, desde la teoría de la actividad de Vigotski, Iliénkov y Davídov.",
+  "ca": "Com es formen els conceptes d’economia i ciències socials a l’aula, des de la teoria de l’activitat de Vigotski, Iliénkov i Davídov."
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Líneas",
+  "ca": "Línies"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Avances",
+  "ca": "Avanços"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Publicaciones",
+  "ca": "Publicacions"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "abstracto",
+  "ca": "abstracte"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "concreto",
+  "ca": "concret"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "ÚLTIMAS LECTURAS",
+  "ca": "ÚLTIMES LECTURES"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Nuevas ideas, nuevos datos.",
+  "ca": "Noves idees, noves dades."
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Leer",
+  "ca": "Llegir"
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Los artículos destacados están arriba. Pronto habrá más lecturas aquí.",
+  "ca": "Els articles destacats són a dalt. Prompte hi haurà més lectures ací."
+ },
+ {
+  "donde": "templates/front-page.html",
+  "es": "Ver el archivo completo ↗",
+  "ca": "Veure l’arxiu complet ↗"
+ },
+ {
+  "donde": "templates/index.html",
+  "es": "No hay nada publicado aquí todavía.",
+  "ca": "Encara no hi ha res publicat ací."
+ },
+ {
+  "donde": "templates/pagina-contacto.html",
+  "es": "Boletín",
+  "ca": "Butlletí"
+ },
+ {
+  "donde": "templates/pagina-contacto.html",
+  "es": "Un correo cuando publique algo nuevo. Sin más.",
+  "ca": "Un correu quan publique alguna cosa nova. Res més."
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "APRENDER A PREGUNTAR",
+  "ca": "APRENDRE A PREGUNTAR"
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Ideas, materiales y lecturas para entender la economía en clase.",
+  "ca": "Idees, materials i lectures per a entendre l’economia a classe."
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Propuestas y experiencias",
+  "ca": "Propostes i experiències"
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Todavía no hay propuestas publicadas.",
+  "ca": "Encara no hi ha propostes publicades."
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "EN ESTA SECCIÓN",
+  "ca": "EN AQUESTA SECCIÓ"
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Del aula al debate",
+  "ca": "De l’aula al debat"
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Cómo trabajo en clase, propuestas que funcionan y materiales para otros docentes.",
+  "ca": "Com treballe a classe, propostes que funcionen i materials per a altres docents."
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Todas las propuestas y experiencias →",
+  "ca": "Totes les propostes i experiències →"
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Materiales para descargar →",
+  "ca": "Materials per a descarregar →"
+ },
+ {
+  "donde": "templates/pagina-docencia.html",
+  "es": "Herramientas para el alumnado ↗",
+  "ca": "Eines per a l’alumnat ↗"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "INVESTIGACIÓN EN DIDÁCTICA",
+  "ca": "RECERCA EN DIDÀCTICA"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Cómo se forman los conceptos económicos y sociales en el aula, y cómo enseñar para que el alumnado los construya en lugar de memorizarlos.",
+  "ca": "Com es formen els conceptes econòmics i socials a l’aula, i com ensenyar perquè l’alumnat els construïsca en lloc de memoritzar-los."
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Avances",
+  "ca": "Avanços"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Todavía no hay avances publicados.",
+  "ca": "Encara no hi ha avanços publicats."
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Todos los avances →",
+  "ca": "Tots els avanços →"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Publicaciones",
+  "ca": "Publicacions"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "La lista de publicaciones se está preparando.",
+  "ca": "La llista de publicacions s’està preparant."
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Todas las publicaciones →",
+  "ca": "Totes les publicacions →"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "EL MARCO",
+  "ca": "EL MARC"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "abstracto",
+  "ca": "abstracte"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "concreto",
+  "ca": "concret"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "De lo abstracto a lo concreto",
+  "ca": "De l’abstracte al concret"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "La teoría de la actividad y la enseñanza desarrolladora: Vigotski, Iliénkov y Davídov. Primero, la relación básica, la célula germinal; después, los casos que se explican con ella.",
+  "ca": "La teoria de l’activitat i l’ensenyament desenvolupador: Vigotski, Iliénkov i Davídov. Primer, la relació bàsica, la cèl·lula germinal; després, els casos que s’expliquen amb ella."
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Avances →",
+  "ca": "Avanços →"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Publicaciones →",
+  "ca": "Publicacions →"
+ },
+ {
+  "donde": "templates/pagina-investigacion.html",
+  "es": "Datos y materiales de investigación →",
+  "ca": "Dades i materials de recerca →"
+ },
+ {
+  "donde": "templates/pagina-publicaciones.html",
+  "es": "La lista de publicaciones se está preparando.",
+  "ca": "La llista de publicacions s’està preparant."
+ },
+ {
+  "donde": "templates/pagina-recursos.html",
+  "es": "BIBLIOTECA ABIERTA",
+  "ca": "BIBLIOTECA OBERTA"
+ },
+ {
+  "donde": "templates/pagina-recursos.html",
+  "es": "Documentos, materiales de clase y hojas de cálculo para seguir una pregunta hasta sus fuentes.",
+  "ca": "Documents, materials de classe i fulls de càlcul per a seguir una pregunta fins a les seues fonts."
+ },
+ {
+  "donde": "templates/search.html",
+  "es": "No hay resultados. Prueba con otra palabra.",
+  "ca": "No hi ha resultats. Prova amb una altra paraula."
+ },
+ {
+  "donde": "templates/single-publicacion.html",
+  "es": "Todas las publicaciones",
+  "ca": "Totes les publicacions"
+ },
+ {
+  "donde": "templates/single-publicacion.html",
+  "es": "Resumen",
+  "ca": "Resum"
+ },
+ {
+  "donde": "templates/single-publicacion.html",
+  "es": "Volver a publicaciones",
+  "ca": "Tornar a publicacions"
+ },
+ {
+  "donde": "templates/single-recurso.html",
+  "es": "RECURSO DESCARGABLE",
+  "ca": "RECURS DESCARREGABLE"
+ },
+ {
+  "donde": "templates/single-recurso.html",
+  "es": "← Volver a Recursos",
+  "ca": "← Tornar a Recursos"
+ },
+ {
+  "donde": "templates/single.html",
+  "es": "FIN DEL ARTÍCULO",
+  "ca": "FINAL DE L’ARTICLE"
+ },
+ {
+  "donde": "templates/single.html",
+  "es": "Etiquetas: ",
+  "ca": "Etiquetes: "
+ },
+ {
+  "donde": "templates/single.html",
+  "es": "Texto publicado con licencia CC BY-SA 4.0. Puedes citarlo y compartirlo.",
+  "ca": "Text publicat amb llicència CC BY-SA 4.0. Pots citar-lo i compartir-lo."
+ },
+ {
+  "donde": "templates/single.html",
+  "es": "Anterior",
+  "ca": "Anterior"
+ },
+ {
+  "donde": "templates/single.html",
+  "es": "Siguiente",
+  "ca": "Següent"
+ },
+ {
+  "donde": "templates/taxonomy-tipo_publicacion.html",
+  "es": "La lista de publicaciones se está preparando.",
+  "ca": "La llista de publicacions s’està preparant."
+ },
+ {
+  "donde": "functions.php",
+  "es": "Todavía no hay entradas.",
+  "ca": "Encara no hi ha entrades."
+ },
+ {
+  "donde": "functions.php",
+  "es": "Artículo",
+  "ca": "Article"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Página",
+  "ca": "Pàgina"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Publicación",
+  "ca": "Publicació"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Recurso descargable",
+  "ca": "Recurs descarregable"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Ruta de lectura",
+  "ca": "Ruta de lectura"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Artículos",
+  "ca": "Articles"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Investigación",
+  "ca": "Recerca"
+ },
+ {
+  "donde": "functions.php",
+  "es": "En el aula",
+  "ca": "A l’aula"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Opinión",
+  "ca": "Opinió"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Opinión · Coyuntura",
+  "ca": "Opinió · Conjuntura"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Artículo",
+  "ca": "Article"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Artículo anterior",
+  "ca": "Article anterior"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Artículo siguiente",
+  "ca": "Article següent"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Pausar",
+  "ca": "Pausar"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Leer el artículo",
+  "ca": "Llegir l’article"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Artículos destacados",
+  "ca": "Articles destacats"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Elegir artículo",
+  "ca": "Elegir article"
+ },
+ {
+  "donde": "functions.php",
+  "es": "Artículo %d de %d: %s",
+  "ca": "Article %d de %d: %s"
+ },
+ {
+  "donde": "inc/estructura.php",
+  "es": "Al comentar aceptas la %s. El correo no se publica.",
+  "ca": "En comentar acceptes la %s. El correu no es publica."
+ },
+ {
+  "donde": "inc/estructura.php",
+  "es": "política de privacidad",
+  "ca": "política de privacitat"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Descargar ",
+  "ca": "Descarregar "
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Buscar en los recursos",
+  "ca": "Cercar als recursos"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Título o palabra clave",
+  "ca": "Títol o paraula clau"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Área del recurso",
+  "ca": "Àrea del recurs"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Todas las áreas",
+  "ca": "Totes les àrees"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Investigación",
+  "ca": "Recerca"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "En el aula",
+  "ca": "A l’aula"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Buscar",
+  "ca": "Cercar"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Filtrar recursos",
+  "ca": "Filtrar recursos"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Todos",
+  "ca": "Tots"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Documentos",
+  "ca": "Documents"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Hojas de cálculo y datos",
+  "ca": "Fulls de càlcul i dades"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "INVESTIGACIÓN",
+  "ca": "RECERCA"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "EN EL AULA",
+  "ca": "A L’AULA"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "DATOS",
+  "ca": "DADES"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "DOCUMENTO",
+  "ca": "DOCUMENT"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Versión ",
+  "ca": "Versió "
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "No hay recursos que coincidan con la búsqueda.",
+  "ca": "No hi ha recursos que coincidisquen amb la cerca."
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Todavía no hay archivos publicados en esta sección.",
+  "ca": "Encara no hi ha arxius publicats en aquesta secció."
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Área",
+  "ca": "Àrea"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Versión",
+  "ca": "Versió"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Licencia",
+  "ca": "Llicència"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Investigación",
+  "ca": "Recerca"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "En el aula",
+  "ca": "A l’aula"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Fuente",
+  "ca": "Font"
+ },
+ {
+  "donde": "inc/recursos.php",
+  "es": "Consultar la fuente ↗",
+  "ca": "Consultar la font ↗"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "política de privacidad",
+  "ca": "política de privacitat"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "He leído y acepto la %s.",
+  "ca": "He llegit i accepte la %s."
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Mensaje de",
+  "ca": "Missatge de"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Enviado. Respondo en unos días.",
+  "ca": "Enviat. Responc en uns dies."
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Revisa el nombre, el correo y el mensaje.",
+  "ca": "Revisa el nom, el correu i el missatge."
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Nombre",
+  "ca": "Nom"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Correo",
+  "ca": "Correu"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Mensaje",
+  "ca": "Missatge"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Enviar",
+  "ca": "Enviar"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Suscripción confirmada. Gracias.",
+  "ca": "Subscripció confirmada. Gràcies."
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Ese correo ya está suscrito.",
+  "ca": "Aquest correu ja està subscrit."
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Confirma tu suscripción",
+  "ca": "Confirma la teua subscripció"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Revisa el correo.",
+  "ca": "Revisa el correu."
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Correo",
+  "ca": "Correu"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "tu@correo",
+  "ca": "el.teu@correu"
+ },
+ {
+  "donde": "inc/contacto-boletin.php",
+  "es": "Un correo por entrada nueva. Baja con un clic en cada correo.",
+  "ca": "Un correu per entrada nova. Baixa amb un clic en cada correu."
+ }
+]

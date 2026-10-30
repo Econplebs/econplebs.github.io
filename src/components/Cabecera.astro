@@ -1,0 +1,258 @@
+---
+import { t, ruta, type Lang } from "../lib/sitio";
+import { HERRAMIENTAS_URL } from "../configuracion.mjs";
+
+interface Props {
+  lang: Lang;
+  otraLengua: string; // dirección de esta misma página en el otro idioma
+}
+const { lang, otraLengua } = Astro.props;
+
+const menu = [
+  {
+    texto: t("investigacion", lang),
+    hijos: [
+      { texto: t("lineas", lang), href: ruta("investigacion", lang) },
+      { texto: t("avances", lang), href: ruta("avances", lang) },
+      { texto: t("publicaciones", lang), href: ruta("publicaciones", lang) },
+    ],
+  },
+  {
+    texto: t("enElAula", lang),
+    hijos: [
+      { texto: t("enfoque", lang), href: ruta("enElAula", lang) },
+      { texto: t("propuestas", lang), href: ruta("propuestas", lang) },
+      { texto: t("materiales", lang), href: ruta("recursos", lang) },
+      ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
+    ],
+  },
+  {
+    texto: t("opinion", lang),
+    hijos: [
+      { texto: t("todo", lang), href: ruta("opinion", lang) },
+      { texto: t("coyuntura", lang), href: ruta("coyuntura", lang) },
+    ],
+  },
+  {
+    texto: t("sobreMi", lang),
+    hijos: [
+      { texto: t("queEs", lang), href: ruta("sobreMi", lang) },
+      { texto: t("contacto", lang), href: ruta("contacto", lang) },
+    ],
+  },
+];
+const hrefEs = lang === "es" ? Astro.url.pathname : otraLengua;
+const hrefCa = lang === "ca" ? Astro.url.pathname : otraLengua;
+---
+
+<header class="cabecera">
+  <div class="cabecera__fila">
+    <a class="cabecera__logo" href={ruta("portada", lang)} aria-label={t("portada", lang)}>
+      <img src="/logo/logo-ink.svg" alt="Econplebs" width="190" height="42" />
+    </a>
+
+    <button class="cabecera__hamburguesa" type="button" aria-expanded="false" aria-controls="menu-principal">
+      <span class="solo-lectores">{t("menu", lang)}</span>
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M3 8h18M3 16h18" stroke="currentColor" stroke-width="1.5" /></svg>
+    </button>
+
+    <nav class="menu" id="menu-principal" aria-label={t("menuPrincipal", lang)}>
+      <ul class="menu__lista">
+        {menu.map((item, i) => (
+          <li class="menu__item">
+            <button class="menu__boton rotulo" type="button" aria-expanded="false" aria-controls={`submenu-${i}`}>
+              {item.texto}
+              <svg class="menu__flecha" viewBox="0 0 10 6" width="7" height="5" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
+            </button>
+            <ul class="submenu" id={`submenu-${i}`}>
+              {item.hijos.map((h) => (
+                <li><a class="rotulo" href={h.href}>{h.texto}</a></li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <ul class="idiomas" aria-label={t("idioma", lang)}>
+      <li><a class="rotulo" href={hrefEs} lang="es" aria-current={lang === "es" ? "true" : undefined}>Es</a></li>
+      <li aria-hidden="true" class="idiomas__barra">/</li>
+      <li><a class="rotulo" href={hrefCa} lang="ca" aria-current={lang === "ca" ? "true" : undefined}>Val</a></li>
+    </ul>
+
+    <form class="buscador" role="search" action={ruta("buscar", lang)} method="get">
+      <label class="solo-lectores" for="buscar-q">{t("buscar", lang)}</label>
+      <input id="buscar-q" name="q" type="search" placeholder={t("buscar", lang)} />
+      <button type="submit">
+        <span class="solo-lectores">{t("buscar", lang)}</span>
+        <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="11.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" /><path d="M7.5 12.5L3 17" stroke="currentColor" stroke-width="1.6" /></svg>
+      </button>
+    </form>
+  </div>
+</header>
+
+<script>
+  // Desplegables y menú móvil. Sin JavaScript, el menú se ve igualmente con el ratón (CSS :hover).
+  const cabecera = document.querySelector(".cabecera");
+  const botones = [...document.querySelectorAll<HTMLButtonElement>(".menu__boton")];
+  const cerrarTodos = (excepto?: HTMLButtonElement) =>
+    botones.forEach((b) => b !== excepto && b.setAttribute("aria-expanded", "false"));
+
+  botones.forEach((b) =>
+    b.addEventListener("click", () => {
+      const abierto = b.getAttribute("aria-expanded") === "true";
+      cerrarTodos(b);
+      b.setAttribute("aria-expanded", String(!abierto));
+    }),
+  );
+  document.addEventListener("click", (e) => {
+    if (!(e.target as Element).closest(".menu__item")) cerrarTodos();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const abierto = botones.find((b) => b.getAttribute("aria-expanded") === "true");
+      cerrarTodos();
+      abierto?.focus();
+    }
+  });
+
+  const hamburguesa = document.querySelector<HTMLButtonElement>(".cabecera__hamburguesa");
+  hamburguesa?.addEventListener("click", () => {
+    const abierto = hamburguesa.getAttribute("aria-expanded") === "true";
+    hamburguesa.setAttribute("aria-expanded", String(!abierto));
+    cabecera?.classList.toggle("cabecera--abierta", !abierto);
+  });
+</script>
+
+<style>
+  .cabecera {
+    background: var(--blanco);
+    border-bottom: 1px solid var(--filete);
+    position: relative;
+    z-index: 20;
+  }
+  .cabecera__fila {
+    max-width: calc(var(--ancho) + 2 * var(--margen));
+    margin: 0 auto;
+    padding: 0 var(--margen);
+    min-height: 74px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .cabecera__logo { margin-right: auto; }
+  .cabecera__logo img { width: 190px; height: auto; }
+
+  .cabecera__hamburguesa { display: none; }
+
+  .menu__lista, .submenu, .idiomas { list-style: none; margin: 0; padding: 0; }
+  .menu__lista { display: flex; gap: 0.5rem; }
+  .menu__item { position: relative; }
+  .menu__boton {
+    background: none; border: 0; cursor: pointer;
+    color: var(--grafito);
+    padding: 0.6rem 0.6rem;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    border-bottom: 3px solid transparent;
+  }
+  .menu__flecha { color: var(--gris); transition: transform 0.15s ease; }
+  .menu__boton[aria-expanded="true"] { border-bottom-color: var(--rojo); }
+  .menu__boton[aria-expanded="true"] .menu__flecha { transform: rotate(180deg); }
+
+  .submenu {
+    position: absolute;
+    left: 0; top: 100%;
+    min-width: 13.5rem;
+    background: var(--blanco);
+    border: 1px solid var(--filete);
+    border-top: 2px solid var(--rojo);
+    padding: 0.5rem 0;
+    display: none;
+  }
+  .submenu a {
+    display: block;
+    padding: 0.6rem 1rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .submenu a:hover { color: var(--rojo); }
+  .menu__boton[aria-expanded="true"] + .submenu { display: block; }
+  @media (hover: hover) and (min-width: 1000px) {
+    .menu__item:hover .submenu { display: block; }
+    .menu__item:hover .menu__boton { border-bottom-color: var(--rojo); }
+  }
+
+  .idiomas { display: flex; align-items: center; gap: 0.35rem; }
+  .idiomas a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.5rem 0.4rem 0.35rem;
+    border-bottom: 3px solid transparent;
+  }
+  .idiomas a[aria-current="true"] { border-bottom-color: var(--rojo); }
+  .idiomas a:hover { color: var(--rojo); }
+  .idiomas__barra { color: var(--gris); font-size: 0.8rem; }
+
+  .buscador {
+    display: flex;
+    border: 1px solid var(--grafito);
+    padding: 3px;
+    background: var(--blanco);
+  }
+  .buscador input {
+    width: 3.6rem;
+    border: 0;
+    padding: 0 0.6rem;
+    font: 400 0.8rem var(--f-rotulo);
+    color: var(--grafito);
+    background: transparent;
+    min-width: 0;
+  }
+  .buscador input::placeholder { color: var(--gris); }
+  .buscador button {
+    background: var(--grafito);
+    color: var(--blanco);
+    border: 0;
+    width: 43px; height: 30px;
+    display: grid; place-items: center;
+    cursor: pointer;
+  }
+  .buscador button:hover { background: var(--rojo); }
+
+  /* Móvil: logo arriba, debajo menú + idiomas, y el buscador */
+  @media (max-width: 999px) {
+    .cabecera__fila {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas:
+        "logo logo logo"
+        "ham . idi"
+        "bus bus bus"
+        "menu menu menu";
+      row-gap: 0.6rem;
+      padding-top: 0.9rem;
+      padding-bottom: 1rem;
+    }
+    .cabecera__logo { grid-area: logo; margin: 0 auto; }
+    .cabecera__logo img { width: 160px; }
+    .cabecera__hamburguesa {
+      grid-area: ham;
+      display: grid; place-items: center;
+      width: 44px; height: 44px;
+      margin-left: -10px;
+      background: none; border: 0; color: var(--grafito); cursor: pointer;
+    }
+    .idiomas { grid-area: idi; }
+    .buscador { grid-area: bus; justify-self: start; width: 110px; }
+    .buscador input { width: 100%; font-size: 1rem; }
+    .buscador button { width: 43px; height: 43px; flex: none; }
+
+    .menu { grid-area: menu; display: none; }
+    .cabecera--abierta .menu { display: block; }
+    .menu__lista { flex-direction: column; gap: 0; border-top: 1px solid var(--filete); }
+    .menu__item { border-bottom: 1px solid var(--filete); }
+    .menu__boton { width: 100%; justify-content: space-between; padding: 0.9rem 0; border-bottom: 0; }
+    .menu__boton[aria-expanded="true"] { border-bottom: 0; color: var(--rojo); }
+    .submenu { position: static; border: 0; border-left: 2px solid var(--rojo); padding: 0 0 0.6rem; min-width: 0; }
+  }
+</style>

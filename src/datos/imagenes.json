@@ -1,0 +1,492 @@
+{
+ "nota": "Banco de imágenes de Econplebs (30). Fotos: se muestran en gris (filter grayscale + contraste). color=true: carteles y obras, se muestran tal cual (las de vanguardia ya vienen con el color adaptado a la paleta). Registro completo con licencias: diseno/imagenes.md. Asignación automática: la imagen elegida a mano manda; si no, se toma del grupo de la categoría con (id del artículo mod n). La cuña roja no se asigna sola: solo a mano.",
+ "images": [
+  {
+   "key": "trabajo",
+   "file": "archivo-trabajo.jpg",
+   "label": "Trabajo industrial",
+   "alt": {
+    "es": "Trabajadora en una fábrica de rodamientos.",
+    "ca": "Treballadora en una fàbrica de rodaments."
+   },
+   "credit": "KINEX · CC BY-SA 3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Worker_9.JPG",
+   "width": 960,
+   "height": 745,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "puerto",
+   "file": "archivo-puerto-valencia.jpg",
+   "label": "Puerto de València",
+   "alt": {
+    "es": "Puerto de València visto desde la playa.",
+    "ca": "Port de València vist des de la platja."
+   },
+   "credit": "Steven Lek · CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Port_of_Valencia_2019.jpg",
+   "width": 1280,
+   "height": 848,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "archivo",
+   "file": "cabecera-wolcott-1939.jpg",
+   "label": "Archivo de 1939",
+   "alt": {
+    "es": "Jornaleros esperando trabajo en Belle Glade, Florida, en 1939.",
+    "ca": "Jornalers esperant treball a Belle Glade, Florida, el 1939."
+   },
+   "credit": "M. Post Wolcott · Library of Congress",
+   "source": "https://www.loc.gov/pictures/item/2017754233/",
+   "width": 2400,
+   "height": 1043,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "cooperativa",
+   "file": "archivo-fabrica-cooperativa.jpg",
+   "label": "Cooperativa textil",
+   "alt": {
+    "es": "Personal trabajando en una fábrica cooperativa de confección en Hightstown, Nueva Jersey, hacia 1936.",
+    "ca": "Personal treballant en una fàbrica cooperativa de confecció a Hightstown, Nova Jersey, cap al 1936."
+   },
+   "credit": "Russell Lee · Library of Congress",
+   "source": "https://www.loc.gov/pictures/item/2017734800/",
+   "width": 719,
+   "height": 1024,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "salida",
+   "file": "archivo-salida-fabrica.jpg",
+   "label": "Salida de la fábrica",
+   "alt": {
+    "es": "Trabajadores saliendo de una fábrica de papel en Lincoln, Nuevo Hampshire, hacia 1939.",
+    "ca": "Treballadors eixint d’una fàbrica de paper a Lincoln, Nou Hampshire, cap al 1939."
+   },
+   "credit": "M. Post Wolcott · Library of Congress",
+   "source": "https://www.loc.gov/pictures/item/2017756155/",
+   "width": 1024,
+   "height": 707,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "migracion",
+   "file": "archivo-migracion-1937.jpg",
+   "label": "Migración y trabajo",
+   "alt": {
+    "es": "Pareja desplazada por la sequía de 1936, dedicada al trabajo agrícola migrante en California, 1937.",
+    "ca": "Parella desplaçada per la sequera de 1936, dedicada al treball agrícola migrant a Califòrnia, 1937."
+   },
+   "credit": "Dorothea Lange · Library of Congress",
+   "source": "https://www.loc.gov/pictures/item/2017769844/",
+   "width": 786,
+   "height": 1024,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "industria",
+   "file": "archivo-industria-vivienda.jpg",
+   "label": "Industria y vivienda",
+   "alt": {
+    "es": "Viviendas de trabajadores junto a una planta siderúrgica en Birmingham, Alabama, 1939.",
+    "ca": "Habitatges de treballadors al costat d’una planta siderúrgica a Birmingham, Alabama, 1939."
+   },
+   "credit": "M. Post Wolcott · Library of Congress",
+   "source": "https://www.loc.gov/pictures/item/2017801088/",
+   "width": 1024,
+   "height": 783,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "escuela",
+   "file": "archivo-escuela-rural.jpg",
+   "label": "Escuela rural",
+   "alt": {
+    "es": "Docente y alumnado trabajando en un aula del proyecto Lakeview, Arkansas.",
+    "ca": "Docent i alumnat treballant en una aula del projecte Lakeview, Arkansas."
+   },
+   "credit": "Russell Lee · Library of Congress",
+   "source": "https://www.loc.gov/pictures/item/2017781881/",
+   "width": 1024,
+   "height": 780,
+   "color": false,
+   "group": "trabajo-economia"
+  },
+  {
+   "key": "sociales",
+   "file": "aula-ciencias-sociales-1943.jpg",
+   "label": "Clase de ciencias sociales (1943)",
+   "alt": {
+    "es": "Clase de ciencias sociales en el instituto de Charlotte Court House, Virginia, en 1943.",
+    "ca": "Classe de ciències socials a l’institut de Charlotte Court House, Virgínia, el 1943."
+   },
+   "credit": "Philip Bonn · Library of Congress",
+   "source": "https://www.loc.gov/pictures/resource/fsa.8d31371/",
+   "width": 1080,
+   "height": 1301,
+   "color": false,
+   "group": "aula"
+  },
+  {
+   "key": "pizarra",
+   "file": "aula-pizarra.jpg",
+   "label": "En la pizarra",
+   "alt": {
+    "es": "Una alumna lee ante la clase en la escuela de Red House, Virginia Occidental, en los años treinta.",
+    "ca": "Una alumna llig davant de la classe a l’escola de Red House, Virgínia de l’Oest, als anys trenta."
+   },
+   "credit": "Elmer Johnson · Library of Congress",
+   "source": "https://www.loc.gov/pictures/resource/fsa.8b26981/",
+   "width": 1400,
+   "height": 1108,
+   "color": false,
+   "group": "aula"
+  },
+  {
+   "key": "pensar",
+   "file": "aula-pensar-1942.jpg",
+   "label": "Pensar en clase (1942)",
+   "alt": {
+    "es": "Un alumno piensa con el lápiz en la mano en una clase de la Banneker Junior High School de Washington, en 1942.",
+    "ca": "Un alumne pensa amb el llapis a la mà en una classe de la Banneker Junior High School de Washington, el 1942."
+   },
+   "credit": "Marjory Collins · Library of Congress",
+   "source": "https://www.loc.gov/pictures/resource/fsa.8d45065/",
+   "width": 1037,
+   "height": 1400,
+   "color": false,
+   "group": "aula"
+  },
+  {
+   "key": "preguntas",
+   "file": "aula-preguntas-1943.jpg",
+   "label": "Manos alzadas (1943)",
+   "alt": {
+    "es": "Alumnado con la mano alzada en una clase de la Public School 8 de Nueva York, en 1943.",
+    "ca": "Alumnat amb la mà alçada en una classe de la Public School 8 de Nova York, el 1943."
+   },
+   "credit": "Marjory Collins · Library of Congress",
+   "source": "https://www.loc.gov/pictures/resource/fsa.8d24386/",
+   "width": 1400,
+   "height": 1399,
+   "color": false,
+   "group": "aula"
+  },
+  {
+   "key": "taller",
+   "file": "aula-taller-pintura-1937.jpg",
+   "label": "Taller de pintura (1937)",
+   "alt": {
+    "es": "Clase de pintura en la escuela de la cooperativa Westmoreland Homesteads, Pensilvania, en 1937.",
+    "ca": "Classe de pintura a l’escola de la cooperativa Westmoreland Homesteads, Pennsilvània, el 1937."
+   },
+   "credit": "Ben Shahn · Library of Congress",
+   "source": "https://www.loc.gov/pictures/resource/fsa.8a17523/",
+   "width": 1400,
+   "height": 949,
+   "color": false,
+   "group": "aula"
+  },
+  {
+   "key": "highlander",
+   "file": "obrera-highlander-1937.jpg",
+   "label": "Highlander Folk School (h. 1937)",
+   "alt": {
+    "es": "Clase al aire libre en la Highlander Folk School, escuela obrera de Monteagle, Tennessee, hacia 1937.",
+    "ca": "Classe a l’aire lliure a la Highlander Folk School, escola obrera de Monteagle, Tennessee, cap al 1937."
+   },
+   "credit": "A. Schwarzenbach · Biblioteca Nacional Suiza",
+   "source": "https://commons.wikimedia.org/wiki/File:CH-NB_-_USA,_Monteagle-TN-_Highlander_Folk_School_-_Annemarie_Schwarzenbach_-_SLA-Schwarzenbach-A-5-10-118.jpg",
+   "width": 1334,
+   "height": 1400,
+   "color": false,
+   "group": "educacion-obrera-popular"
+  },
+  {
+   "key": "horton",
+   "file": "obrera-highlander-horton-1937.jpg",
+   "label": "Myles Horton en Highlander (h. 1937)",
+   "alt": {
+    "es": "Myles Horton, cofundador de la Highlander Folk School, explica sentado en una roca, hacia 1937.",
+    "ca": "Myles Horton, cofundador de la Highlander Folk School, explica assegut en una roca, cap al 1937."
+   },
+   "credit": "A. Schwarzenbach · Biblioteca Nacional Suiza",
+   "source": "https://commons.wikimedia.org/wiki/File:CH-NB_-_USA,_Monteagle-TN-_Highlander_Folk_School_-_Annemarie_Schwarzenbach_-_SLA-Schwarzenbach-A-5-10-115.jpg",
+   "width": 1357,
+   "height": 1400,
+   "color": false,
+   "group": "educacion-obrera-popular"
+  },
+  {
+   "key": "escola-moderna",
+   "file": "obrera-escola-moderna-1913.jpg",
+   "label": "Escola Moderna de São Paulo (1913)",
+   "alt": {
+    "es": "João Penteado con el alumnado de la Escola Moderna n.º 1 de São Paulo, escuela racionalista del movimiento obrero, en 1913.",
+    "ca": "João Penteado amb l’alumnat de l’Escola Moderna n.º 1 de São Paulo, escola racionalista del moviment obrer, el 1913."
+   },
+   "credit": "Autor desconocido, 1913 · Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Escola.moderna.1.1913.jpg",
+   "width": 873,
+   "height": 582,
+   "color": false,
+   "group": "educacion-obrera-popular"
+  },
+  {
+   "key": "misiones",
+   "file": "popular-misiones-coro-1932.jpg",
+   "label": "Misiones Pedagógicas (h. 1932)",
+   "alt": {
+    "es": "El Coro del Pueblo de las Misiones Pedagógicas cantando al aire libre, hacia 1932.",
+    "ca": "El Cor del Poble de les Missions Pedagògiques cantant a l’aire lliure, cap al 1932."
+   },
+   "credit": "Autor desconocido, h. 1932 · Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Coro_del_Pueblo_de_las_Misiones_Pedag%C3%B3gicas.jpg",
+   "width": 800,
+   "height": 588,
+   "color": false,
+   "group": "educacion-obrera-popular"
+  },
+  {
+   "key": "alfabetizacion",
+   "file": "cartel-kruglikova-1923.jpg",
+   "label": "Cartel «¡Mujer, aprende a leer!» (1923)",
+   "alt": {
+    "es": "Cartel de Elizaveta Kruglikova, 1923: «¡Mujer, aprende a leer! —Ay, mamá, si supieras leer, me podrías ayudar».",
+    "ca": "Cartell d’Elizaveta Kruglikova, 1923: «Dona, aprén a llegir! —Ai, mare, si sabérem llegir, em podries ajudar»."
+   },
+   "credit": "E. Kruglikova, 1923 · Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%96%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D0%B0!_%D0%A3%D1%87%D0%B8%D1%81%D1%8C_%D0%B3%D1%80%D0%B0%D0%BC%D0%BE%D1%82%D0%B5.jpg",
+   "width": 1154,
+   "height": 1400,
+   "color": true,
+   "group": "educacion-obrera-popular"
+  },
+  {
+   "key": "extraescolar",
+   "file": "cartel-kupreyanov-1920.jpg",
+   "label": "Cartel de educación extraescolar (h. 1920)",
+   "alt": {
+    "es": "Cartel de Nikolái Kupreyánov: «La educación extraescolar enseña a cada uno a mejorar su vida».",
+    "ca": "Cartell de Nikolai Kupreiànov: «L’educació extraescolar ensenya a cadascú a millorar la seua vida»."
+   },
+   "credit": "N. Kupreyánov · Biblioteca Estatal Rusa",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%92%D0%BD%D0%B5%D1%88%D0%BA%D0%BE%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5_%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5_%D0%BA%D0%B0%D0%B6%D0%B4%D0%BE%D0%B3%D0%BE_%D1%83%D1%87%D0%B8%D1%82,_%D0%BA%D0%B0%D0%BA_%D0%B6%D0%B8%D0%B7%D0%BD%D1%8C_%D1%81%D0%B2%D0%BE%D1%8E_%D0%BD%D0%B0%D0%BB%D0%B0%D0%B4%D0%B8%D1%82%D1%8C_%D0%BB%D1%83%D1%87%D1%88%D0%B5.jpg",
+   "width": 1400,
+   "height": 1175,
+   "color": true,
+   "group": "educacion-obrera-popular"
+  },
+  {
+   "key": "cuna-roja",
+   "file": "vanguardia-lissitzky-cuna-roja-1920.jpg",
+   "label": "«Golpead a los blancos con la cuña roja» (1920)",
+   "alt": {
+    "es": "Cartel de El Lissitzky, 1919-1920: «Golpead a los blancos con la cuña roja». Color adaptado a la paleta.",
+    "ca": "Cartell d’El Lissitzky, 1919-1920: «Colpegeu els blancs amb la falca roja». Color adaptat a la paleta."
+   },
+   "credit": "El Lissitzky · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:Klinom_Krasnym_Bej_Belych.JPG",
+   "width": 1400,
+   "height": 1120,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "proun",
+   "file": "vanguardia-lissitzky-proun-1c-1919.jpg",
+   "label": "«Proun 1C» (1919)",
+   "alt": {
+    "es": "«Proun 1C», composición de El Lissitzky, 1919.",
+    "ca": "«Proun 1C», composició d’El Lissitzky, 1919."
+   },
+   "credit": "El Lissitzky · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:Proun_1_C_(1919).jpg",
+   "width": 1400,
+   "height": 1391,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "dos-cuadrados",
+   "file": "vanguardia-lissitzky-dos-cuadrados-portada-1922.jpg",
+   "label": "«Sobre dos cuadrados»: portada (1922)",
+   "alt": {
+    "es": "Portada de «Sobre dos cuadrados», cuento suprematista para niños de El Lissitzky, 1922.",
+    "ca": "Portada de «Sobre dos quadrats», conte suprematista per a infants d’El Lissitzky, 1922."
+   },
+   "credit": "El Lissitzky · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:About_Two_Squares_01.jpg",
+   "width": 1118,
+   "height": 1400,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "dos-cuadrados-tierra",
+   "file": "vanguardia-lissitzky-dos-cuadrados-05-1922.jpg",
+   "label": "«Sobre dos cuadrados»: hacia la Tierra (1922)",
+   "alt": {
+    "es": "Lámina de «Sobre dos cuadrados» de El Lissitzky, 1922: los dos cuadrados vuelan hacia la Tierra, un círculo rojo.",
+    "ca": "Làmina de «Sobre dos quadrats» d’El Lissitzky, 1922: els dos quadrats volen cap a la Terra, un cercle roig."
+   },
+   "credit": "El Lissitzky · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:About_Two_Squares_05.jpg",
+   "width": 1110,
+   "height": 1400,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "dos-cuadrados-aqui",
+   "file": "vanguardia-lissitzky-dos-cuadrados-09-1922.jpg",
+   "label": "«Sobre dos cuadrados»: aquí (1922)",
+   "alt": {
+    "es": "Lámina de «Sobre dos cuadrados» de El Lissitzky, 1922: el cuadrado rojo cae sobre la Tierra.",
+    "ca": "Làmina de «Sobre dos quadrats» d’El Lissitzky, 1922: el quadrat roig cau sobre la Terra."
+   },
+   "credit": "El Lissitzky · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:About_Two_Squares_09.jpg",
+   "width": 1100,
+   "height": 1400,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "vjutemas",
+   "file": "vanguardia-klutsis-vjutemas-1920.jpg",
+   "label": "Klutsis: curso básico de los Vjutemás (1920)",
+   "alt": {
+    "es": "Diseño de Gustav Klutsis, 1920, para la entrada de una exposición de trabajos del alumnado del curso básico de los Vjutemás.",
+    "ca": "Disseny de Gustav Klutsis, 1920, per a l’entrada d’una exposició de treballs de l’alumnat del curs bàsic dels Vjutemàs."
+   },
+   "credit": "G. Klutsis · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:Osnovnoye_Design_for_a_stand_at_the_entrance_to_an_exhibition_of_works_by_the_students_of_the_Basic_Course_of_VKhUTEMAS_Design_project_for_the_emblem_of_the_Basic_Course_of_VKhUTEMAS_-_Gustavs_Klucis.jpg",
+   "width": 979,
+   "height": 1400,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "klutsis-construccion",
+   "file": "vanguardia-klutsis-construccion-1920.jpg",
+   "label": "Klutsis: «Construcción» (1920)",
+   "alt": {
+    "es": "«Construcción», dibujo de Gustav Klutsis, 1920.",
+    "ca": "«Construcció», dibuix de Gustav Klutsis, 1920."
+   },
+   "credit": "G. Klutsis · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:Construction_-_Gustavs_Klucis.jpg",
+   "width": 1280,
+   "height": 1013,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "chashnik",
+   "file": "vanguardia-chashnik-composicion-1922.jpg",
+   "label": "Chashnik: composición suprematista (1922)",
+   "alt": {
+    "es": "Composición suprematista de Ilyá Chashnik, 1922.",
+    "ca": "Composició suprematista d’Ilià Txaixnik, 1922."
+   },
+   "credit": "I. Chashnik · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:%D0%A7%D0%B0%D1%88%D0%BD%D0%B8%D0%BA_%D0%A1%D1%83%D0%BF%D1%80%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%B7%D0%B8%D1%86%D0%B8%D1%8F_4.jpg",
+   "width": 1280,
+   "height": 1063,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "malevich",
+   "file": "vanguardia-malevich-suprematismo-1915.jpg",
+   "label": "Malévich: «Suprematismo» (1915)",
+   "alt": {
+    "es": "«Suprematismo», pintura de Kazimir Malévich, 1915 (Museo de Arte de Ivánovo).",
+    "ca": "«Suprematisme», pintura de Kazimir Malèvitx, 1915 (Museu d’Art d’Ivànovo)."
+   },
+   "credit": "K. Malévich · Commons (color adaptado)",
+   "source": "https://commons.wikimedia.org/wiki/File:Ivanovo_art_museum_-_Kazimir_Malevich_-_Suprematism.jpg",
+   "width": 1139,
+   "height": 1134,
+   "color": true,
+   "group": "vanguardia"
+  },
+  {
+   "key": "vigotski",
+   "file": "teoria-vigotski-1925.jpg",
+   "label": "Lev Vigotski (h. 1925)",
+   "alt": {
+    "es": "Retrato de Lev Vigotski hacia 1925.",
+    "ca": "Retrat de Lev Vigotski cap al 1925."
+   },
+   "credit": "Autor desconocido, h. 1925 · Wikimedia Commons",
+   "source": "https://commons.wikimedia.org/wiki/File:Lev-Semyonovich-Vygotsky-1896-1934.jpg",
+   "width": 735,
+   "height": 1014,
+   "color": false,
+   "group": "tradicion-teorica"
+  },
+  {
+   "key": "pensamiento",
+   "file": "teoria-pensamiento-y-lenguaje-1934.jpg",
+   "label": "«Pensamiento y lenguaje» (1934)",
+   "alt": {
+    "es": "Primera edición de «Pensamiento y lenguaje» de Vigotski, Moscú, 1934.",
+    "ca": "Primera edició de «Pensament i llenguatge» de Vigotski, Moscou, 1934."
+   },
+   "credit": "Foto: Doseraxis · CC BY-SA 4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:L.S.Vygotskij_-_My%C5%A1lenie_i_re%C4%8D_-_1934.jpg",
+   "width": 581,
+   "height": 731,
+   "color": false,
+   "group": "tradicion-teorica"
+  }
+ ],
+ "pools": {
+  "investigacion": [
+   "sociales",
+   "dos-cuadrados",
+   "highlander",
+   "vjutemas",
+   "pensar",
+   "extraescolar",
+   "proun",
+   "vigotski",
+   "escola-moderna",
+   "dos-cuadrados-tierra",
+   "alfabetizacion",
+   "horton",
+   "pensamiento",
+   "malevich",
+   "misiones"
+  ],
+  "didactica": [
+   "pizarra",
+   "dos-cuadrados-aqui",
+   "preguntas",
+   "taller",
+   "escuela",
+   "cooperativa"
+  ],
+  "opinion": [
+   "trabajo",
+   "migracion",
+   "klutsis-construccion"
+  ],
+  "coyuntura": [
+   "puerto",
+   "chashnik",
+   "industria"
+  ]
+ }
+}

@@ -1,0 +1,286 @@
+---
+// Carrusel en cuña de la portada: tres artículos, panel blanco con corte diagonal,
+// franja roja en la diagonal y foto a la derecha. Al cambiar, la cuña «se compone» de nuevo.
+import {
+  t, rutaArticulo, imagenDe, rutaImagen, nombreCategoria, type Articulo, type Lang,
+} from "../lib/sitio";
+
+interface Props { lang: Lang; articulos: Articulo[] }
+const { lang, articulos } = Astro.props;
+const total = articulos.length;
+const dos = (n: number) => String(n).padStart(2, "0");
+---
+
+<section class="carrusel" aria-roledescription="carrusel" aria-label={t("destacados", lang)} data-carrusel>
+  <div class="carrusel__diapos">
+    {articulos.map((a, i) => {
+      const img = imagenDe(a);
+      return (
+        <article
+          class:list={["diapo", { activa: i === 0, entrando: i === 0 }]}
+          aria-roledescription="diapositiva"
+          aria-label={`${i + 1} / ${total}`}
+          data-diapo
+        >
+          <div class:list={["diapo__foto", { "diapo__foto--obra": img.color }]}>
+            <img
+              src={rutaImagen(img)}
+              alt={img.alt[lang]}
+              width={img.width}
+              height={img.height}
+              class:list={{ "foto-gris": !img.color }}
+              loading={i === 0 ? "eager" : "lazy"}
+              fetchpriority={i === 0 ? "high" : undefined}
+              decoding="async"
+            />
+          </div>
+          <span class="diapo__franja" aria-hidden="true"></span>
+          <div class="diapo__panel">
+            <div class="diapo__texto">
+              <p class="diapo__rotulo rotulo">
+                <span class="diapo__num">{dos(i + 1)}</span>
+                <span>{nombreCategoria(a.data.category, lang)}</span>
+              </p>
+              <h2 class="diapo__titulo"><a href={rutaArticulo(a)}>{a.data.title}</a></h2>
+              <p class="diapo__extracto">{a.data.excerpt}</p>
+              <a class="diapo__leer rotulo enlace-subrayado" href={rutaArticulo(a)} tabindex={i === 0 ? undefined : "-1"}>
+                {t("leerArticulo", lang)} <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+          <a class="diapo__credito rotulo" href={img.source}>{img.credit}</a>
+        </article>
+      );
+    })}
+  </div>
+
+  {total > 1 && (
+    <div class="carrusel__controles" data-controles>
+      <span class="carrusel__cuenta rotulo" aria-hidden="true"><span data-actual>01</span> / {dos(total)}</span>
+      <button type="button" class="carrusel__flecha" data-anterior>
+        <span aria-hidden="true">←</span><span class="solo-lectores">{t("anterior", lang)}</span>
+      </button>
+      <div class="carrusel__puntos" role="group" aria-label={t("elegir", lang)}>
+        {articulos.map((a, i) => (
+          <button type="button" data-punto={i} aria-current={i === 0 ? "true" : "false"}>
+            <span class="solo-lectores">{`${i + 1} / ${total}: ${a.data.title}`}</span>
+          </button>
+        ))}
+      </div>
+      <button type="button" class="carrusel__flecha" data-siguiente>
+        <span aria-hidden="true">→</span><span class="solo-lectores">{t("siguiente", lang)}</span>
+      </button>
+      <button type="button" class="carrusel__pausa rotulo" data-pausa data-texto-pausar={t("pausar", lang)} data-texto-seguir={t("seguir", lang)}>
+        {t("pausar", lang)}
+      </button>
+    </div>
+  )}
+  <p class="solo-lectores" aria-live="polite" data-anuncio></p>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-carrusel]").forEach((c) => {
+    const diapos = [...c.querySelectorAll<HTMLElement>("[data-diapo]")];
+    const puntos = [...c.querySelectorAll<HTMLButtonElement>("[data-punto]")];
+    const actual = c.querySelector("[data-actual]");
+    const pausa = c.querySelector<HTMLButtonElement>("[data-pausa]");
+    const anuncio = c.querySelector("[data-anuncio]");
+    const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let i = 0;
+    let reloj: number | undefined;
+    let pausado = reducido; // con «reducir movimiento» no pasa solo
+    let encima = false;
+
+    c.classList.add("listo");
+    // Salvaguarda: pase lo que pase, al segundo la diapositiva queda en su estado final.
+    let fin: number | undefined;
+    const terminar = (d: HTMLElement) => {
+      clearTimeout(fin);
+      fin = window.setTimeout(() => d.classList.remove("entrando"), 1100);
+    };
+    if (diapos[0]) terminar(diapos[0]);
+
+    function ir(n: number, anunciar = true) {
+      const antes = diapos[i];
+      i = (n + diapos.length) % diapos.length;
+      const ahora = diapos[i];
+      antes.classList.remove("activa", "entrando");
+      antes.querySelectorAll("a").forEach((a) => a.setAttribute("tabindex", "-1"));
+      ahora.classList.add("activa");
+      ahora.querySelectorAll("a").forEach((a) => a.removeAttribute("tabindex"));
+      if (!reducido) {
+        ahora.classList.remove("entrando");
+        void ahora.offsetWidth; // reinicia la animación
+        ahora.classList.add("entrando");
+        terminar(ahora);
+      }
+      puntos.forEach((p, k) => p.setAttribute("aria-current", String(k === i)));
+      if (actual) actual.textContent = String(i + 1).padStart(2, "0");
+      if (anunciar && anuncio) anuncio.textContent = ahora.querySelector("h2")?.textContent ?? "";
+    }
+
+    function programar() {
+      clearInterval(reloj);
+      if (!pausado && !encima) reloj = window.setInterval(() => ir(i + 1, false), 7000);
+    }
+
+    c.querySelector("[data-anterior]")?.addEventListener("click", () => { ir(i - 1); programar(); });
+    c.querySelector("[data-siguiente]")?.addEventListener("click", () => { ir(i + 1); programar(); });
+    puntos.forEach((p, k) => p.addEventListener("click", () => { ir(k); programar(); }));
+
+    function pintarPausa() {
+      if (!pausa) return;
+      pausa.textContent = pausado ? pausa.dataset.textoSeguir! : pausa.dataset.textoPausar!;
+      pausa.setAttribute("aria-pressed", String(pausado));
+    }
+    pausa?.addEventListener("click", () => { pausado = !pausado; pintarPausa(); programar(); });
+    pintarPausa();
+
+    c.addEventListener("mouseenter", () => { encima = true; programar(); });
+    c.addEventListener("mouseleave", () => { encima = false; programar(); });
+    c.addEventListener("focusin", () => { encima = true; programar(); });
+    c.addEventListener("focusout", (e) => {
+      if (!c.contains(e.relatedTarget as Node)) { encima = false; programar(); }
+    });
+    programar();
+  });
+</script>
+
+<style>
+  .carrusel {
+    --alto: 560px;
+    --b: max(35.5%, 450px);          /* dónde corta la diagonal abajo */
+    --a: calc(var(--b) + 0.36 * var(--alto)); /* y arriba (misma inclinación siempre) */
+    --grosor: 26px;                  /* ancho de la franja roja */
+    --izq: max(48px, calc((100% - 1200px) / 2));
+    position: relative;
+    background: var(--blanco);
+    overflow: hidden;
+    border-bottom: 1px solid var(--filete);
+  }
+  .diapo { position: relative; height: var(--alto); }
+  :global(.js) .carrusel.listo .diapo:not(.activa) { display: none; }
+
+  .diapo__foto {
+    position: absolute;
+    top: 0; bottom: 0; right: 0;
+    left: calc(var(--b) - 40px);
+    background: var(--blanco);
+  }
+  .diapo__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+  .diapo__foto--obra { background: var(--papel); }
+  .diapo__foto--obra img { object-fit: contain; object-position: 70% 50%; padding: 2rem 2rem 3.5rem calc(0.36 * var(--alto) + 2rem); }
+
+  .diapo__panel {
+    position: absolute; inset: 0;
+    background: var(--blanco);
+    clip-path: polygon(0 0, var(--a) 0, var(--b) 100%, 0 100%);
+  }
+  .diapo__franja {
+    position: absolute; inset: 0;
+    background: var(--rojo);
+    clip-path: polygon(var(--a) 0, calc(var(--a) + var(--grosor)) 0, calc(var(--b) + var(--grosor)) 100%, var(--b) 100%);
+    z-index: 1;
+  }
+  .diapo__texto {
+    position: relative;
+    padding: 3.5rem 0 0 var(--izq);
+    max-width: calc(var(--izq) + 25rem);
+  }
+  .diapo__rotulo { display: flex; align-items: center; gap: 0.6rem; color: var(--gris); }
+  .diapo__num {
+    background: var(--rojo); color: var(--blanco);
+    padding: 0.2rem 0.45rem;
+    font-size: 0.68rem;
+  }
+  .diapo__titulo {
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.12;
+    margin: 1.1rem 0 1.4rem;
+    max-width: 22rem;
+  }
+  .diapo__titulo a { text-decoration: none; }
+  .diapo__titulo a:hover { color: var(--rojo); }
+  .diapo__extracto { font-size: 1.1rem; line-height: 1.5; max-width: 21rem; }
+  .diapo__leer { display: inline-block; margin-top: 1.6rem; }
+
+  .diapo__credito {
+    position: absolute; right: 1rem; bottom: 1.1rem; z-index: 2;
+    background: var(--blanco);
+    padding: 0.4rem 0.6rem;
+    font-size: 0.6rem;
+    text-decoration: none;
+  }
+  .diapo__credito:hover { color: var(--rojo); }
+
+  .carrusel__controles {
+    position: absolute; left: var(--izq); bottom: 2.9rem; z-index: 3;
+    display: none; align-items: center; gap: 0.5rem;
+  }
+  :global(.js) .carrusel.listo .carrusel__controles { display: flex; }
+  .carrusel__cuenta { margin-right: 1rem; }
+  .carrusel__controles button { cursor: pointer; color: var(--grafito); background: var(--blanco); }
+  .carrusel__flecha, .carrusel__pausa {
+    border: 1px solid var(--grafito);
+    min-width: 40px; min-height: 40px;
+    font-size: 1rem;
+  }
+  .carrusel__pausa { padding: 0 0.8rem; font-size: 0.66rem; margin-left: 0.2rem; }
+  .carrusel__flecha:hover, .carrusel__pausa:hover { color: var(--rojo); border-color: var(--rojo); }
+  .carrusel__puntos { display: flex; gap: 6px; margin: 0 1.1rem; }
+  .carrusel__puntos button { border: 0; padding: 0; min-width: 36px; min-height: 40px; background: transparent !important; }
+  .carrusel__puntos button::before { content: ""; display: block; height: 3px; background: var(--filete); }
+  .carrusel__puntos button[aria-current="true"]::before { background: var(--rojo); }
+
+  /* Diagonales vivas: la cuña y la franja entran como un cartel que se compone */
+  @media (prefers-reduced-motion: no-preference) {
+    .entrando .diapo__panel { animation: cuna 0.7s cubic-bezier(0.2, 0.75, 0.15, 1) both; }
+    .entrando .diapo__franja { animation: franja 0.55s cubic-bezier(0.3, 0.7, 0.2, 1) 0.18s both; }
+    .entrando .diapo__foto { animation: foto 0.8s ease-out both; }
+    .entrando .diapo__texto > * { animation: sube 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .entrando .diapo__texto > :nth-child(2) { animation-delay: 0.08s; }
+    .entrando .diapo__texto > :nth-child(3) { animation-delay: 0.16s; }
+    .entrando .diapo__texto > :nth-child(4) { animation-delay: 0.22s; }
+  }
+  @keyframes cuna {
+    from { clip-path: polygon(0 0, calc(var(--a) - 22%) 0, calc(var(--b) - 22%) 100%, 0 100%); }
+  }
+  @keyframes franja {
+    from { clip-path: polygon(var(--a) 0, calc(var(--a) + var(--grosor)) 0, calc(var(--a) + var(--grosor)) 0, var(--a) 0); }
+  }
+  @keyframes foto { from { opacity: 0.25; transform: translateX(2.5%); } }
+  @keyframes sube { from { opacity: 0; transform: translateY(12px); } }
+
+  /* Móvil: foto arriba con corte diagonal, texto debajo */
+  @media (max-width: 759px) {
+    .carrusel { --alto: auto; }
+    .diapo { height: auto; display: flex; flex-direction: column; }
+    .diapo__foto {
+      position: relative; left: 0;
+      height: 210px;
+      clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+    }
+    .diapo__foto--obra img { padding: 1rem; }
+    .diapo__franja { display: none; }
+    .diapo__panel { position: static; clip-path: none; }
+    .diapo__texto { padding: 1.4rem 16px 6rem; max-width: none; }
+    .diapo__titulo { font-size: 2.1rem; margin: 0.8rem 0 1.1rem; }
+    .diapo__credito { top: 0.5rem; bottom: auto; right: 0.5rem; font-size: 0.55rem; }
+    .carrusel__controles { left: 16px; right: 16px; bottom: 1.6rem; gap: 0.35rem; }
+    .carrusel__cuenta { margin-right: 0.3rem; }
+    .carrusel__puntos { margin: 0 0.4rem; gap: 4px; }
+    .carrusel__puntos button { min-width: 26px; }
+    .carrusel__pausa { padding: 0 0.6rem; }
+    @media (prefers-reduced-motion: no-preference) {
+      .entrando .diapo__panel { animation: none; }
+      .entrando .diapo__foto { animation: foto-movil 0.6s cubic-bezier(0.2, 0.75, 0.15, 1) both; }
+    }
+  }
+  @keyframes foto-movil { from { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); opacity: 0.4; } }
+
+  @media (min-width: 760px) and (max-width: 999px) {
+    .carrusel { --alto: 520px; --b: 48%; }
+    .diapo__texto { max-width: calc(var(--b) + 4rem); padding-right: 2rem; }
+    .diapo__titulo { font-size: 2.3rem; }
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+import { t, ruta, type Lang, type Imagen } from "../lib/sitio";
+
+interface Props {
+  lang: Lang;
+  imagenes?: Imagen[]; // imágenes que aparecen en la página, para sus créditos
+}
+const { lang, imagenes = [] } = Astro.props;
+const creditos = [...new Map(imagenes.map((i) => [i.key, i])).values()];
+---
+
+<footer class="pie">
+  <div class="envoltorio">
+    <a href={ruta("portada", lang)} class="pie__logo" aria-label={t("portada", lang)}>
+      <img src="/logo/logo-paper.svg" alt="Econplebs" width="210" height="46" />
+    </a>
+    <p class="rotulo pie__lema">{t("subtitulo", lang)} · econplebs.org</p>
+    <ul class="pie__enlaces">
+      <li><a class="rotulo" href={ruta("contacto", lang)}>{t("contacto", lang)}</a></li>
+      <li><a class="rotulo" href={ruta("privacidad", lang)}>{t("privacidad", lang)}</a></li>
+      <li><a class="rotulo" href={ruta("rss", lang)}>RSS</a></li>
+      <li><a class="rotulo" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" rel="license">{t("licencia", lang)}</a></li>
+    </ul>
+    {creditos.length > 0 && (
+      <p class="pie__creditos rotulo">
+        <span>{t("creditosFotos", lang)}:</span>
+        {creditos.map((i, n) => (
+          <>
+            <a href={i.source}>{i.credit}</a>{n < creditos.length - 1 ? " · " : " "}
+          </>
+        ))}
+        <span class="pie__gris">{t("copiasReducidas", lang)}</span>
+      </p>
+    )}
+  </div>
+</footer>
+
+<style>
+  .pie {
+    background: var(--banda);
+    color: var(--papel-claro);
+    padding: 1.5rem 0 2rem;
+  }
+  .pie__logo img { width: 210px; height: auto; }
+  .pie__lema { color: #A9ACAA; margin: 1rem 0 1.4rem; }
+  .pie__enlaces {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem;
+  }
+  .pie a { text-decoration: none; }
+  .pie a:hover { color: var(--rojo); }
+  .pie__creditos { margin-top: 1rem; line-height: 1.8; }
+  .pie__creditos > span:first-child { margin-right: 0.5rem; }
+  .pie__gris { color: #A9ACAA; }
+</style>

@@ -1,0 +1,52 @@
+{
+ "site": {
+  "name": "Econplebs",
+  "description": {
+   "es": "De lo abstracto a lo concreto",
+   "ca": "De l’abstracte al concret"
+  }
+ },
+ "categories": {
+  "didactica": {
+   "ca": {
+    "slug": "didactica-va",
+    "name": "A l’aula"
+   },
+   "es": {
+    "slug": "didactica",
+    "name": "En el aula"
+   }
+  },
+  "coyuntura": {
+   "ca": {
+    "slug": "conjuntura",
+    "name": "Anàlisi de conjuntura"
+   },
+   "es": {
+    "slug": "coyuntura",
+    "name": "Análisis de coyuntura"
+   },
+   "parent": "opinion"
+  },
+  "investigacion": {
+   "es": {
+    "slug": "investigacion",
+    "name": "Investigación"
+   },
+   "ca": {
+    "slug": "recerca",
+    "name": "Recerca"
+   }
+  },
+  "opinion": {
+   "ca": {
+    "slug": "opinio",
+    "name": "Opinió"
+   },
+   "es": {
+    "slug": "opinion",
+    "name": "Opinión"
+   }
+  }
+ }
+}

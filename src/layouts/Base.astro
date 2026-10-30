@@ -1,0 +1,54 @@
+---
+import "../styles/global.css";
+import Cabecera from "../components/Cabecera.astro";
+import Pie from "../components/Pie.astro";
+import { t, type Lang, type Imagen } from "../lib/sitio";
+
+interface Props {
+  lang: Lang;
+  titulo?: string; // vacío en la portada
+  descripcion?: string;
+  otraLengua: string;
+  imagenes?: Imagen[];
+  tipo?: "website" | "article";
+}
+const { lang, titulo, descripcion = t("subtitulo", lang), otraLengua, imagenes = [], tipo = "website" } = Astro.props;
+const tituloCompleto = titulo ? `${titulo} · Econplebs` : `Econplebs · ${t("subtitulo", lang)}`;
+const canonica = new URL(Astro.url.pathname, Astro.site);
+const alternativa = new URL(otraLengua, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descripcion} />
+    <meta name="author" content="Econplebs" />
+    <link rel="canonical" href={canonica} />
+    <link rel="alternate" hreflang={lang === "es" ? "ca" : "es"} href={alternativa} />
+    <link rel="alternate" type="application/rss+xml" title="Econplebs" href={lang === "es" ? "/rss.xml" : "/ca/rss.xml"} />
+    <link rel="icon" href="/logo/favicon.svg" type="image/svg+xml" />
+    <meta property="og:site_name" content="Econplebs" />
+    <meta property="og:type" content={tipo} />
+    <meta property="og:title" content={titulo ?? "Econplebs"} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:locale" content={lang === "es" ? "es_ES" : "ca_ES"} />
+    <meta name="theme-color" content="#FFFFFF" />
+    <link rel="preload" href="/fuentes/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fuentes/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/fuentes/fonts.css" />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="saltar" href="#contenido">{t("saltar", lang)}</a>
+    <slot name="arriba" />
+    <Cabecera lang={lang} otraLengua={otraLengua} />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Pie lang={lang} imagenes={imagenes} />
+  </body>
+</html>
