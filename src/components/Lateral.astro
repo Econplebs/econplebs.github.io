@@ -2,7 +2,7 @@
 // Barra lateral de la portada: Quién escribe, Por temas, Seguir las novedades y Agenda.
 // La Agenda solo aparece si hay eventos futuros (de momento no hay ninguno).
 import {
-  t, ruta, rutaCategoria, rutaEtiqueta, nombreCategoria, recuentos, etiquetasDe,
+  t, ruta, rutaCategoria, rutaEtiqueta, nombreCategoria, recuentos, etiquetasDe, eventosFuturos, fecha, fechaISO,
   type Articulo, type Lang,
 } from "../lib/sitio";
 
@@ -16,7 +16,7 @@ const temas = [
   { cat: "investigacion", n: n.investigacion, hija: false },
 ] as const;
 const etiquetas = etiquetasDe(articulos);
-const eventos: { titulo: string }[] = []; // la colección de agenda llegará en el hito 2
+const eventos = await eventosFuturos(lang);
 ---
 
 <aside class="lateral">
@@ -58,6 +58,15 @@ const eventos: { titulo: string }[] = []; // la colección de agenda llegará en
   {eventos.length > 0 && (
     <section class="caja">
       <h2 class="caja__titulo">{t("agenda", lang)}</h2>
+      <ul class="agenda">
+        {eventos.map((e) => (
+          <li>
+            <time class="rotulo rotulo--rojo" datetime={fechaISO(e.data.date)}>{fecha(e.data.date, lang)}</time>
+            {e.data.link ? <a href={e.data.link}>{e.data.title}</a> : <span>{e.data.title}</span>}
+            {e.data.place && <span class="agenda__lugar">{e.data.place}</span>}
+          </li>
+        ))}
+      </ul>
     </section>
   )}
 </aside>
@@ -88,6 +97,10 @@ const eventos: { titulo: string }[] = []; // la colección de agenda llegará en
   .temas--hija a { padding-left: 1rem; }
   .temas__flecha { color: var(--gris); }
   .temas__n { margin-left: auto; color: var(--rojo); font-size: 0.85rem; }
+  .agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; font-size: 0.9rem; }
+  .agenda li { display: grid; gap: 0.2rem; }
+  .agenda a { text-decoration-color: var(--rojo); }
+  .agenda__lugar { color: var(--gris); font-size: 0.82rem; }
   .etiquetas { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .etiquetas a { font: 400 0.7rem var(--f-rotulo); letter-spacing: 0.04em; text-decoration: none; color: var(--gris); }
   .etiquetas a:hover { color: var(--rojo); }

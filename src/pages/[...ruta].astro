@@ -1,0 +1,81 @@
+---
+// Genera todas las páginas de la web en los dos idiomas (direcciones en ENCARGO §4).
+import { getCollection } from "astro:content";
+import Portada from "../vistas/Portada.astro";
+import Articulo from "../vistas/Articulo.astro";
+import Lista from "../vistas/Lista.astro";
+import Seccion from "../vistas/Seccion.astro";
+import Pagina from "../vistas/Pagina.astro";
+import Recursos from "../vistas/Recursos.astro";
+import Buscar from "../vistas/Buscar.astro";
+import {
+  t, ruta, otro, articulosDe, traduccionDe, rutaArticulo, rutaEtiqueta, etiquetaSlug, nombreCategoria,
+  type ClaveRuta, type Lang,
+} from "../lib/sitio";
+
+export async function getStaticPaths() {
+  // «/investigacion/» → «investigacion»; la portada en castellano no lleva nada
+  const param = (url: string) => url.replace(/^\/|\/$/g, "") || undefined;
+  const salidas: { params: { ruta?: string }; props: Record<string, any> }[] = [];
+  const add = (url: string, props: Record<string, any>) => salidas.push({ params: { ruta: param(url) }, props });
+
+  for (const lang of ["es", "ca"] as Lang[]) {
+    const lista = await articulosDe(lang);
+    const paginas = await getCollection("paginas", (p) => p.data.lang === lang);
+    const pagina = (kind: string) => paginas.find((p) => p.data.kind === kind);
+    const fija = (clave: ClaveRuta, props: Record<string, any>) => add(ruta(clave, lang), { lang, clave, ...props });
+    const de = (...cats: string[]) => lista.filter((a) => cats.includes(a.data.category));
+
+    fija("portada", { vista: "portada" });
+    fija("investigacion", { vista: "seccion", tipo: "investigacion", pagina: pagina("investigacion") });
+    fija("enElAula", { vista: "seccion", tipo: "aula", pagina: pagina("en-el-aula") });
+    fija("avances", { vista: "lista", titulo: t("avances", lang), articulos: de("investigacion"), categoria: false, vacio: t("sinAvances", lang) });
+    fija("propuestas", { vista: "lista", titulo: t("propuestas", lang), articulos: de("didactica"), categoria: false, vacio: t("sinPropuestas", lang) });
+    fija("opinion", {
+      vista: "lista", titulo: t("opinion", lang), articulos: de("opinion", "coyuntura"), imagenes: true,
+      intro: { rotulo: t("ideasEnDebate", lang), titulo: t("opinionTitulo", lang), texto: t("opinionTexto", lang) },
+    });
+    fija("coyuntura", { vista: "lista", titulo: nombreCategoria("coyuntura", lang), articulos: de("coyuntura"), categoria: false, imagenes: true });
+    fija("articulos", { vista: "lista", titulo: t("articulos", lang), articulos: lista });
+    fija("recursos", { vista: "recursos", pagina: pagina("recursos") });
+    fija("sobreMi", { vista: "pagina", pagina: pagina("sobre-mi") });
+    fija("contacto", { vista: "pagina", pagina: pagina("contacto") });
+    fija("privacidad", { vista: "pagina", pagina: pagina("privacidad") });
+    fija("buscar", { vista: "buscar" });
+
+    // Artículos (la lista va de más reciente a más antiguo)
+    lista.forEach((articulo, i) =>
+      add(rutaArticulo(articulo), { vista: "articulo", articulo, siguiente: lista[i - 1], anterior: lista[i + 1], lista }),
+    );
+
+    // Etiquetas: el conmutador lleva a la misma etiqueta en el otro idioma si se puede deducir
+    for (const etiqueta of new Set(lista.flatMap((a) => a.data.tags))) {
+      const con = lista.filter((a) => a.data.tags.includes(etiqueta));
+      let otraLengua = ruta("portada", otro(lang));
+      for (const a of con) {
+        const tr = await traduccionDe(a);
+        const pos = a.data.tags.indexOf(etiqueta);
+        if (tr && tr.data.tags[pos]) { otraLengua = rutaEtiqueta(tr.data.tags[pos], otro(lang)); break; }
+      }
+      add(rutaEtiqueta(etiqueta, lang), {
+        lang, vista: "lista", titulo: `#${etiqueta}`, articulos: con, otraLengua, slug: etiquetaSlug(etiqueta),
+      });
+    }
+  }
+  return salidas;
+}
+
+const p = Astro.props as Record<string, any>;
+const otraLengua = p.otraLengua ?? (p.clave ? ruta(p.clave, otro(p.lang)) : undefined);
+---
+
+{p.vista === "portada" && <Portada lang={p.lang} />}
+{p.vista === "articulo" && <Articulo articulo={p.articulo} anterior={p.anterior} siguiente={p.siguiente} lista={p.lista} />}
+{p.vista === "lista" && (
+  <Lista lang={p.lang} titulo={p.titulo} otraLengua={otraLengua} articulos={p.articulos}
+    categoria={p.categoria} imagenes={p.imagenes} vacio={p.vacio} intro={p.intro} />
+)}
+{p.vista === "seccion" && <Seccion lang={p.lang} tipo={p.tipo} pagina={p.pagina} />}
+{p.vista === "pagina" && <Pagina lang={p.lang} pagina={p.pagina} clave={p.clave} />}
+{p.vista === "recursos" && <Recursos lang={p.lang} pagina={p.pagina} />}
+{p.vista === "buscar" && <Buscar lang={p.lang} />}

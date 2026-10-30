@@ -1,5 +1,5 @@
 ---
-import { t, ruta, type Lang } from "../lib/sitio";
+import { t, ruta, hayPublicaciones, type Lang } from "../lib/sitio";
 import { HERRAMIENTAS_URL } from "../configuracion.mjs";
 
 interface Props {
@@ -7,6 +7,7 @@ interface Props {
   otraLengua: string; // dirección de esta misma página en el otro idioma
 }
 const { lang, otraLengua } = Astro.props;
+const conPublicaciones = await hayPublicaciones();
 
 const menu = [
   {
@@ -14,7 +15,7 @@ const menu = [
     hijos: [
       { texto: t("lineas", lang), href: ruta("investigacion", lang) },
       { texto: t("avances", lang), href: ruta("avances", lang) },
-      { texto: t("publicaciones", lang), href: ruta("publicaciones", lang) },
+      ...(conPublicaciones ? [{ texto: t("publicaciones", lang), href: ruta("publicaciones", lang) }] : []),
     ],
   },
   {
@@ -41,8 +42,10 @@ const menu = [
     ],
   },
 ];
-const hrefEs = lang === "es" ? Astro.url.pathname : otraLengua;
-const hrefCa = lang === "ca" ? Astro.url.pathname : otraLengua;
+// En la página de error, «esta página» es la portada
+const aqui = /\/404(\.html|\/)?$/.test(Astro.url.pathname) ? ruta("portada", lang) : Astro.url.pathname;
+const hrefEs = lang === "es" ? aqui : otraLengua;
+const hrefCa = lang === "ca" ? aqui : otraLengua;
 ---
 
 <header class="cabecera">

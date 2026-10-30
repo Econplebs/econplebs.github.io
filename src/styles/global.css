@@ -32,7 +32,12 @@ body {
   font-size: 1.0625rem;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+main { flex: 1; }
 
 img, svg { display: block; max-width: 100%; }
 

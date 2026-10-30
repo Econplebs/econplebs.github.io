@@ -40,3 +40,16 @@ frontmatter y la ausencia de datos personales, genera, revisa y despliega.
 - Generar la web y abrir las páginas tocadas en escritorio y móvil.
 - Comprobar que no hay peticiones a otros dominios.
 - Buscar el nombre del autor en el HTML generado: debe dar cero resultados.
+
+## Estructura del proyecto
+
+- `contenido/`: todo lo que se edita a mano (Markdown). Artículos y páginas en
+  `es/` y `ca/`; `publicaciones/`, `recursos/` y `agenda/` llevan un `_LEEME.md`
+  con la plantilla. Publicaciones y Agenda no se muestran mientras estén vacías.
+- `src/configuracion.mjs`: único archivo de ajustes (correo público,
+  `HERRAMIENTAS_URL`, mostrar muestras).
+- `src/lib/sitio.ts`: textos de la interfaz en los dos idiomas y direcciones.
+- `src/pages/[...ruta].astro` genera todas las páginas; las plantillas están en
+  `src/vistas/` y las piezas en `src/components/`.
+- Generar: `npm run build` (Astro + índice del buscador Pagefind en `dist/`).
+  Node está en `~/.local/node/bin` (añadirlo al PATH).

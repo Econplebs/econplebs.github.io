@@ -5,34 +5,30 @@ lang: ca
 translationKey: privacidad
 kind: privacidad
 ---
-Aquesta web és un projecte personal, sense publicitat ni finalitat comercial. Recull les mínimes dades possibles i només per al que s’explica ací.
+Aquesta web és un projecte personal, sense publicitat ni finalitat comercial, i està feta per a no recollir dades de qui la visita.
 
 ## Responsable
 
-Econplebs, web personal sense finalitat comercial. Contacte: {{correo\_contacto}}.
+Econplebs, web personal sense finalitat comercial. Contacte: {{correo_contacto}}
 
-## Quines dades es recullen i per a què
+## Quines dades es recullen
 
-- **Formulari de contacte:** nom, correu i missatge. Servixen únicament per a respondre’t. El missatge arriba per correu electrònic i no es guarda a la web.
-- **Butlletí:** el teu correu i l’idioma en què et subscrius. Servixen únicament per a avisar-te quan hi haja una entrada nova. Abans d’enviar-te res, es demana confirmació per correu.
-- **Comentaris**, si en deixes algun: nom, correu, el text i l’adreça IP, que WordPress guarda per a filtrar el correu brossa. El nom i el comentari són públics; el correu, no.
+Cap a través de la web: no hi ha formularis, ni comentaris, ni butlletí per correu, ni eines d’analítica o de publicitat.
 
-La base legal és el teu consentiment, que dones en marcar la casella de cada formulari o en enviar un comentari. Pots retirar-lo quan vulgues.
+Si escrius al correu de contacte, el teu missatge s’usa únicament per a respondre’t i s’esborra quan ja no fa falta per a atendre la consulta. La base legal és el teu consentiment, que dones en escriure.
 
-## Quant de temps es conserven
+## Registres de l’allotjament
 
-Els missatges de contacte, el temps necessari per a atendre la consulta. El correu del butlletí, fins que et dones de baixa: cada avís porta un enllaç que esborra la teua adreça a l’instant. Els comentaris, mentre continuen publicats.
-
-## Qui més els veu
-
-Ningú, llevat de l’empresa que allotja la web, que actua com a encarregada del tractament i només els emmagatzema. No se cedixen a tercers ni s’usen per a publicitat.
-
-## Els teus drets
-
-Pots demanar l’accés, la rectificació, la supressió, l’oposició, la limitació o la portabilitat de les teues dades escrivint a l’adreça de contacte. Si consideres que no s’han atés correctament, pots reclamar davant de l’Agència Espanyola de Protecció de Dades ([aepd.es](https://www.aepd.es)).
+Com qualsevol servidor, el que allotja aquesta web pot anotar automàticament dades tècniques de cada visita (adreça IP, data i pàgina demanada) per a mantindre-la segura i en funcionament. Aquests registres no s’usen per a res més ni es creuen amb altres dades.
 
 ## Galetes
 
-Aquesta web no usa galetes d’analítica ni de publicitat. Només usa una galeta tècnica que recorda l’idioma triat (castellà o valencià) i les pròpies de WordPress si deixes un comentari o inicies la sessió. Les tipografies i les imatges se servixen des de la mateixa web, sense crides a servidors de tercers.
+Aquesta web no usa galetes. Les tipografies i les imatges se servixen des de la mateixa web, sense crides a servidors de tercers. Els enllaços a altres webs (per exemple, les fitxes de les fotos) només et porten allà si els prems.
+
+Per a seguir les novetats per RSS no cal donar cap dada: el teu lector consulta la web de tant en tant, com qualsevol visita.
+
+## Els teus drets
+
+Si has escrit, pots demanar l’accés, la rectificació, la supressió, l’oposició, la limitació o la portabilitat de les teues dades escrivint a l’adreça de contacte. Si consideres que no s’han atés correctament, pots reclamar davant de l’Agència Espanyola de Protecció de Dades ([aepd.es](https://www.aepd.es)).
 
 *Última actualització: octubre de 2026.*

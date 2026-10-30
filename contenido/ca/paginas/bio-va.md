@@ -15,4 +15,4 @@ Ací es publiquen tres coses:
 - **Propostes i experiències d’aula**, amb materials per a altres docents.
 - De tant en tant, **articles d’opinió** i anàlisis de conjuntura.
 
-Tot el que es publica ací és de lliure accés i es pot citar i compartir amb la llicència [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.ca). Si alguna cosa està malament o vols comentar-ne alguna, escriu-me des de la [pàgina de contacte](/contacto/).
+Tot el que es publica ací és de lliure accés i es pot citar i compartir amb la llicència [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.ca). Si alguna cosa està malament o vols comentar-ne alguna, escriu-me des de la [pàgina de contacte](/ca/contacte/).

@@ -1,0 +1,38 @@
+---
+// Página 404 (la web enseña esta cuando una dirección no existe).
+import Base from "../layouts/Base.astro";
+import { t, ruta, otro, type Lang } from "../lib/sitio";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+
+<Base lang={lang} titulo={t("noExiste", lang)} otraLengua={ruta("portada", otro(lang))}>
+  <div class="no-existe">
+    <h1>{t("noExiste", lang)}</h1>
+    <p>{t("noExisteTexto", lang)}</p>
+    <form role="search" action={ruta("buscar", lang)} method="get">
+      <label class="solo-lectores" for="q-404">{t("buscar", lang)}</label>
+      <input id="q-404" type="search" name="q" placeholder={t("buscar", lang)} />
+      <button class="boton rotulo" type="submit">{t("buscar", lang)}</button>
+    </form>
+    <a class="rotulo enlace-subrayado" href={ruta("portada", lang)}>{t("volverPortada", lang)}</a>
+  </div>
+</Base>
+
+<style>
+  .no-existe {
+    max-width: calc(760px + 2 * var(--margen));
+    margin: 0 auto;
+    padding: 4.5rem var(--margen) 5rem;
+  }
+  .no-existe h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 1.2rem; }
+  .no-existe p { font-size: 1.15rem; line-height: 1.6; max-width: 40rem; }
+  .no-existe form { display: flex; gap: 0.5rem; margin: 2rem 0 2.4rem; max-width: 30rem; }
+  .no-existe input {
+    flex: 1; min-width: 0;
+    font: 400 1.05rem var(--f-lectura);
+    border: 1px solid var(--grafito); background: var(--blanco);
+    padding: 0.6rem 0.8rem;
+  }
+</style>

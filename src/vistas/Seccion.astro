@@ -1,0 +1,139 @@
+---
+// Páginas de sección: Investigación y En el aula.
+// Texto fijo de plantilla + el cuerpo de la página (Markdown) + la lista de la sección + caja lateral.
+import type { CollectionEntry } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Esquema from "../components/Esquema.astro";
+import ListaArticulos from "../components/ListaArticulos.astro";
+import { t, ruta, otro, articulosDe, hayPublicaciones, prepararCuerpo, type Lang } from "../lib/sitio";
+import { HERRAMIENTAS_URL } from "../configuracion.mjs";
+
+interface Props { lang: Lang; tipo: "investigacion" | "aula"; pagina?: CollectionEntry<"paginas"> }
+const { lang, tipo, pagina } = Astro.props;
+const esInv = tipo === "investigacion";
+const conPublicaciones = await hayPublicaciones();
+const lista = (await articulosDe(lang)).filter((a) => a.data.category === (esInv ? "investigacion" : "didactica"));
+const cuerpo = prepararCuerpo(pagina?.rendered?.html ?? "", lang);
+const claveRuta = esInv ? "investigacion" : "enElAula";
+const titulo = pagina?.data.title ?? t(esInv ? "investigacion" : "enElAula", lang);
+---
+
+<Base lang={lang} titulo={titulo} otraLengua={ruta(claveRuta, otro(lang))}>
+  <header class="intro">
+    <p class="rotulo">{t(esInv ? "investigacionDidactica" : "aprenderPreguntar", lang)}</p>
+    <h1>{titulo}</h1>
+    <p class="intro__texto">{t(esInv ? "investigacionLead" : "aulaLead", lang)}</p>
+  </header>
+
+  <div class="envoltorio seccion">
+    <div class="seccion__principal">
+      {cuerpo.trim() && <div class="cuerpo-pagina" set:html={cuerpo} data-pagefind-body />}
+
+      <section aria-labelledby="lista-titulo">
+        <h2 id="lista-titulo" class="seccion__h2">{t(esInv ? "avances" : "propuestas", lang)}</h2>
+        <ListaArticulos lang={lang} articulos={lista.slice(0, 6)} nivel={3}
+          vacio={t(esInv ? "sinAvances" : "sinPropuestas", lang)} />
+        {lista.length > 0 && (
+          <a class="rotulo seccion__mas" href={ruta(esInv ? "avances" : "propuestas", lang)}>
+            {t(esInv ? "todosAvances" : "todasPropuestas", lang)}
+          </a>
+        )}
+      </section>
+
+      {esInv && conPublicaciones && (
+        <section aria-labelledby="pub-titulo">
+          <h2 id="pub-titulo" class="seccion__h2">{t("publicaciones", lang)}</h2>
+          <a class="rotulo seccion__mas" href={ruta("publicaciones", lang)}>{t("todasPublicaciones", lang)}</a>
+        </section>
+      )}
+    </div>
+
+    <aside class="caja-seccion">
+      {esInv ? (
+        <>
+          <p class="rotulo">{t("elMarco", lang)}</p>
+          <Esquema lang={lang} grande />
+          <h2>{t("subtitulo", lang)}</h2>
+          <p>{t("marcoTexto", lang)}</p>
+          <ul>
+            <li><a href={ruta("avances", lang)}>{t("avancesFlecha", lang)}</a></li>
+            {conPublicaciones && <li><a href={ruta("publicaciones", lang)}>{t("publicacionesFlecha", lang)}</a></li>}
+            <li><a href={`${ruta("recursos", lang)}?area=investigacion`}>{t("datosMateriales", lang)}</a></li>
+          </ul>
+        </>
+      ) : (
+        <>
+          <p class="rotulo">{t("enEstaSeccion", lang)}</p>
+          <h2>{t("delAulaAlDebate", lang)}</h2>
+          <p>{t("aulaCajaTexto", lang)}</p>
+          <ul>
+            <li><a href={ruta("propuestas", lang)}>{t("todasPropuestas", lang)}</a></li>
+            <li><a href={ruta("recursos", lang)}>{t("materialesDescargar", lang)}</a></li>
+            {HERRAMIENTAS_URL && <li><a href={HERRAMIENTAS_URL}>{t("herramientasAlumnado", lang)}</a></li>}
+          </ul>
+        </>
+      )}
+    </aside>
+  </div>
+</Base>
+
+<style>
+  .intro {
+    max-width: calc(760px + 2 * var(--margen));
+    margin: 0 auto;
+    padding: 1.9rem var(--margen) 1.5rem;
+  }
+  .intro h1 { font-size: clamp(2.1rem, 4vw, 2.6rem); margin: 1.1rem 0 1.1rem; }
+  .intro__texto { font-size: 1.25rem; line-height: 1.6; }
+
+  .seccion {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: 2.4rem;
+    padding-top: 1.25rem;
+    padding-bottom: 2.3rem;
+    position: relative;
+  }
+  .seccion::before {
+    content: ""; position: absolute; top: 0; left: var(--margen); right: var(--margen);
+    border-top: 1px solid var(--grafito);
+  }
+  .seccion__principal { min-width: 0; max-width: 760px; }
+  .seccion__h2 { font-size: 2.1rem; margin: 2.2rem 0 0.4rem; }
+  .seccion__mas { display: inline-block; text-decoration: none; margin-top: 1rem; }
+  .seccion__mas:hover { color: var(--rojo); }
+
+  .cuerpo-pagina { padding: 0 10px; }
+  .cuerpo-pagina :global(p) { max-width: 68ch; line-height: 1.75; margin: 0 0 1.2rem; }
+  .cuerpo-pagina :global(h2) { font-size: 1.65rem; margin: 2.2rem 0 1rem; }
+
+  .caja-seccion {
+    align-self: start;
+    background: var(--blanco);
+    border: 1px solid var(--filete);
+    border-top: 2px solid var(--grafito);
+    padding: 1.4rem 1.4rem 1.6rem;
+    margin-top: 1.25rem;
+  }
+  .caja-seccion :global(.esquema) { margin: 0.8rem 0 1.6rem; }
+  .caja-seccion h2 { font-size: 2.1rem; margin: 1rem 0 1.2rem; }
+  .caja-seccion > p:not(.rotulo) { line-height: 1.55; }
+  .caja-seccion ul { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 1.1rem; }
+  .caja-seccion li a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--rojo);
+    padding-bottom: 0.1rem;
+  }
+  .caja-seccion li a:hover { color: var(--rojo); }
+
+  @media (max-width: 999px) {
+    .seccion { grid-template-columns: minmax(0, 1fr); }
+    .caja-seccion { max-width: 560px; }
+  }
+  @media (max-width: 759px) {
+    .intro__texto { font-size: 1.05rem; }
+    .seccion__h2 { font-size: 1.6rem; }
+    .caja-seccion h2 { font-size: 1.6rem; }
+    .cuerpo-pagina { padding: 0; }
+  }
+</style>

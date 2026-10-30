@@ -1,0 +1,78 @@
+---
+// Páginas de texto: Sobre mí, Privacidad y Contacto.
+import type { CollectionEntry } from "astro:content";
+import Base from "../layouts/Base.astro";
+import { t, ruta, otro, prepararCuerpo, type ClaveRuta, type Lang } from "../lib/sitio";
+import { CORREO_PUBLICO } from "../configuracion.mjs";
+
+interface Props { lang: Lang; pagina: CollectionEntry<"paginas">; clave: ClaveRuta }
+const { lang, pagina, clave } = Astro.props;
+const cuerpo = prepararCuerpo(pagina.rendered?.html ?? "", lang);
+const esContacto = clave === "contacto";
+---
+
+<Base lang={lang} titulo={pagina.data.title} otraLengua={ruta(clave, otro(lang))}>
+  <div class:list={["pagina", { "pagina--contacto": esContacto }]}>
+    <article class="pagina__texto" data-pagefind-body>
+      <h1>{pagina.data.title}</h1>
+      <div class="cuerpo-pagina" set:html={cuerpo} />
+      {esContacto && (
+        <p class="correo">
+          {CORREO_PUBLICO ? (
+            <>{t("escribeme", lang)} <a href={`mailto:${CORREO_PUBLICO}`}>{CORREO_PUBLICO}</a></>
+          ) : (
+            <em>{t("correoPendiente", lang)}</em>
+          )}
+        </p>
+      )}
+    </article>
+    {esContacto && (
+      <aside class="caja-rss">
+        <h2>{t("seguirNovedades", lang)}</h2>
+        <p>{t("rssTexto", lang)}</p>
+        <a class="boton rotulo" href={ruta("rss", lang)}>{t("rssBoton", lang)}</a>
+      </aside>
+    )}
+  </div>
+</Base>
+
+<style>
+  .pagina {
+    max-width: calc(760px + 2 * var(--margen));
+    margin: 0 auto;
+    padding: 3.6rem var(--margen) 2.5rem;
+  }
+  .pagina--contacto {
+    max-width: calc(1200px + 2 * var(--margen));
+    display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 3rem;
+  }
+  .pagina__texto h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); margin-bottom: 1.6rem; }
+  .cuerpo-pagina :global(p),
+  .cuerpo-pagina :global(ul) { max-width: 68ch; line-height: 1.75; margin: 0 0 1.2rem; font-size: 1.08rem; }
+  .cuerpo-pagina :global(li) { margin-bottom: 0.2rem; }
+  .cuerpo-pagina :global(li::marker) { color: var(--grafito); }
+  .cuerpo-pagina :global(h2) { font-size: 1.55rem; margin: 2.2rem 0 0.9rem; }
+  .cuerpo-pagina :global(a) { text-decoration-color: var(--grafito); text-underline-offset: 0.18em; }
+  .cuerpo-pagina :global(a:hover) { color: var(--rojo); }
+  .correo {
+    border-left: 3px solid var(--rojo);
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    font-size: 1.2rem;
+    margin-top: 1.6rem;
+  }
+  .caja-rss {
+    align-self: start;
+    background: var(--blanco);
+    border: 1px solid var(--filete);
+    border-top: 2px solid var(--grafito);
+    padding: 1.4rem 1.4rem 1.6rem;
+  }
+  .caja-rss h2 { font-size: 1.3rem; margin-bottom: 0.8rem; }
+  .caja-rss p { font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.1rem; }
+  @media (max-width: 999px) {
+    .pagina--contacto { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 759px) {
+    .pagina { padding-top: 2.2rem; }
+  }
+</style>

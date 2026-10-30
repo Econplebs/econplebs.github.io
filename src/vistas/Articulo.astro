@@ -1,19 +1,9 @@
 ---
-import { getCollection } from "astro:content";
-import Base from "../../layouts/Base.astro";
+import Base from "../layouts/Base.astro";
 import {
-  t, ruta, rutaArticulo, rutaCategoria, rutaEtiqueta, articulosDe, fecha, fechaISO, mostrarActualizado,
-  minutosLectura, nombreCategoria, prepararCuerpo, type Articulo,
-} from "../../lib/sitio";
-
-export async function getStaticPaths() {
-  const lista = await articulosDe("es");
-  return lista.map((articulo, i) => ({
-    params: { slug: articulo.data.slug },
-    // la lista va de más reciente a más antiguo
-    props: { articulo, siguiente: lista[i - 1], anterior: lista[i + 1], lista },
-  }));
-}
+  t, ruta, rutaArticulo, rutaCategoria, rutaEtiqueta, fecha, fechaISO, mostrarActualizado,
+  minutosLectura, nombreCategoria, prepararCuerpo, traduccionDe, otro, type Articulo,
+} from "../lib/sitio";
 
 interface Props { articulo: Articulo; anterior?: Articulo; siguiente?: Articulo; lista: Articulo[] }
 const { articulo, anterior, siguiente, lista } = Astro.props;
@@ -26,21 +16,21 @@ const conIndice = apartados.length >= 3;
 
 const relacionados = lista.filter((a) => a !== articulo && a.data.category === data.category).slice(0, 3);
 
-const traducciones = await getCollection("articulos", (a) => a.data.lang === "ca" && a.data.translationKey === data.translationKey);
-const otraLengua = traducciones[0] ? `/ca/articles/${traducciones[0].data.slug}/` : "/ca/";
+const traduccion = await traduccionDe(articulo);
+const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(lang));
 ---
 
 <Base lang={lang} titulo={data.title} descripcion={data.excerpt} otraLengua={otraLengua} tipo="article">
   <div slot="arriba" class="progreso" aria-hidden="true"><span data-progreso></span></div>
 
-  <article class:list={["articulo", { "articulo--con-indice": conIndice }]} data-articulo>
+  <article class:list={["articulo", { "articulo--con-indice": conIndice }]} data-articulo data-pagefind-body>
     <header class="articulo__cabecera">
-      <p class="rotulo articulo__ruta">
+      <p class="rotulo articulo__ruta" data-pagefind-ignore>
         <a href={ruta("articulos", lang)}><span aria-hidden="true">← </span>{t("articulos", lang)}</a>
         <span aria-hidden="true">/</span>
         <a href={rutaCategoria(data.category, lang)}>{nombreCategoria(data.category, lang)}</a>
       </p>
-      <p class="articulo__meta rotulo">
+      <p class="articulo__meta rotulo" data-pagefind-ignore>
         <a class="rotulo--rojo" href={rutaCategoria(data.category, lang)}>{nombreCategoria(data.category, lang)}</a>
         <time datetime={fechaISO(data.date)}>{fecha(data.date, lang)}</time>
         {mostrarActualizado(articulo) && (
@@ -50,11 +40,11 @@ const otraLengua = traducciones[0] ? `/ca/articles/${traducciones[0].data.slug}/
       </p>
       <h1 class="articulo__titulo">{data.title}</h1>
       {data.excerpt && <p class="articulo__entradilla">{data.excerpt}</p>}
-      <p class="rotulo rotulo--gris articulo__firma">Econplebs</p>
+      <p class="rotulo rotulo--gris articulo__firma" data-pagefind-ignore>Econplebs</p>
     </header>
 
     {conIndice && (
-      <nav class="indice" aria-labelledby="indice-titulo">
+      <nav class="indice" aria-labelledby="indice-titulo" data-pagefind-ignore>
         <p class="rotulo rotulo--gris" id="indice-titulo">{t("enEsteArticulo", lang)}</p>
         <ol>
           {apartados.map((h) => <li><a href={`#${h.slug}`} data-indice={h.slug}>{h.text}</a></li>)}
@@ -64,7 +54,7 @@ const otraLengua = traducciones[0] ? `/ca/articles/${traducciones[0].data.slug}/
 
     <div class="cuerpo" set:html={html} data-cuerpo />
 
-    <footer class="articulo__pie">
+    <footer class="articulo__pie" data-pagefind-ignore>
       <p class="rotulo">{t("finArticulo", lang)}</p>
       {data.tags.length > 0 && (
         <p class="rotulo rotulo--rojo articulo__etiquetas">

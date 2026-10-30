@@ -4,10 +4,13 @@ import Carrusel from "../components/Carrusel.astro";
 import Esquema from "../components/Esquema.astro";
 import Lateral from "../components/Lateral.astro";
 import {
-  t, ruta, rutaArticulo, articulosDe, fecha, fechaISO, nombreCategoria, imagenDe, type Articulo,
+  t, ruta, rutaArticulo, articulosDe, fecha, fechaISO, nombreCategoria, imagenDe, otro, hayPublicaciones,
+  type Articulo, type Lang,
 } from "../lib/sitio";
 
-const lang = "es";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const conPublicaciones = await hayPublicaciones();
 const todos = await articulosDe(lang);
 
 // Carrusel: primero los destacados, luego avances de investigación, luego lo más reciente.
@@ -23,7 +26,7 @@ const resto = todos.filter((a) => !carrusel.includes(a));
 const [destacado, ...tarjetas] = resto;
 ---
 
-<Base lang={lang} otraLengua="/ca/" imagenes={carrusel.map(imagenDe)}>
+<Base lang={lang} otraLengua={ruta("portada", otro(lang))} imagenes={carrusel.map(imagenDe)}>
   <Carrusel lang={lang} articulos={carrusel} />
 
   <div class="envoltorio portada">
@@ -36,7 +39,7 @@ const [destacado, ...tarjetas] = resto;
           <p class="franja__enlaces">
             <a class="rotulo enlace-subrayado" href={ruta("investigacion", lang)}>{t("lineasCorto", lang)}</a>
             <a class="rotulo enlace-subrayado" href={ruta("avances", lang)}>{t("avances", lang)}</a>
-            <a class="rotulo enlace-subrayado" href={ruta("publicaciones", lang)}>{t("publicaciones", lang)}</a>
+            {conPublicaciones && <a class="rotulo enlace-subrayado" href={ruta("publicaciones", lang)}>{t("publicaciones", lang)}</a>}
           </p>
         </div>
         <Esquema lang={lang} />

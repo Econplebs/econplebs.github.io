@@ -1,0 +1,77 @@
+---
+// Buscador estático (Pagefind): el índice se crea al generar la web y se consulta sin salir de ella.
+import Base from "../layouts/Base.astro";
+import { t, ruta, otro, type Lang } from "../lib/sitio";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const textos = {
+  sin: t("sinResultados", lang),
+  para: t("resultadosPara", lang),
+  buscando: t("buscando", lang),
+  sinIndice: t("buscadorSinIndice", lang),
+};
+---
+
+<Base lang={lang} titulo={t("buscar", lang)} otraLengua={ruta("buscar", otro(lang))}>
+  <div class="buscar">
+    <h1>{t("buscar", lang)}</h1>
+    <form class="buscar__form" role="search" action={ruta("buscar", lang)} method="get">
+      <label class="solo-lectores" for="q-pagina">{t("buscar", lang)}</label>
+      <input id="q-pagina" type="search" name="q" />
+      <button class="boton rotulo" type="submit">{t("buscar", lang)}</button>
+    </form>
+    <p class="rotulo rotulo--gris buscar__estado" aria-live="polite" data-estado></p>
+    <ul class="buscar__resultados" data-resultados></ul>
+  </div>
+</Base>
+
+<script is:inline type="module" define:vars={{ textos }}>
+  const q = new URLSearchParams(location.search).get("q")?.trim() ?? "";
+  const estado = document.querySelector("[data-estado]");
+  const lista = document.querySelector("[data-resultados]");
+  document.getElementById("q-pagina").value = q;
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  if (q) {
+    estado.textContent = textos.buscando;
+    try {
+      const pagefind = await import("/pagefind/pagefind.js");
+      const res = await pagefind.search(q);
+      const datos = await Promise.all(res.results.slice(0, 20).map((r) => r.data()));
+      estado.textContent = datos.length ? `${textos.para} «${q}»` : textos.sin;
+      lista.innerHTML = datos
+        .map((d) => `<li><span class="punto" aria-hidden="true"></span><div><h2><a href="${esc(d.url)}">${esc(d.meta.title ?? d.url)}</a></h2><p>${d.excerpt}</p></div></li>`)
+        .join("");
+    } catch {
+      estado.textContent = textos.sinIndice;
+    }
+  }
+</script>
+
+<style>
+  .buscar {
+    max-width: calc(760px + 2 * var(--margen));
+    margin: 0 auto;
+    padding: 3rem var(--margen) 4rem;
+    min-height: 50vh;
+  }
+  .buscar h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); border-bottom: 2px solid var(--grafito); padding-bottom: 0.6rem; }
+  .buscar__form { display: flex; gap: 0.5rem; margin: 1.6rem 0 1rem; }
+  .buscar__form input {
+    flex: 1; min-width: 0;
+    font: 400 1.1rem var(--f-lectura);
+    border: 1px solid var(--grafito); background: var(--blanco);
+    padding: 0.6rem 0.8rem;
+  }
+  .buscar__resultados { list-style: none; margin: 1rem 0 0; padding: 0; }
+  .buscar__resultados :global(li) {
+    display: grid; grid-template-columns: 24px 1fr;
+    padding: 1.2rem 0; border-bottom: 1px solid var(--filete);
+  }
+  .buscar__resultados :global(.punto) { width: 8px; height: 8px; background: var(--rojo); margin-top: 0.7rem; }
+  .buscar__resultados :global(h2) { font: 400 1.35rem/1.3 var(--f-lectura); letter-spacing: 0; margin-bottom: 0.5rem; }
+  .buscar__resultados :global(h2 a) { text-decoration: none; }
+  .buscar__resultados :global(h2 a:hover) { color: var(--rojo); }
+  .buscar__resultados :global(p) { color: var(--gris); font-size: 0.92rem; line-height: 1.6; }
+  .buscar__resultados :global(mark) { background: none; color: var(--grafito); font-weight: 600; }
+</style>
