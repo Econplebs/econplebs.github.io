@@ -1,0 +1,45 @@
+---
+// Un paso dentro de <PasoAPaso>. Uso: <Paso titulo="Título del paso">Texto</Paso>
+interface Props { titulo: string }
+const { titulo } = Astro.props;
+---
+
+<li class="paso">
+  <span class="paso__nodo" aria-hidden="true"></span>
+  <div class="paso__texto">
+    <p class="paso__titulo">{titulo}</p>
+    <div class="paso__cuerpo"><slot /></div>
+  </div>
+</li>
+
+<style>
+  .paso {
+    position: relative;
+    display: grid; grid-template-columns: 28px minmax(0, 1fr);
+    padding-bottom: 1.1rem;
+    counter-increment: paso;
+  }
+  .paso[hidden] { display: none; }
+  .paso:focus { outline: none; }
+  .paso:focus-visible { outline: 2px solid var(--rojo); outline-offset: 4px; }
+  /* la línea que une los pasos, como en el esquema germinal */
+  .paso::before {
+    content: ""; position: absolute; left: 7px; top: 18px; bottom: -4px;
+    border-left: 2px solid var(--grafito);
+  }
+  .paso:last-child::before,
+  .paso:has(+ .paso[hidden])::before { display: none; }
+  .paso__nodo {
+    width: 16px; height: 16px; margin-top: 4px;
+    border: 2px solid var(--grafito); background: var(--blanco); border-radius: 50%;
+    position: relative; z-index: 1;
+  }
+  .paso:first-child .paso__nodo, :global(.actual) > .paso__nodo { background: var(--rojo); border-color: var(--rojo); }
+  .paso__titulo { font: 600 1.1rem/1.3 var(--f-titulo); margin: 0 0 0.35rem; }
+  .paso__titulo::before { content: counter(paso) ". "; color: var(--rojo-texto); }
+  .paso__cuerpo :global(p) { margin: 0 0 0.6rem; line-height: 1.65; font-size: 1rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .paso { animation: aparece 0.35s ease-out both; }
+  }
+  @keyframes aparece { from { opacity: 0; transform: translateY(6px); } }
+</style>

@@ -6,7 +6,7 @@ import { z } from "astro/zod";
 
 // Artículos: contenido/<es|ca>/articulos/<slug>.md
 const articulos = defineCollection({
-  loader: glob({ pattern: "*/articulos/[!_]*.md", base: "./contenido" }),
+  loader: glob({ pattern: "*/articulos/[!_]*.{md,mdx}", base: "./contenido" }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),

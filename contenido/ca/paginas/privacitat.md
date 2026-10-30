@@ -23,7 +23,7 @@ Com qualsevol servidor, el que allotja aquesta web pot anotar automàticament da
 
 ## Galetes
 
-Aquesta web no usa galetes. Les tipografies i les imatges se servixen des de la mateixa web, sense crides a servidors de tercers. Els enllaços a altres webs (per exemple, les fitxes de les fotos) només et porten allà si els prems.
+Aquesta web no usa galetes. Si tries el mode clar o fosc amb l’interruptor, el teu navegador recorda l’elecció en el teu propi equip; no s’envia enlloc. Les tipografies i les imatges se servixen des de la mateixa web, sense crides a servidors de tercers. Els enllaços a altres webs (per exemple, les fitxes de les fotos) només et porten allà si els prems.
 
 Per a seguir les novetats per RSS no cal donar cap dada: el teu lector consulta la web de tant en tant, com qualsevol visita.
 

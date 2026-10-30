@@ -1,0 +1,122 @@
+---
+// Gráfico manipulable: salario nominal, precios y salario real.
+// Uso en un artículo .mdx:  <SalarioReal />  o  <SalarioReal salario={3} inflacion={5} />
+// Sin JavaScript se ve el resultado con los valores iniciales.
+interface Props { salario?: number; inflacion?: number }
+const { salario = 3, inflacion = 5 } = Astro.props;
+const ca = Astro.url.pathname.startsWith("/ca/");
+const tx = ca
+  ? {
+      titulo: "Salari nominal i salari real",
+      salario: "Pujada del salari nominal",
+      inflacion: "Pujada dels preus (inflació)",
+      real: "Poder adquisitiu",
+      sube: "Amb aquestes dades, el poder adquisitiu puja un",
+      baja: "Amb aquestes dades, el poder adquisitiu baixa un",
+      igual: "Amb aquestes dades, el poder adquisitiu no canvia.",
+    }
+  : {
+      titulo: "Salario nominal y salario real",
+      salario: "Subida del salario nominal",
+      inflacion: "Subida de los precios (inflación)",
+      real: "Poder adquisitivo",
+      sube: "Con estos datos, el poder adquisitivo sube un",
+      baja: "Con estos datos, el poder adquisitivo baja un",
+      igual: "Con estos datos, el poder adquisitivo no cambia.",
+    };
+const real = ((1 + salario / 100) / (1 + inflacion / 100) - 1) * 100;
+const fmt = (n: number) => n.toLocaleString(ca ? "ca-ES" : "es-ES", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+const frase = Math.abs(real) < 0.05 ? tx.igual : `${real > 0 ? tx.sube : tx.baja} ${fmt(Math.abs(real))} %.`;
+const id = `sr-${Math.random().toString(36).slice(2, 8)}`;
+// Escala de las barras: de -10 % a +20 %
+const x = (v: number) => 125 + ((Math.max(-10, Math.min(20, v)) + 10) / 30) * 185;
+const filas = [
+  { clave: "salario", texto: ca ? "Salari" : "Salario", valor: salario },
+  { clave: "inflacion", texto: ca ? "Preus" : "Precios", valor: inflacion },
+  { clave: "real", texto: tx.real, valor: real },
+];
+---
+
+<figure class="salario" data-salario data-textos={JSON.stringify(tx)} data-lengua={ca ? "ca-ES" : "es-ES"}>
+  <figcaption class="rotulo rotulo--rojo">{tx.titulo}</figcaption>
+
+  <div class="salario__controles">
+    <label for={`${id}-s`}>
+      <span>{tx.salario}</span>
+      <output data-salida="salario">{fmt(salario)} %</output>
+    </label>
+    <input id={`${id}-s`} type="range" min="-5" max="15" step="0.5" value={salario} data-entrada="salario" />
+    <label for={`${id}-i`}>
+      <span>{tx.inflacion}</span>
+      <output data-salida="inflacion">{fmt(inflacion)} %</output>
+    </label>
+    <input id={`${id}-i`} type="range" min="0" max="15" step="0.5" value={inflacion} data-entrada="inflacion" />
+  </div>
+
+  <svg class="salario__grafico" viewBox="0 0 320 112" role="img" aria-labelledby={`${id}-frase`}>
+    <line x1={x(0)} x2={x(0)} y1="2" y2="96" class="cero" />
+    <text x={x(0)} y="108" class="eje">0 %</text>
+    {filas.map((f, i) => (
+      <g transform={`translate(0 ${8 + i * 30})`}>
+        <text x="0" y="14" class="etiqueta">{f.texto}</text>
+        <rect class:list={["barra", { "barra--real": f.clave === "real" }]} data-barra={f.clave}
+          x={Math.min(x(0), x(f.valor))} width={Math.abs(x(f.valor) - x(0))} y="0" height="18" />
+      </g>
+    ))}
+  </svg>
+
+  <p class="salario__frase" id={`${id}-frase`} aria-live="polite" data-frase>{frase}</p>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-salario]").forEach((caja) => {
+    const tx = JSON.parse(caja.dataset.textos!);
+    const lengua = caja.dataset.lengua!;
+    const fmt = (n: number) => n.toLocaleString(lengua, { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+    const x = (v: number) => 125 + ((Math.max(-10, Math.min(20, v)) + 10) / 30) * 185;
+    const entrada = (k: string) => caja.querySelector<HTMLInputElement>(`[data-entrada="${k}"]`)!;
+    const pintarBarra = (k: string, v: number) => {
+      const b = caja.querySelector<SVGRectElement>(`[data-barra="${k}"]`)!;
+      b.setAttribute("x", String(Math.min(x(0), x(v))));
+      b.setAttribute("width", String(Math.abs(x(v) - x(0))));
+    };
+    const actualizar = () => {
+      const s = Number(entrada("salario").value), p = Number(entrada("inflacion").value);
+      const real = ((1 + s / 100) / (1 + p / 100) - 1) * 100;
+      caja.querySelector('[data-salida="salario"]')!.textContent = `${fmt(s)} %`;
+      caja.querySelector('[data-salida="inflacion"]')!.textContent = `${fmt(p)} %`;
+      pintarBarra("salario", s); pintarBarra("inflacion", p); pintarBarra("real", real);
+      caja.querySelector("[data-frase]")!.textContent =
+        Math.abs(real) < 0.05 ? tx.igual : `${real > 0 ? tx.sube : tx.baja} ${fmt(Math.abs(real))} %.`;
+    };
+    caja.addEventListener("input", actualizar);
+  });
+</script>
+
+<style>
+  .salario {
+    margin: 2.2rem 0;
+    background: var(--blanco);
+    border: 1px solid var(--filete);
+    border-top: 3px solid var(--rojo);
+    padding: 1.4rem 1.5rem 1.3rem;
+    max-width: 68ch;
+  }
+  .salario__controles {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem; margin: 1rem 0 1.2rem;
+  }
+  .salario__controles label {
+    display: flex; justify-content: space-between; gap: 1rem;
+    font-size: 0.95rem; margin-top: 0.5rem;
+  }
+  .salario__controles output { font: 600 0.95rem var(--f-rotulo); }
+  .salario__controles input { width: 100%; accent-color: var(--rojo); }
+  .salario__grafico { width: 100%; max-width: 440px; height: auto; display: block; }
+  .barra { fill: var(--gris); }
+  .barra--real { fill: var(--rojo); }
+  .cero { stroke: var(--grafito); stroke-width: 1; }
+  .etiqueta { fill: var(--grafito); font: 600 10px var(--f-rotulo); letter-spacing: 0.04em; text-transform: uppercase; }
+  .eje { fill: var(--gris); font: 600 10px var(--f-rotulo); text-anchor: middle; }
+  .salario__frase { font: 500 1.15rem/1.4 var(--f-titulo); margin-top: 0.8rem; }
+</style>

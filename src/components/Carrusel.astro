@@ -2,7 +2,7 @@
 // Carrusel en cuña de la portada: tres artículos, panel blanco con corte diagonal,
 // franja roja en la diagonal y foto a la derecha. Al cambiar, la cuña «se compone» de nuevo.
 import {
-  t, rutaArticulo, imagenDe, rutaImagen, nombreCategoria, type Articulo, type Lang,
+  t, rutaArticulo, imagenDe, copiasDe, nombreCategoria, type Articulo, type Lang,
 } from "../lib/sitio";
 
 interface Props { lang: Lang; articulos: Articulo[] }
@@ -24,11 +24,11 @@ const dos = (n: number) => String(n).padStart(2, "0");
         >
           <div class:list={["diapo__foto", { "diapo__foto--obra": img.color }]}>
             <img
-              src={rutaImagen(img)}
+              {...copiasDe(img)}
+              sizes="(max-width: 759px) 100vw, 66vw"
               alt={img.alt[lang]}
               width={img.width}
               height={img.height}
-              class:list={{ "foto-gris": !img.color }}
               loading={i === 0 ? "eager" : "lazy"}
               fetchpriority={i === 0 ? "high" : undefined}
               decoding="async"
@@ -176,10 +176,13 @@ const dos = (n: number) => String(n).padStart(2, "0");
     background: var(--blanco);
     clip-path: polygon(0 0, var(--a) 0, var(--b) 100%, 0 100%);
   }
+  /* la caja de la franja solo ocupa la zona de la diagonal */
   .diapo__franja {
-    position: absolute; inset: 0;
+    position: absolute; top: 0; bottom: 0;
+    left: var(--b);
+    width: calc(var(--a) - var(--b) + var(--grosor));
     background: var(--rojo);
-    clip-path: polygon(var(--a) 0, calc(var(--a) + var(--grosor)) 0, calc(var(--b) + var(--grosor)) 100%, var(--b) 100%);
+    clip-path: polygon(calc(100% - var(--grosor)) 0, 100% 0, var(--grosor) 100%, 0 100%);
     z-index: 1;
   }
   .diapo__texto {
@@ -189,7 +192,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
   }
   .diapo__rotulo { display: flex; align-items: center; gap: 0.6rem; color: var(--gris); }
   .diapo__num {
-    background: var(--rojo); color: var(--blanco);
+    background: var(--rojo); color: #FFFFFF;
     padding: 0.2rem 0.45rem;
     font-size: 0.68rem;
   }
@@ -200,7 +203,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
     max-width: 22rem;
   }
   .diapo__titulo a { text-decoration: none; }
-  .diapo__titulo a:hover { color: var(--rojo); }
+  .diapo__titulo a:hover { color: var(--rojo-texto); }
   .diapo__extracto { font-size: 1.1rem; line-height: 1.5; max-width: 21rem; }
   .diapo__leer { display: inline-block; margin-top: 1.6rem; }
 
@@ -211,7 +214,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
     font-size: 0.6rem;
     text-decoration: none;
   }
-  .diapo__credito:hover { color: var(--rojo); }
+  .diapo__credito:hover { color: var(--rojo-texto); }
 
   .carrusel__controles {
     position: absolute; left: var(--izq); bottom: 2.9rem; z-index: 3;
@@ -226,7 +229,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
     font-size: 1rem;
   }
   .carrusel__pausa { padding: 0 0.8rem; font-size: 0.66rem; margin-left: 0.2rem; }
-  .carrusel__flecha:hover, .carrusel__pausa:hover { color: var(--rojo); border-color: var(--rojo); }
+  .carrusel__flecha:hover, .carrusel__pausa:hover { color: var(--rojo-texto); border-color: var(--rojo); }
   .carrusel__puntos { display: flex; gap: 6px; margin: 0 1.1rem; }
   .carrusel__puntos button { border: 0; padding: 0; min-width: 36px; min-height: 40px; background: transparent !important; }
   .carrusel__puntos button::before { content: ""; display: block; height: 3px; background: var(--filete); }
@@ -246,7 +249,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
     from { clip-path: polygon(0 0, calc(var(--a) - 22%) 0, calc(var(--b) - 22%) 100%, 0 100%); }
   }
   @keyframes franja {
-    from { clip-path: polygon(var(--a) 0, calc(var(--a) + var(--grosor)) 0, calc(var(--a) + var(--grosor)) 0, var(--a) 0); }
+    from { clip-path: polygon(calc(100% - var(--grosor)) 0, 100% 0, 100% 0, calc(100% - var(--grosor)) 0); }
   }
   @keyframes foto { from { opacity: 0.25; transform: translateX(2.5%); } }
   @keyframes sube { from { opacity: 0; transform: translateY(12px); } }

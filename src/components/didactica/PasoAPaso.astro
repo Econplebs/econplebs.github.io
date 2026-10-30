@@ -1,0 +1,84 @@
+---
+// Esquema que se despliega paso a paso. Uso en un artículo .mdx:
+//   <PasoAPaso titulo="De la relación básica a los casos">
+//     <Paso titulo="La relación básica">Texto del paso…</Paso>
+//     <Paso titulo="Primer caso">…</Paso>
+//   </PasoAPaso>
+// Sin JavaScript se ven todos los pasos a la vez.
+interface Props { titulo?: string }
+const { titulo } = Astro.props;
+const ca = Astro.url.pathname.startsWith("/ca/");
+const textos = ca
+  ? { siguiente: "Pas següent", todo: "Veure-ho tot", reiniciar: "Tornar a començar", paso: "Pas" }
+  : { siguiente: "Paso siguiente", todo: "Verlo todo", reiniciar: "Volver a empezar", paso: "Paso" };
+---
+
+<figure class="pasos" data-pasos data-textos={JSON.stringify(textos)}>
+  {titulo && <figcaption class="rotulo rotulo--rojo pasos__titulo">{titulo}</figcaption>}
+  <ol class="pasos__lista">
+    <slot />
+  </ol>
+  <div class="pasos__controles" hidden data-controles>
+    <span class="rotulo rotulo--gris" aria-live="polite" data-cuenta></span>
+    <button type="button" class="rotulo" data-siguiente>{textos.siguiente}</button>
+    <button type="button" class="rotulo pasos__secundario" data-todo>{textos.todo}</button>
+  </div>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-pasos]").forEach((caja) => {
+    const textos = JSON.parse(caja.dataset.textos!);
+    const pasos = [...caja.querySelectorAll<HTMLElement>(":scope > ol > li")];
+    const controles = caja.querySelector<HTMLElement>("[data-controles]")!;
+    const cuenta = caja.querySelector<HTMLElement>("[data-cuenta]")!;
+    const siguiente = caja.querySelector<HTMLButtonElement>("[data-siguiente]")!;
+    const todo = caja.querySelector<HTMLButtonElement>("[data-todo]")!;
+    if (pasos.length < 2) return;
+    let visibles = 1;
+    const pintar = (enfocar = false) => {
+      pasos.forEach((p, i) => {
+        p.hidden = i >= visibles;
+        p.classList.toggle("actual", i === visibles - 1);
+      });
+      cuenta.textContent = `${textos.paso} ${visibles} / ${pasos.length}`;
+      const final = visibles >= pasos.length;
+      siguiente.textContent = final ? textos.reiniciar : textos.siguiente;
+      todo.hidden = final;
+      if (enfocar) pasos[visibles - 1].focus();
+    };
+    pasos.forEach((p) => p.setAttribute("tabindex", "-1"));
+    siguiente.addEventListener("click", () => {
+      visibles = visibles >= pasos.length ? 1 : visibles + 1;
+      pintar(true);
+    });
+    todo.addEventListener("click", () => { visibles = pasos.length; pintar(); });
+    controles.hidden = false;
+    pintar();
+  });
+</script>
+
+<style>
+  .pasos {
+    margin: 2.2rem 0;
+    background: var(--blanco);
+    border: 1px solid var(--filete);
+    border-top: 3px solid var(--rojo);
+    padding: 1.4rem 1.5rem 1.3rem;
+    max-width: 68ch;
+  }
+  .pasos__titulo { margin-bottom: 1rem; }
+  .pasos__lista { list-style: none; margin: 0; padding: 0; counter-reset: paso; }
+  .pasos__controles {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1rem;
+    border-top: 1px solid var(--filete);
+    margin-top: 0.6rem; padding-top: 1rem;
+  }
+  .pasos__controles [data-cuenta] { margin-right: auto; }
+  .pasos__controles button {
+    background: var(--grafito); color: var(--blanco);
+    border: 1px solid var(--grafito); padding: 0.6rem 0.9rem; cursor: pointer;
+  }
+  .pasos__controles button:hover { background: var(--rojo); border-color: var(--rojo); color: #FFFFFF; }
+  .pasos__controles .pasos__secundario { background: none; color: var(--grafito); }
+  .pasos__controles .pasos__secundario:hover { background: none; color: var(--rojo-texto); }
+</style>

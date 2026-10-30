@@ -18,7 +18,7 @@ export async function canalRss(lang: Lang): Promise<Response> {
       <pubDate>${a.data.date.toUTCString()}</pubDate>
       <dc:creator>Econplebs</dc:creator>
       <description>${esc(a.data.excerpt)}</description>
-      <content:encoded><![CDATA[${html.replaceAll("]]>", "]]]]><![CDATA[>")}]]></content:encoded>
+${html ? `      <content:encoded><![CDATA[${html.replaceAll("]]>", "]]]]><![CDATA[>")}]]></content:encoded>` : ""}
     </item>`;
     })
     .join("\n");

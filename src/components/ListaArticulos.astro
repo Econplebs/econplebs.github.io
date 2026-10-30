@@ -2,7 +2,7 @@
 // Lista de artículos: punto rojo, fecha, título en serif y extracto en gris.
 // Con «imagenes», cada fila lleva su foto (se usa en Opinión).
 import {
-  t, rutaArticulo, fecha, fechaISO, nombreCategoria, imagenDe, rutaImagen, type Articulo, type Lang,
+  t, rutaArticulo, fecha, fechaISO, nombreCategoria, imagenDe, copiasDe, type Articulo, type Lang,
 } from "../lib/sitio";
 
 interface Props {
@@ -36,8 +36,8 @@ const Titulo = `h${nivel}`;
           </div>
           {img && (
             <img
-              class:list={["fila__foto", { "foto-gris": !img.color }]}
-              src={rutaImagen(img)} alt="" width={img.width} height={img.height} loading="lazy" decoding="async"
+              class="fila__foto"
+              {...copiasDe(img)} sizes="(max-width: 759px) 100vw, 150px" alt="" width={img.width} height={img.height} loading="lazy" decoding="async"
             />
           )}
         </li>
@@ -67,7 +67,7 @@ const Titulo = `h${nivel}`;
     margin: 0.9rem 0 0.9rem;
   }
   .fila__titulo a { text-decoration: none; }
-  .fila__titulo a:hover { color: var(--rojo); }
+  .fila__titulo a:hover { color: var(--rojo-texto); }
   .fila__extracto { color: var(--gris); font-size: 0.9rem; line-height: 1.6; }
   .fila__foto { width: 150px; height: auto; aspect-ratio: 16 / 10; object-fit: cover; align-self: start; margin-top: 0.9rem; }
   .vacio { color: var(--gris); font-size: 1.15rem; margin: 1rem 0 1.5rem; }

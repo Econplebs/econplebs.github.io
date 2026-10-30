@@ -1,14 +1,20 @@
 /* Econplebs: estilos generales. Colores y letras de tokens.json. */
 
+/* Colores. En modo oscuro: fondo grafito, texto papel, el rojo de la cuña igual.
+   --rojo-texto es el rojo para letras, ajustado para que se lea bien (contraste AA). */
 :root {
+  color-scheme: light;
   --papel: #F4F3EF;
   --blanco: #FFFFFF;
   --grafito: #1F2224;
   --banda: #16181A;
   --rojo: #C8412F;
+  --rojo-texto: #C43F2D;
   --gris: #6B6F6D;
   --filete: #D5D4CE;
   --papel-claro: #EFEFEC;
+  --ver-claro: block;
+  --ver-oscuro: none;
 
   --f-titulo: "Jost", "Avenir Next", "Segoe UI", sans-serif;
   --f-lectura: "Literata", Georgia, "Times New Roman", serif;
@@ -18,6 +24,43 @@
   --ancho: 1200px;
   --contenido: 760px;
   --margen: clamp(16px, 3.2vw, 40px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    color-scheme: dark;
+    --papel: #1F2224;
+    --blanco: #272A2C;
+    --grafito: #F4F3EF;
+    --banda: #141617;
+    --rojo-texto: #E8735F;
+    --gris: #A3A7A5;
+    --filete: #3B3F41;
+    --ver-claro: none;
+    --ver-oscuro: block;
+  }
+}
+:root[data-tema="oscuro"] {
+  color-scheme: dark;
+  --papel: #1F2224;
+  --blanco: #272A2C;
+  --grafito: #F4F3EF;
+  --banda: #141617;
+  --rojo-texto: #E8735F;
+  --gris: #A3A7A5;
+  --filete: #3B3F41;
+  --ver-claro: none;
+  --ver-oscuro: block;
+}
+
+.solo-claro { display: var(--ver-claro); }
+.solo-oscuro { display: var(--ver-oscuro); }
+
+/* Transiciones entre páginas (sin parpadeo de recarga), solo si el navegador las admite */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: 0.22s; }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -62,7 +105,7 @@ p { margin: 0; }
   text-transform: uppercase;
   line-height: 1.3;
 }
-.rotulo--rojo { color: var(--rojo); }
+.rotulo--rojo { color: var(--rojo-texto); }
 .rotulo--gris { color: var(--gris); }
 
 /* Enlace con subrayado rojo */
@@ -71,7 +114,7 @@ p { margin: 0; }
   border-bottom: 2px solid var(--rojo);
   padding-bottom: 0.25rem;
 }
-.enlace-subrayado:hover { color: var(--rojo); }
+.enlace-subrayado:hover { color: var(--rojo-texto); }
 
 /* Foco visible en rojo */
 :focus-visible {
@@ -104,8 +147,7 @@ p { margin: 0; }
   padding: 0 var(--margen);
 }
 
-/* Fotos en gris; las obras con color se quedan como están */
-.foto-gris { filter: grayscale(1) contrast(1.08); }
+/* Las fotos ya salen en gris del tratamiento automático (scripts/imagenes.mjs) */
 
 .boton {
   display: inline-block;
@@ -115,7 +157,7 @@ p { margin: 0; }
   padding: 0.85rem 1.25rem;
   border: 0;
 }
-.boton:hover { background: var(--rojo); }
+.boton:hover { background: var(--rojo); color: #FFFFFF; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -124,4 +166,25 @@ p { margin: 0; }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.solo-imprimir { display: none; }
+
+/* Versión para imprimir: solo el texto, sin menú, barra lateral ni controles */
+@media print {
+  :root, :root[data-tema="oscuro"] {
+    --papel: #FFFFFF; --blanco: #FFFFFF; --grafito: #000000;
+    --gris: #444444; --filete: #BBBBBB; --rojo-texto: #A8311F;
+    --ver-claro: block; --ver-oscuro: none;
+  }
+  @page { margin: 2cm 2.2cm; }
+  body { font-size: 11pt; background: #FFFFFF; display: block; }
+  .saltar, .cabecera, .pie, .progreso, .indice, .vecinos, .relacionados,
+  .lateral, .carrusel__controles, .nota-margen, .no-imprimir, .articulo__ruta, button { display: none !important; }
+  .solo-imprimir { display: block; }
+  a { text-decoration: none; }
+  .cuerpo a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #444444; word-break: break-all; }
+  h1, h2, h3 { break-after: avoid; }
+  p, li, blockquote { orphans: 3; widows: 3; }
+  img { break-inside: avoid; }
 }

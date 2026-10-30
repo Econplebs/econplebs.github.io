@@ -23,7 +23,7 @@ Como cualquier servidor, el que aloja esta web puede anotar automáticamente dat
 
 ## Cookies
 
-Esta web no usa cookies. Las tipografías y las imágenes se sirven desde la propia web, sin llamadas a servidores de terceros. Los enlaces a otras webs (por ejemplo, las fichas de las fotos) solo te llevan allí si los pulsas.
+Esta web no usa cookies. Si eliges el modo claro u oscuro con el interruptor, tu navegador recuerda la elección en tu propio equipo; no se envía a ningún sitio. Las tipografías y las imágenes se sirven desde la propia web, sin llamadas a servidores de terceros. Los enlaces a otras webs (por ejemplo, las fichas de las fotos) solo te llevan allí si los pulsas.
 
 Para seguir las novedades por RSS no hace falta dar ningún dato: tu lector consulta la web de vez en cuando, como cualquier visita.
 

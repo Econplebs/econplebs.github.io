@@ -2,6 +2,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import imagenes from "../datos/imagenes.json";
 import taxonomia from "../datos/taxonomia.json";
 import { MOSTRAR_MUESTRAS, CORREO_PUBLICO } from "../configuracion.mjs";
+import { anchosDe, nombreCopia } from "./anchos.mjs";
 
 export type Lang = "es" | "ca";
 export type Articulo = CollectionEntry<"articulos">;
@@ -31,6 +32,8 @@ const textos = {
   privacidad: { es: "Privacidad", ca: "Privacitat" },
   buscar: { es: "Buscar", ca: "Cercar" },
   menu: { es: "Menú", ca: "Menú" },
+  modoOscuro: { es: "Modo oscuro", ca: "Mode fosc" },
+  imprimir: { es: "Imprimir", ca: "Imprimir" },
   menuPrincipal: { es: "Menú principal", ca: "Menú principal" },
   idioma: { es: "Idioma", ca: "Idioma" },
   saltar: { es: "Saltar al contenido", ca: "Botar al contingut" },
@@ -296,8 +299,14 @@ export function imagenDe(a: Articulo): Imagen {
   return porClave(grupo[h % grupo.length])!;
 }
 
-export function rutaImagen(img: Imagen): string {
-  return `/imagenes/${img.file}`;
+// Copias ligeras de la imagen (las genera scripts/imagenes.mjs): src por defecto y srcset.
+export function copiasDe(img: Imagen) {
+  const anchos = anchosDe(img.width);
+  const media = anchos.find((w) => w >= 960) ?? anchos[anchos.length - 1];
+  return {
+    src: `/imagenes/${nombreCopia(img.file, media)}`,
+    srcset: anchos.map((w) => `/imagenes/${nombreCopia(img.file, w)} ${w}w`).join(", "),
+  };
 }
 
 // Recuentos para «Por temas»: Opinión incluye Coyuntura (es su hija).

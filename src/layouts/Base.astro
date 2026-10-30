@@ -35,11 +35,16 @@ const alternativa = new URL(otraLengua, Astro.site);
     <meta property="og:title" content={titulo ?? "Econplebs"} />
     <meta property="og:description" content={descripcion} />
     <meta property="og:locale" content={lang === "es" ? "es_ES" : "ca_ES"} />
-    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#272A2C" media="(prefers-color-scheme: dark)" />
     <link rel="preload" href="/fuentes/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fuentes/literata-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fuentes/commissioner-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/fuentes/fonts.css" />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      try { const tema = localStorage.getItem("tema"); if (tema) document.documentElement.dataset.tema = tema; } catch (e) {}
+    </script>
     <slot name="head" />
   </head>
   <body>

@@ -1,5 +1,7 @@
 ---
+import { render } from "astro:content";
 import Base from "../layouts/Base.astro";
+import { componentesDidactica } from "../components/didactica";
 import {
   t, ruta, rutaArticulo, rutaCategoria, rutaEtiqueta, fecha, fechaISO, mostrarActualizado,
   minutosLectura, nombreCategoria, prepararCuerpo, traduccionDe, otro, type Articulo,
@@ -10,8 +12,11 @@ const { articulo, anterior, siguiente, lista } = Astro.props;
 const { data } = articulo;
 const lang = data.lang;
 
-const html = prepararCuerpo(articulo.rendered?.html ?? "", lang);
-const apartados = (articulo.rendered?.metadata?.headings ?? []).filter((h) => h.depth === 2 && h.slug !== "footnote-label");
+// Los artículos .mdx pueden llevar componentes interactivos (src/components/didactica)
+const esMdx = articulo.filePath?.endsWith(".mdx") ?? false;
+const { Content, headings } = esMdx ? await render(articulo) : { Content: null, headings: [] };
+const html = esMdx ? "" : prepararCuerpo(articulo.rendered?.html ?? "", lang);
+const apartados = (esMdx ? headings : articulo.rendered?.metadata?.headings ?? []).filter((h) => h.depth === 2 && h.slug !== "footnote-label");
 const conIndice = apartados.length >= 3;
 
 const relacionados = lista.filter((a) => a !== articulo && a.data.category === data.category).slice(0, 3);
@@ -25,6 +30,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
 
   <article class:list={["articulo", { "articulo--con-indice": conIndice }]} data-articulo data-pagefind-body>
     <header class="articulo__cabecera">
+      <p class="solo-imprimir rotulo articulo__imprenta">Econplebs · econplebs.org{rutaArticulo(articulo)}</p>
       <p class="rotulo articulo__ruta" data-pagefind-ignore>
         <a href={ruta("articulos", lang)}><span aria-hidden="true">← </span>{t("articulos", lang)}</a>
         <span aria-hidden="true">/</span>
@@ -36,7 +42,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
         {mostrarActualizado(articulo) && (
           <span>{t("actualizado", lang)}: <time datetime={fechaISO(data.updated!)}>{fecha(data.updated!, lang)}</time></span>
         )}
-        <span>{minutosLectura(html, lang)}</span>
+        <span>{minutosLectura(articulo.body ?? html, lang)}</span>
       </p>
       <h1 class="articulo__titulo">{data.title}</h1>
       {data.excerpt && <p class="articulo__entradilla">{data.excerpt}</p>}
@@ -52,7 +58,11 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
       </nav>
     )}
 
-    <div class="cuerpo" set:html={html} data-cuerpo />
+    {esMdx && Content ? (
+      <div class="cuerpo" data-cuerpo><Content components={componentesDidactica} /></div>
+    ) : (
+      <div class="cuerpo" set:html={html} data-cuerpo />
+    )}
 
     <footer class="articulo__pie" data-pagefind-ignore>
       <p class="rotulo">{t("finArticulo", lang)}</p>
@@ -63,6 +73,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
         </p>
       )}
       <p class="articulo__licencia">{t("licenciaTexto", lang)}</p>
+      <button class="rotulo articulo__imprimir" type="button" data-imprimir>{t("imprimir", lang)}</button>
 
       {relacionados.length > 0 && (
         <section class="relacionados" aria-labelledby="relacionados-titulo">
@@ -131,6 +142,8 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
       marcar();
     }
 
+    document.querySelector("[data-imprimir]")?.addEventListener("click", () => print());
+
     // 3. Notas al margen en pantallas anchas (en el móvil se quedan al final)
     const ancho = matchMedia("(min-width: 1180px)");
     const colocarNotas = () => {
@@ -184,7 +197,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
 
   .articulo__ruta { display: flex; gap: 0.15rem; }
   .articulo__ruta a { text-decoration: none; }
-  .articulo__ruta a:hover, .articulo__meta a:hover { color: var(--rojo); }
+  .articulo__ruta a:hover, .articulo__meta a:hover { color: var(--rojo-texto); }
   .articulo__meta {
     display: flex; flex-wrap: wrap; gap: 0.3rem 1.6rem;
     margin-top: 1.4rem;
@@ -229,7 +242,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
   .cuerpo :global(a) { text-decoration-color: var(--rojo); text-underline-offset: 0.18em; }
   .cuerpo :global(code) { font-family: var(--f-codigo); font-size: 0.88em; }
   .cuerpo :global(sup) { line-height: 0; }
-  .cuerpo :global(sup a) { text-decoration: none; color: var(--rojo); font: 600 0.75rem var(--f-rotulo); padding: 0 0.1rem; }
+  .cuerpo :global(sup a) { text-decoration: none; color: var(--rojo-texto); font: 600 0.75rem var(--f-rotulo); padding: 0 0.1rem; }
 
   .cuerpo :global(blockquote) {
     margin: 1.8rem 0; padding-left: 1.2rem;
@@ -258,6 +271,9 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
     margin-top: 2.4rem; padding-top: 0.6rem;
     font-size: 0.9rem;
   }
+  .cuerpo :global(.footnotes h2) { font-size: 0 !important; }
+  .cuerpo :global(.footnotes h2)::before { content: "Notas"; font-size: 0.72rem; }
+  :global(:lang(ca)) .cuerpo :global(.footnotes h2)::before { content: "Notes"; }
   .cuerpo :global(.footnotes h2) {
     position: static !important; width: auto !important; height: auto !important;
     clip: auto !important; margin: 0.6rem 0 0.8rem; overflow: visible !important; white-space: normal !important;
@@ -265,8 +281,8 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
   }
   .cuerpo :global(.footnotes ol) { padding-left: 1.2rem; }
   .cuerpo :global(.footnotes li p) { font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.6rem; }
-  .cuerpo :global(.footnotes li::marker) { color: var(--rojo); font-family: var(--f-rotulo); font-weight: 600; }
-  .cuerpo :global([data-footnote-backref]) { text-decoration: none; color: var(--rojo); }
+  .cuerpo :global(.footnotes li::marker) { color: var(--rojo-texto); font-family: var(--f-rotulo); font-weight: 600; }
+  .cuerpo :global([data-footnote-backref]) { text-decoration: none; color: var(--rojo-texto); }
 
   /* Notas al margen (pantallas anchas) */
   .cuerpo :global(.nota-margen) {
@@ -279,7 +295,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
     padding-top: 0.45rem;
   }
   .cuerpo :global(.nota-margen p) { font-size: inherit; line-height: inherit; margin: 0; max-width: none; }
-  .cuerpo :global(.nota-margen__n) { color: var(--rojo); font: 600 0.72rem var(--f-rotulo); margin-right: 0.35rem; }
+  .cuerpo :global(.nota-margen__n) { color: var(--rojo-texto); font: 600 0.72rem var(--f-rotulo); margin-right: 0.35rem; }
   :global(.con-notas-margen) .cuerpo :global(.footnotes) {
     position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
   }
@@ -306,6 +322,20 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
   .articulo__etiquetas a { text-decoration: none; }
   .articulo__etiquetas a:hover { text-decoration: underline; }
   .articulo__licencia { font-size: 0.85rem; margin-top: 1.4rem; }
+  .articulo__imprimir {
+    margin-top: 1rem; padding: 0.5rem 0.8rem;
+    background: none; color: var(--grafito); border: 1px solid var(--grafito); cursor: pointer;
+  }
+  .articulo__imprimir:hover { color: var(--rojo-texto); border-color: var(--rojo); }
+  .articulo__imprenta { margin-bottom: 1.2rem; }
+  @media print {
+    .articulo { display: block; padding: 0; }
+    .articulo__titulo { font-size: 24pt; }
+    .articulo__entradilla { font-size: 13pt; }
+    .cuerpo :global(p), .cuerpo :global(li) { font-size: 11pt; line-height: 1.55; max-width: none; }
+    .cuerpo :global(h2) { font-size: 15pt; }
+    .cuerpo :global(.footnotes) { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; clip: auto !important; }
+  }
 
   .relacionados { border-top: 1px solid var(--grafito); margin-top: 1.9rem; padding-top: 1.1rem; }
   .relacionados h2 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.6rem; }
@@ -316,7 +346,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
     padding: 1rem 0 0.75rem;
   }
   .relacionados li a { font-size: 1.2rem; text-decoration: none; }
-  .relacionados li a:hover { color: var(--rojo); }
+  .relacionados li a:hover { color: var(--rojo-texto); }
   .relacionados time { flex: none; text-transform: none; letter-spacing: 0.04em; }
 
   .vecinos {
@@ -326,7 +356,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
     display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
   }
   .vecinos a { display: grid; gap: 0.35rem; text-decoration: none; font-size: 0.95rem; }
-  .vecinos a:hover { color: var(--rojo); }
+  .vecinos a:hover { color: var(--rojo-texto); }
   .vecinos__siguiente { grid-column: 2; text-align: right; }
 
   @media (max-width: 759px) {

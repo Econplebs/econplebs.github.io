@@ -51,7 +51,8 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
 <header class="cabecera">
   <div class="cabecera__fila">
     <a class="cabecera__logo" href={ruta("portada", lang)} aria-label={t("portada", lang)}>
-      <img src="/logo/logo-ink.svg" alt="Econplebs" width="190" height="42" />
+      <img class="solo-claro" src="/logo/logo-ink.svg" alt="Econplebs" width="190" height="42" />
+      <img class="solo-oscuro" src="/logo/logo-paper.svg" alt="Econplebs" width="190" height="42" />
     </a>
 
     <button class="cabecera__hamburguesa" type="button" aria-expanded="false" aria-controls="menu-principal">
@@ -82,6 +83,11 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
       <li aria-hidden="true" class="idiomas__barra">/</li>
       <li><a class="rotulo" href={hrefCa} lang="ca" aria-current={lang === "ca" ? "true" : undefined}>Val</a></li>
     </ul>
+
+    <button class="tema" type="button" aria-pressed="false" data-tema-boton title={t("modoOscuro", lang)}>
+      <span class="solo-lectores">{t("modoOscuro", lang)}</span>
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor" /></svg>
+    </button>
 
     <form class="buscador" role="search" action={ruta("buscar", lang)} method="get">
       <label class="solo-lectores" for="buscar-q">{t("buscar", lang)}</label>
@@ -118,6 +124,23 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
       abierto?.focus();
     }
   });
+
+  // Modo oscuro: sigue la preferencia del sistema hasta que se pulsa el interruptor;
+  // la elección se recuerda solo en este navegador.
+  const temaBoton = document.querySelector<HTMLButtonElement>("[data-tema-boton]");
+  const oscuroAhora = () =>
+    document.documentElement.dataset.tema
+      ? document.documentElement.dataset.tema === "oscuro"
+      : matchMedia("(prefers-color-scheme: dark)").matches;
+  const pintarTema = () => temaBoton?.setAttribute("aria-pressed", String(oscuroAhora()));
+  temaBoton?.addEventListener("click", () => {
+    const nuevo = oscuroAhora() ? "claro" : "oscuro";
+    document.documentElement.dataset.tema = nuevo;
+    try { localStorage.setItem("tema", nuevo); } catch {}
+    pintarTema();
+  });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", pintarTema);
+  pintarTema();
 
   const hamburguesa = document.querySelector<HTMLButtonElement>(".cabecera__hamburguesa");
   hamburguesa?.addEventListener("click", () => {
@@ -178,7 +201,7 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     text-decoration: none;
     white-space: nowrap;
   }
-  .submenu a:hover { color: var(--rojo); }
+  .submenu a:hover { color: var(--rojo-texto); }
   .menu__boton[aria-expanded="true"] + .submenu { display: block; }
   @media (hover: hover) and (min-width: 1000px) {
     .menu__item:hover .submenu { display: block; }
@@ -193,8 +216,17 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     border-bottom: 3px solid transparent;
   }
   .idiomas a[aria-current="true"] { border-bottom-color: var(--rojo); }
-  .idiomas a:hover { color: var(--rojo); }
+  .idiomas a:hover { color: var(--rojo-texto); }
   .idiomas__barra { color: var(--gris); font-size: 0.8rem; }
+
+  .tema {
+    background: none; border: 0; cursor: pointer;
+    color: var(--grafito);
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    margin: 0 -0.5rem;
+  }
+  .tema:hover { color: var(--rojo-texto); }
 
   .buscador {
     display: flex;
@@ -220,7 +252,7 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     display: grid; place-items: center;
     cursor: pointer;
   }
-  .buscador button:hover { background: var(--rojo); }
+  .buscador button:hover { background: var(--rojo); color: #FFFFFF; }
 
   /* Móvil: logo arriba, debajo menú + idiomas, y el buscador */
   @media (max-width: 999px) {
@@ -229,7 +261,7 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
       grid-template-columns: auto 1fr auto;
       grid-template-areas:
         "logo logo logo"
-        "ham . idi"
+        "ham tem idi"
         "bus bus bus"
         "menu menu menu";
       row-gap: 0.6rem;
@@ -246,6 +278,7 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
       background: none; border: 0; color: var(--grafito); cursor: pointer;
     }
     .idiomas { grid-area: idi; }
+    .tema { grid-area: tem; justify-self: end; margin: 0 0.4rem 0 0; }
     .buscador { grid-area: bus; justify-self: start; width: 110px; }
     .buscador input { width: 100%; font-size: 1rem; }
     .buscador button { width: 43px; height: 43px; flex: none; }
@@ -255,7 +288,7 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     .menu__lista { flex-direction: column; gap: 0; border-top: 1px solid var(--filete); }
     .menu__item { border-bottom: 1px solid var(--filete); }
     .menu__boton { width: 100%; justify-content: space-between; padding: 0.9rem 0; border-bottom: 0; }
-    .menu__boton[aria-expanded="true"] { border-bottom: 0; color: var(--rojo); }
+    .menu__boton[aria-expanded="true"] { border-bottom: 0; color: var(--rojo-texto); }
     .submenu { position: static; border: 0; border-left: 2px solid var(--rojo); padding: 0 0 0.6rem; min-width: 0; }
   }
 </style>
