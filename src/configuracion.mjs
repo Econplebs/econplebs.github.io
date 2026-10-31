@@ -12,5 +12,5 @@ export const CORREO_PUBLICO = "contacto@econplebs.org";
 export const HERRAMIENTAS_URL = "";
 
 // Mostrar los artículos de muestra (sample: true).
-// En la versión publicada tendrá que ser false.
-export const MOSTRAR_MUESTRAS = true;
+// En la versión publicada tiene que ser false (true solo para ver ejemplos en tu Mac).
+export const MOSTRAR_MUESTRAS = false;

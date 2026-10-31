@@ -61,6 +61,10 @@ const textos = {
   ultimasLecturas: { es: "Últimas lecturas", ca: "Últimes lectures" },
   nuevasIdeas: { es: "Nuevas ideas, nuevos datos.", ca: "Noves idees, noves dades." },
   leer: { es: "Leer", ca: "Llegir" },
+  sinArticulos: {
+    es: "Todavía no hay artículos publicados. Pronto habrá lecturas aquí.",
+    ca: "Encara no hi ha articles publicats. Prompte hi haurà lectures ací.",
+  },
   archivoCompleto: { es: "Ver el archivo completo ↗", ca: "Veure l’arxiu complet ↗" },
   // Barra lateral
   quienEscribe: { es: "Quién escribe", ca: "Qui escriu" },

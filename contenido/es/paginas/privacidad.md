@@ -19,7 +19,7 @@ Si escribes al correo de contacto, tu mensaje se usa únicamente para respondert
 
 ## Registros del alojamiento
 
-Como cualquier servidor, el que aloja esta web puede anotar automáticamente datos técnicos de cada visita (dirección IP, fecha y página pedida) para mantenerla segura y en funcionamiento. Esos registros no se usan para nada más ni se cruzan con otros datos.
+La web se aloja en GitHub Pages (GitHub, Inc., con servidores también en Estados Unidos). Como cualquier servidor, puede anotar automáticamente datos técnicos de cada visita (dirección IP, fecha y página pedida) para mantenerla segura y en funcionamiento. Econplebs no tiene acceso a esos registros ni los usa.
 
 ## Cookies
 

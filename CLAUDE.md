@@ -8,10 +8,13 @@ El encargo completo está en `ENCARGO.md` del paquete de traspaso
 
 ## Reglas
 
-- **Anonimato.** El nombre del autor no aparece nunca (tampoco en este archivo): ni en páginas,
-  metadatos, RSS, comentarios del código, nombres de archivo ni historial de
-  git. Todo se firma «Econplebs». Commits con `user.name = Econplebs` y un
-  correo neutro.
+- **Anonimato en la web.** El nombre del autor no aparece nunca en la web
+  publicada (páginas, metadatos, RSS, índice del buscador), ni en el contenido,
+  el código, los nombres de archivo o este archivo. Todo se firma «Econplebs».
+  Commits con `user.name = Econplebs` y `noreply@econplebs.org`.
+  Decisión del autor (31-10-2026): la cuenta de GitHub que aloja el
+  repositorio sí puede llevar su nombre; el anonimato estricto se limita a la
+  web.
 - **Sin terceros.** Nada de Google Fonts, analítica, CDN ni incrustados. Las
   fuentes van en el propio proyecto.
 - **Sin enlaces con la web de recursos del alumnado**, salvo el enlace

@@ -10,6 +10,8 @@ import path from "node:path";
 const raiz = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const dist = path.join(raiz, "dist");
 const produccion = process.argv.includes("--produccion");
+// En el servidor de GitHub no está la lista (está solo en el Mac del autor, a propósito)
+const sinLista = process.argv.includes("--sin-lista");
 if (!fs.existsSync(dist)) { console.error("Primero hay que generar la web (npm run build)."); process.exit(1); }
 
 const archivos = [];
@@ -32,7 +34,7 @@ const lista = path.join(os.homedir(), ".config/econplebs/prohibido.txt");
 const prohibidas = fs.existsSync(lista)
   ? fs.readFileSync(lista, "utf8").split("\n").map((s) => s.trim()).filter((s) => s && !s.startsWith("#"))
   : null;
-if (!prohibidas) problemas.push(`No encuentro ${lista}: no he podido buscar datos personales.`);
+if (!prohibidas && !sinLista) problemas.push(`No encuentro ${lista}: no he podido buscar datos personales.`);
 
 let paginas = 0;
 for (const f of archivos) {

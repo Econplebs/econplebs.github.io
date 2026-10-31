@@ -19,7 +19,7 @@ Si escrius al correu de contacte, el teu missatge s’usa únicament per a respo
 
 ## Registres de l’allotjament
 
-Com qualsevol servidor, el que allotja aquesta web pot anotar automàticament dades tècniques de cada visita (adreça IP, data i pàgina demanada) per a mantindre-la segura i en funcionament. Aquests registres no s’usen per a res més ni es creuen amb altres dades.
+La web s’allotja a GitHub Pages (GitHub, Inc., amb servidors també als Estats Units). Com qualsevol servidor, pot anotar automàticament dades tècniques de cada visita (adreça IP, data i pàgina demanada) per a mantindre-la segura i en funcionament. Econplebs no té accés a aquests registres ni els usa.
 
 ## Galetes
 

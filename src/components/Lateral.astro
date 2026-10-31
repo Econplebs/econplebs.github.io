@@ -26,7 +26,7 @@ const eventos = await eventosFuturos(lang);
     <a class="rotulo caja__enlace" href={ruta("sobreMi", lang)}>{t("masSobreMi", lang)}</a>
   </section>
 
-  <section class="caja">
+  {articulos.length > 0 && <section class="caja">
     <h2 class="caja__titulo">{t("porTemas", lang)}</h2>
     <ul class="temas">
       {temas.filter((x) => x.n > 0).map((x) => (
@@ -44,7 +44,7 @@ const eventos = await eventosFuturos(lang);
         {etiquetas.map((e) => <a href={rutaEtiqueta(e, lang)}>#{e}</a>)}
       </p>
     )}
-  </section>
+  </section>}
 
   <section class="caja">
     <h2 class="caja__titulo">{t("seguirNovedades", lang)}</h2>
