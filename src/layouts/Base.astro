@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Cabecera from "../components/Cabecera.astro";
 import Pie from "../components/Pie.astro";
 import { t, type Lang, type Imagen } from "../lib/sitio";
+import { INDEXAR } from "../configuracion.mjs";
 
 interface Props {
   lang: Lang;
@@ -26,6 +27,7 @@ const alternativa = new URL(otraLengua, Astro.site);
     <title>{tituloCompleto}</title>
     <meta name="description" content={descripcion} />
     <meta name="author" content="Econplebs" />
+    {!INDEXAR && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonica} />
     <link rel="alternate" hreflang={lang === "es" ? "ca" : "es"} href={alternativa} />
     <link rel="alternate" type="application/rss+xml" title="Econplebs" href={lang === "es" ? "/rss.xml" : "/ca/rss.xml"} />
