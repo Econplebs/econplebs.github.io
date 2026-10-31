@@ -17,8 +17,9 @@ El encargo completo está en `ENCARGO.md` del paquete de traspaso
   web.
 - **Sin terceros.** Nada de Google Fonts, analítica, CDN ni incrustados. Las
   fuentes van en el propio proyecto.
-- **Sin enlaces con la web de recursos del alumnado**, salvo el enlace
-  «Herramientas» condicionado a `HERRAMIENTAS_URL` (vacía por defecto).
+- **Web de herramientas del alumnado (Observatorio).** Econplebs la enlaza con
+  «Herramientas ↗» mediante `HERRAMIENTAS_URL` (decisión del autor, 31-10-2026,
+  que deja sin efecto la regla de no enlazarlas). Vaciar esa variable quita el enlace.
 - **Imágenes solo del banco**, con crédito y enlace a la ficha. Fotos en gris;
   obras y carteles en color (ya adaptado a la paleta).
 - **Diseño:** papel `#F4F3EF`, blanco, grafito `#1F2224`, rojo `#C8412F` solo
