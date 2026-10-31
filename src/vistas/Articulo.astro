@@ -28,7 +28,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
 <Base lang={lang} titulo={data.title} descripcion={data.excerpt} otraLengua={otraLengua} tipo="article">
   <div slot="arriba" class="progreso" aria-hidden="true"><span data-progreso></span></div>
 
-  <article class:list={["articulo", { "articulo--con-indice": conIndice }]} data-articulo data-pagefind-body>
+  <article class:list={["articulo", { "articulo--con-indice": conIndice }]} data-articulo data-pagefind-body data-muestra={data.sample ? "" : undefined}>
     <header class="articulo__cabecera">
       <p class="solo-imprimir rotulo articulo__imprenta">Econplebs · econplebs.org{rutaArticulo(articulo)}</p>
       <p class="rotulo articulo__ruta" data-pagefind-ignore>

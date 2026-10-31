@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "node scripts/imagenes.mjs && astro dev",
     "build": "node scripts/imagenes.mjs && astro build && mv dist/ca/404/index.html dist/ca/404.html && rmdir dist/ca/404 && pagefind --site dist",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "publicar": "node scripts/publicar.mjs",
+    "comprobar": "node scripts/comprobar.mjs"
   },
   "dependencies": {
     "astro": "^7.4.4"
@@ -13,6 +15,7 @@
   "devDependencies": {
     "@astrojs/mdx": "^8.1.2",
     "pagefind": "^1.5.2",
-    "sharp": "^0.35.5"
+    "sharp": "^0.35.5",
+    "yaml": "^2.9.1"
   }
 }

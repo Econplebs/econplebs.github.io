@@ -34,6 +34,8 @@ El encargo completo está en `ENCARGO.md` del paquete de traspaso
 El autor escribe en Obsidian (`Web-personal/publicar/`) y dice «publica X».
 Claude copia el archivo al repositorio (nunca enlaza el vault), comprueba el
 frontmatter y la ausencia de datos personales, genera, revisa y despliega.
+Procedimiento paso a paso: `docs/PUBLICAR.md` (scripts `npm run publicar` y
+`npm run comprobar`).
 
 ## Antes de dar algo por terminado
 
