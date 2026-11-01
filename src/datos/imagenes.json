@@ -1,5 +1,5 @@
 {
- "nota": "Banco de imágenes de Econplebs (30). Fotos: se muestran en gris (filter grayscale + contraste). color=true: carteles y obras, se muestran tal cual (las de vanguardia ya vienen con el color adaptado a la paleta). Registro completo con licencias: diseno/imagenes.md. Asignación automática: la imagen elegida a mano manda; si no, se toma del grupo de la categoría con (id del artículo mod n). La cuña roja no se asigna sola: solo a mano.",
+ "nota": "Banco de imágenes de Econplebs (30). Fotos: se muestran en gris (filter grayscale + contraste). color=true: carteles y obras, se muestran tal cual (las de vanguardia ya vienen con el color adaptado a la paleta). Registro completo con licencias: diseno/imagenes.md. Asignación automática: la imagen elegida a mano manda; si no, se toma del grupo de la categoría con (id del artículo mod n). La cuña roja no se asigna sola: solo a mano. Reparto (01-11-2026): investigación, opinión y coyuntura usan solo las fotos de archivo industrial del carrusel 4.0; las imágenes educativas, solo Docencia.",
  "images": [
   {
    "key": "trabajo",
@@ -459,12 +459,19 @@
    "archivo",
    "cooperativa",
    "trabajo",
-   "puerto",
    "migracion",
-   "klutsis-construccion",
-   "chashnik",
-   "malevich",
-   "proun"
+   "puerto"
+  ],
+  "opinion": [
+   "trabajo",
+   "migracion",
+   "salida",
+   "archivo"
+  ],
+  "coyuntura": [
+   "puerto",
+   "industria",
+   "cooperativa"
   ],
   "didactica": [
    "pizarra",
@@ -479,18 +486,8 @@
    "escola-moderna",
    "alfabetizacion",
    "extraescolar",
-   "dos-cuadrados",
-   "vjutemas"
-  ],
-  "opinion": [
-   "trabajo",
-   "migracion",
-   "klutsis-construccion"
-  ],
-  "coyuntura": [
-   "puerto",
-   "chashnik",
-   "industria"
+   "vigotski",
+   "pensamiento"
   ]
  }
 }

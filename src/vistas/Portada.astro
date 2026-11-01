@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import imagenesBanco from "../datos/imagenes.json";
 import Carrusel from "../components/Carrusel.astro";
 import Esquema from "../components/Esquema.astro";
 import Lateral from "../components/Lateral.astro";
@@ -26,8 +27,8 @@ const resto = todos.filter((a) => !carrusel.includes(a));
 const [destacado, ...tarjetas] = resto;
 ---
 
-<Base lang={lang} otraLengua={ruta("portada", otro(lang))} imagenes={carrusel.map(imagenDe)}>
-  {carrusel.length > 0 && <Carrusel lang={lang} articulos={carrusel} />}
+<Base lang={lang} otraLengua={ruta("portada", otro(lang))} imagenes={carrusel.length ? carrusel.map(imagenDe) : imagenesBanco.images.filter((i) => i.key === "industria")}>
+  <Carrusel lang={lang} articulos={carrusel} />
 
   <div class="envoltorio portada">
     <div class="portada__principal">

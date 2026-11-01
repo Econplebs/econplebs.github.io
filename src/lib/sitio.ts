@@ -69,6 +69,11 @@ const textos = {
     es: "Todavía no hay artículos publicados. Pronto habrá lecturas aquí.",
     ca: "Encara no hi ha articles publicats. Prompte hi haurà lectures ací.",
   },
+  portadillaTexto: {
+    es: "Un cuaderno de investigación económica: cómo se produce y se reparte la riqueza, y por qué llegan las crisis. Los primeros avances, muy pronto.",
+    ca: "Un quadern de recerca econòmica: com es produeix i es reparteix la riquesa, i per què arriben les crisis. Els primers avanços, molt prompte.",
+  },
+  docencia: { es: "Docencia", ca: "Docència" },
   archivoCompleto: { es: "Ver el archivo completo ↗", ca: "Veure l’arxiu complet ↗" },
   // Barra lateral
   quienEscribe: { es: "Quién escribe", ca: "Qui escriu" },
@@ -196,7 +201,7 @@ const rutas = {
   investigacion: { es: "/investigacion/", ca: "/ca/recerca/" },
   avances: { es: "/investigacion/avances/", ca: "/ca/recerca/avancos/" },
   publicaciones: { es: "/publicaciones/", ca: "/ca/publicacions/" },
-  didactica: { es: "/investigacion/didactica/", ca: "/ca/recerca/didactica/" },
+  didactica: { es: "/docencia/", ca: "/ca/docencia/" },
   recursos: { es: "/recursos/", ca: "/ca/recursos/" },
   opinion: { es: "/opinion/", ca: "/ca/opinio/" },
   coyuntura: { es: "/opinion/coyuntura/", ca: "/ca/opinio/conjuntura/" },

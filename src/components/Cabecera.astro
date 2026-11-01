@@ -15,9 +15,15 @@ const menu = [
     hijos: [
       { texto: t("lineas", lang), href: ruta("investigacion", lang) },
       { texto: t("avances", lang), href: ruta("avances", lang) },
-      { texto: t("didactica", lang), href: ruta("didactica", lang) },
       { texto: t("datosYMateriales", lang), href: ruta("recursos", lang) },
       ...(conPublicaciones ? [{ texto: t("publicaciones", lang), href: ruta("publicaciones", lang) }] : []),
+    ],
+  },
+  {
+    texto: t("docencia", lang),
+    hijos: [
+      { texto: t("didactica", lang), href: ruta("didactica", lang) },
+      ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
     ],
   },
   {
@@ -68,11 +74,6 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
             </ul>
           </li>
         ))}
-        {HERRAMIENTAS_URL && (
-          <li class="menu__item">
-            <a class="menu__boton menu__externo rotulo" href={HERRAMIENTAS_URL}>{t("herramientas", lang)}</a>
-          </li>
-        )}
       </ul>
     </nav>
 
@@ -180,8 +181,6 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     border-bottom: 3px solid transparent;
   }
   .menu__flecha { color: var(--gris); transition: transform 0.15s ease; }
-  .menu__externo { text-decoration: none; }
-  .menu__externo:hover { border-bottom-color: var(--rojo); }
   .menu__boton[aria-expanded="true"] { border-bottom-color: var(--rojo); }
   .menu__boton[aria-expanded="true"] .menu__flecha { transform: rotate(180deg); }
 

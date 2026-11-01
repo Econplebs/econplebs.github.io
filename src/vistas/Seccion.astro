@@ -1,12 +1,11 @@
 ---
 // Página de Investigación: texto fijo de plantilla + el cuerpo de la página (Markdown),
-// las dos líneas (avances de economía política y didáctica) y la caja «El marco».
+// la lista de avances y la caja «El marco». (La didáctica está en Docencia.)
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Esquema from "../components/Esquema.astro";
 import ListaArticulos from "../components/ListaArticulos.astro";
 import { t, ruta, otro, articulosDe, hayPublicaciones, prepararCuerpo, type Lang } from "../lib/sitio";
-import { HERRAMIENTAS_URL } from "../configuracion.mjs";
 
 interface Props { lang: Lang; pagina?: CollectionEntry<"paginas"> }
 const { lang, pagina } = Astro.props;
@@ -15,8 +14,6 @@ const todos = await articulosDe(lang);
 const lineas = [
   { id: "avances", titulo: t("avances", lang), lista: todos.filter((a) => a.data.category === "investigacion"),
     vacio: t("sinAvances", lang), mas: t("todosAvances", lang), href: ruta("avances", lang) },
-  { id: "didactica", titulo: t("didactica", lang), lista: todos.filter((a) => a.data.category === "didactica"),
-    vacio: t("sinDidactica", lang), mas: `${t("didactica", lang)} →`, href: ruta("didactica", lang) },
 ];
 const cuerpo = prepararCuerpo(pagina?.rendered?.html ?? "", lang);
 const titulo = pagina?.data.title ?? t("investigacion", lang);
@@ -56,10 +53,8 @@ const titulo = pagina?.data.title ?? t("investigacion", lang);
       <p>{t("marcoTexto", lang)}</p>
       <ul>
         <li><a href={ruta("avances", lang)}>{t("avancesFlecha", lang)}</a></li>
-        <li><a href={ruta("didactica", lang)}>{t("didactica", lang)} →</a></li>
         {conPublicaciones && <li><a href={ruta("publicaciones", lang)}>{t("publicacionesFlecha", lang)}</a></li>}
         <li><a href={`${ruta("recursos", lang)}?area=investigacion`}>{t("datosMateriales", lang)}</a></li>
-        {HERRAMIENTAS_URL && <li><a href={HERRAMIENTAS_URL}>{t("herramientas", lang)}</a></li>}
       </ul>
     </aside>
   </div>

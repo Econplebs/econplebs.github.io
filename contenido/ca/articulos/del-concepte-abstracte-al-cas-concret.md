@@ -8,7 +8,7 @@ category: investigacion
 tags: []
 excerpt: "Un avanç de mostra: com plantejar a classe l’«ascens de l’abstracte al concret» amb un problema econòmic real."
 featured: false
-image: highlander
+image: industria
 sample: true   # texto de muestra: sustituir o borrar antes de publicar
 ---
 Texto de muestra para la sección Investigación. Sustituye este texto por un avance real antes de publicar el sitio.

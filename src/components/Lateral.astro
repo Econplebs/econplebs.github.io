@@ -9,12 +9,12 @@ import {
 interface Props { lang: Lang; articulos: Articulo[] }
 const { lang, articulos } = Astro.props;
 const n = recuentos(articulos);
-// La didáctica es una línea de la investigación; la coyuntura, parte de la opinión
+// La coyuntura es parte de la opinión; la didáctica va en Docencia
 const temas = [
   { cat: "investigacion", n: n.investigacion, hija: false },
-  { cat: "didactica", n: n.didactica, hija: true },
   { cat: "opinion", n: n.opinion, hija: false },
   { cat: "coyuntura", n: n.coyuntura, hija: true },
+  { cat: "didactica", n: n.didactica, hija: false },
 ] as const;
 const etiquetas = etiquetasDe(articulos);
 const eventos = await eventosFuturos(lang);
