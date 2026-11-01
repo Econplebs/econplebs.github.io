@@ -1,24 +1,28 @@
-/* Econplebs: estilos generales. Colores y letras de tokens.json. */
+/* Econplebs: estilos generales. Estética constructivista industrial (tema 4.0, W-19):
+   hormigón, esmalte, grafito y un solo rojo. */
 
-/* Colores. En modo oscuro: fondo grafito, texto papel, el rojo de la cuña igual.
-   --rojo-texto es el rojo para letras, ajustado para que se lea bien (contraste AA). */
+/* Colores. --papel es el hormigón del fondo y --blanco el esmalte de las superficies.
+   En modo oscuro: fondo grafito, texto claro, el rojo de la cuña igual.
+   --rojo-texto y --gris son algo más oscuros que en la 4.0 para que las letras
+   pequeñas cumplan el contraste AA sobre el hormigón. */
 :root {
   color-scheme: light;
-  --papel: #F4F3EF;
-  --blanco: #FFFFFF;
+  --papel: #E6E7E3;
+  --blanco: #EFEFEC;
   --grafito: #1F2224;
   --banda: #16181A;
   --rojo: #C8412F;
-  --rojo-texto: #C43F2D;
-  --gris: #6B6F6D;
-  --filete: #D5D4CE;
+  --rojo-texto: #B03826;
+  --gris: #5F6361;
+  --filete: #B9BCB8;
   --papel-claro: #EFEFEC;
   --ver-claro: block;
   --ver-oscuro: none;
 
-  --f-titulo: "Jost", "Avenir Next", "Segoe UI", sans-serif;
-  --f-lectura: "Literata", Georgia, "Times New Roman", serif;
-  --f-rotulo: "Commissioner", "Helvetica Neue", Arial, sans-serif;
+  --f-titulo: "Archivo Narrow", "Arial Narrow", sans-serif;
+  --f-lectura: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-rotulo: "IBM Plex Mono", Menlo, monospace;
+  --f-interfaz: "IBM Plex Sans", Arial, sans-serif;
   --f-codigo: ui-monospace, Menlo, Consolas, monospace;
 
   --ancho: 1200px;
@@ -36,6 +40,7 @@
     --rojo-texto: #E8735F;
     --gris: #A3A7A5;
     --filete: #3B3F41;
+    --papel-claro: #EFEFEC;
     --ver-claro: none;
     --ver-oscuro: block;
   }
@@ -86,22 +91,24 @@ img, svg { display: block; max-width: 100%; }
 
 a { color: inherit; }
 
+/* Titulares: Archivo Narrow en mayúsculas, como en la 4.0 */
 h1, h2, h3, h4 {
   font-family: var(--f-titulo);
-  font-weight: 600;
-  letter-spacing: -0.012em;
-  line-height: 1.1;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1.04;
   margin: 0;
 }
 
 p { margin: 0; }
 
-/* Rótulos: Commissioner 600 en mayúsculas espaciadas */
+/* Rótulos: letra de máquina (IBM Plex Mono) en mayúsculas espaciadas */
 .rotulo {
   font-family: var(--f-rotulo);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   line-height: 1.3;
 }

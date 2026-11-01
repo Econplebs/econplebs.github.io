@@ -13,7 +13,7 @@ export const otro = (lang: Lang): Lang => (lang === "es" ? "ca" : "es");
 
 // Textos de la interfaz en los dos idiomas (la mayoría salen de textos-interfaz.json).
 const textos = {
-  subtitulo: { es: "De lo abstracto a lo concreto", ca: "De l’abstracte al concret" },
+  subtitulo: { es: "Economía política desde abajo", ca: "Economia política des de baix" },
   investigacion: { es: "Investigación", ca: "Recerca" },
   lineas: { es: "Líneas de investigación", ca: "Línies de recerca" },
   avances: { es: "Avances", ca: "Avanços" },
@@ -22,7 +22,11 @@ const textos = {
   enfoque: { es: "Enfoque", ca: "Enfocament" },
   propuestas: { es: "Propuestas y experiencias", ca: "Propostes i experiències" },
   materiales: { es: "Materiales", ca: "Materials" },
-  herramientas: { es: "Herramientas ↗", ca: "Eines ↗" },
+  herramientas: { es: "Observatorio ↗", ca: "Observatori ↗" },
+  didactica: { es: "Didáctica de la economía", ca: "Didàctica de l’economia" },
+  datosYMateriales: { es: "Datos y materiales", ca: "Dades i materials" },
+  sinDidactica: { es: "Todavía no hay textos de didáctica publicados.", ca: "Encara no hi ha textos de didàctica publicats." },
+  metodo: { es: "De lo abstracto a lo concreto", ca: "De l’abstracte al concret" },
   opinion: { es: "Opinión", ca: "Opinió" },
   todo: { es: "Todo", ca: "Tot" },
   coyuntura: { es: "Análisis de coyuntura", ca: "Anàlisi de conjuntura" },
@@ -49,11 +53,11 @@ const textos = {
   pausar: { es: "Pausar", ca: "Pausar" },
   seguir: { es: "Seguir", ca: "Continuar" },
   elegir: { es: "Elegir artículo", ca: "Elegir article" },
-  investigacionDidactica: { es: "Investigación en didáctica", ca: "Recerca en didàctica" },
+  investigacionDidactica: { es: "Economía política", ca: "Economia política" },
   queInvestigo: { es: "Qué estoy investigando", ca: "Què estic investigant" },
   queInvestigoTexto: {
-    es: "Cómo se forman los conceptos de economía y ciencias sociales en el aula, desde la teoría de la actividad de Vigotski, Iliénkov y Davídov.",
-    ca: "Com es formen els conceptes d’economia i ciències socials a l’aula, des de la teoria de l’activitat de Vigotski, Iliénkov i Davídov.",
+    es: "Cómo se produce y se reparte la riqueza: salarios, beneficios y crisis, con datos abiertos. Y, como segunda línea, cómo se forman estos conceptos en el aula.",
+    ca: "Com es produeix i es reparteix la riquesa: salaris, beneficis i crisis, amb dades obertes. I, com a segona línia, com es formen aquests conceptes a l’aula.",
   },
   lineasCorto: { es: "Líneas", ca: "Línies" },
   abstracto: { es: "abstracto", ca: "abstracte" },
@@ -69,8 +73,8 @@ const textos = {
   // Barra lateral
   quienEscribe: { es: "Quién escribe", ca: "Qui escriu" },
   quienEscribeTexto: {
-    es: "Un profesor de Economía de secundaria que investiga cómo enseñar la economía y las ciencias sociales desde la teoría de la actividad: Vigotski, Iliénkov, Davídov.",
-    ca: "Un professor d’Economia de secundària que investiga com ensenyar l’economia i les ciències socials des de la teoria de l’activitat: Vigotski, Iliénkov, Davídov.",
+    es: "Un profesor de Economía de secundaria que investiga desde la economía política: cómo se produce y se reparte la riqueza, y cómo enseñarlo en el aula.",
+    ca: "Un professor d’Economia de secundària que investiga des de l’economia política: com es produeix i es reparteix la riquesa, i com ensenyar-ho a l’aula.",
   },
   masSobreMi: { es: "Más sobre mí", ca: "Més sobre mi" },
   porTemas: { es: "Por temas", ca: "Per temes" },
@@ -107,8 +111,8 @@ const textos = {
   },
   // Investigación
   investigacionLead: {
-    es: "Cómo se forman los conceptos económicos y sociales en el aula, y cómo enseñar para que el alumnado los construya en lugar de memorizarlos.",
-    ca: "Com es formen els conceptes econòmics i socials a l’aula, i com ensenyar perquè l’alumnat els construïsca en lloc de memoritzar-los.",
+    es: "Economía política aplicada, con datos abiertos y métodos que cualquiera puede comprobar. Y una segunda línea: cómo se forman los conceptos económicos en el aula.",
+    ca: "Economia política aplicada, amb dades obertes i mètodes que qualsevol pot comprovar. I una segona línia: com es formen els conceptes econòmics a l’aula.",
   },
   sinAvances: { es: "Todavía no hay avances publicados.", ca: "Encara no hi ha avanços publicats." },
   todosAvances: { es: "Todos los avances →", ca: "Tots els avanços →" },
@@ -116,8 +120,8 @@ const textos = {
   todasPublicaciones: { es: "Todas las publicaciones →", ca: "Totes les publicacions →" },
   elMarco: { es: "El marco", ca: "El marc" },
   marcoTexto: {
-    es: "La teoría de la actividad y la enseñanza desarrolladora: Vigotski, Iliénkov y Davídov. Primero, la relación básica, la célula germinal; después, los casos que se explican con ella.",
-    ca: "La teoria de l’activitat i l’ensenyament desenvolupador: Vigotski, Iliénkov i Davídov. Primer, la relació bàsica, la cèl·lula germinal; després, els casos que s’expliquen amb ella.",
+    es: "El método de la economía política: primero, la relación básica, la célula germinal; después, los casos concretos que se explican con ella. Marx lo formuló; Iliénkov y Davídov lo llevaron a la enseñanza.",
+    ca: "El mètode de l’economia política: primer, la relació bàsica, la cèl·lula germinal; després, els casos concrets que s’expliquen amb ella. Marx el va formular; Iliénkov i Davídov el van portar a l’ensenyament.",
   },
   avancesFlecha: { es: "Avances →", ca: "Avanços →" },
   publicacionesFlecha: { es: "Publicaciones →", ca: "Publicacions →" },
@@ -192,8 +196,7 @@ const rutas = {
   investigacion: { es: "/investigacion/", ca: "/ca/recerca/" },
   avances: { es: "/investigacion/avances/", ca: "/ca/recerca/avancos/" },
   publicaciones: { es: "/publicaciones/", ca: "/ca/publicacions/" },
-  enElAula: { es: "/en-el-aula/", ca: "/ca/a-laula/" },
-  propuestas: { es: "/en-el-aula/propuestas/", ca: "/ca/a-laula/propostes/" },
+  didactica: { es: "/investigacion/didactica/", ca: "/ca/recerca/didactica/" },
   recursos: { es: "/recursos/", ca: "/ca/recursos/" },
   opinion: { es: "/opinion/", ca: "/ca/opinio/" },
   coyuntura: { es: "/opinion/coyuntura/", ca: "/ca/opinio/conjuntura/" },
@@ -223,7 +226,7 @@ export function rutaEtiqueta(etiqueta: string, lang: Lang): string {
 
 // Página de cada categoría (las de investigación y didáctica son las listas de avances y propuestas).
 export function rutaCategoria(cat: Categoria, lang: Lang): string {
-  const mapa = { investigacion: "avances", didactica: "propuestas", opinion: "opinion", coyuntura: "coyuntura" } as const;
+  const mapa = { investigacion: "avances", didactica: "didactica", opinion: "opinion", coyuntura: "coyuntura" } as const;
   return ruta(mapa[cat], lang);
 }
 

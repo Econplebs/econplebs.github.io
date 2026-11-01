@@ -1,5 +1,5 @@
 ---
-title: "Recursos"
+title: "Datos y materiales"
 slug: recursos
 lang: es
 translationKey: recursos

@@ -1,8 +1,11 @@
 # Econplebs (web estática)
 
-Web bilingüe (castellano / valenciano) de Econplebs, el cuaderno de un
-profesor de Economía de secundaria que investiga la didáctica de la economía
-desde la teoría de la actividad. Subtítulo: «De lo abstracto a lo concreto».
+Web bilingüe (castellano / valenciano) de Econplebs, el cuaderno de
+investigación económica de un profesor de Economía de secundaria: economía
+política, coyuntura y opinión, con la didáctica de la economía como segunda
+línea de investigación. Subtítulo: «Economía política desde abajo».
+Lo educativo para el alumnado vive en el Observatorio (otra web), enlazado
+desde el menú (decisión del autor, 01-11-2026).
 El encargo completo está en `ENCARGO.md` del paquete de traspaso
 (`Web-personal/paso-a-code/` en el vault de Obsidian del autor).
 
@@ -22,10 +25,12 @@ El encargo completo está en `ENCARGO.md` del paquete de traspaso
   que deja sin efecto la regla de no enlazarlas). Vaciar esa variable quita el enlace.
 - **Imágenes solo del banco**, con crédito y enlace a la ficha. Fotos en gris;
   obras y carteles en color (ya adaptado a la paleta).
-- **Diseño:** papel `#F4F3EF`, blanco, grafito `#1F2224`, rojo `#C8412F` solo
-  como acento. Jost (títulos), Literata (lectura), Commissioner (rótulos). Sin
-  sombras, sin esquinas redondeadas. Movimiento breve y nulo con
-  `prefers-reduced-motion`.
+- **Diseño (estética industrial del tema 4.0, W-19):** hormigón `#E6E7E3`,
+  esmalte `#EFEFEC`, grafito `#1F2224` / `#16181A`, rojo `#C8412F` solo como
+  acento (texto en rojo `#B03826` y gris `#5F6361` por contraste AA).
+  Archivo Narrow en mayúsculas (titulares), Source Serif 4 (lectura),
+  IBM Plex Mono (rótulos), IBM Plex Sans (interfaz). Sin sombras ni esquinas
+  redondeadas. Movimiento breve y nulo con `prefers-reduced-motion`.
 - **Accesibilidad** WCAG 2.1 AA.
 - **El autor no programa.** Explica en castellano sencillo; cualquier cambio de
   contenido debe poder hacerse editando Markdown. Los textos de la interfaz

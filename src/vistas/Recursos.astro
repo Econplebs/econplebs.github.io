@@ -6,14 +6,14 @@ import { t, ruta, otro, type Lang } from "../lib/sitio";
 
 interface Props { lang: Lang; pagina?: CollectionEntry<"paginas"> }
 const { lang, pagina } = Astro.props;
-const titulo = pagina?.data.title ?? t("materiales", lang);
+const titulo = pagina?.data.title ?? t("datosYMateriales", lang);
 
 const hayArchivos = Object.keys(import.meta.glob("/contenido/recursos/[!_]*.md")).length > 0;
 const recursos = (hayArchivos ? await getCollection("recursos", (r) => !r.data.lang || r.data.lang === lang) : [])
   .sort((a, b) => a.data.title.localeCompare(b.data.title, lang));
 const formato = (archivo: string) =>
   /\.(xlsx?|ods|csv|json|tsv)$/i.test(archivo) ? "datos" : "documento";
-const nombreArea = { investigacion: t("investigacion", lang), docencia: t("enElAula", lang), general: t("general", lang) };
+const nombreArea = { investigacion: t("investigacion", lang), docencia: t("didactica", lang), general: t("general", lang) };
 ---
 
 <Base lang={lang} titulo={titulo} otraLengua={ruta("recursos", otro(lang))}>
@@ -126,7 +126,6 @@ const nombreArea = { investigacion: t("investigacion", lang), docencia: t("enElA
   .recursos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
   .recurso {
     background: var(--blanco);
-    border: 1px solid var(--filete);
     border-top: 2px solid var(--grafito);
     padding: 1.3rem;
     display: flex; flex-direction: column; gap: 0.7rem;

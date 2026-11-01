@@ -13,7 +13,7 @@ export const INDEXAR = false;
 // Vacío hasta que exista el buzón; entonces: "contacto@econplebs.org"
 export const CORREO_PUBLICO = "";
 
-// Enlace «Herramientas ↗» del menú En el aula (la web del Observatorio).
+// Enlace «Observatorio ↗» del menú principal (la web educativa, para el alumnado).
 // Vacío = el enlace no aparece. Activado por decisión del autor el 31-10-2026.
 export const HERRAMIENTAS_URL = "https://observatorio-economia.github.io";
 

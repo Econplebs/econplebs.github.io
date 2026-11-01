@@ -9,11 +9,12 @@ import {
 interface Props { lang: Lang; articulos: Articulo[] }
 const { lang, articulos } = Astro.props;
 const n = recuentos(articulos);
+// La didáctica es una línea de la investigación; la coyuntura, parte de la opinión
 const temas = [
+  { cat: "investigacion", n: n.investigacion, hija: false },
+  { cat: "didactica", n: n.didactica, hija: true },
   { cat: "opinion", n: n.opinion, hija: false },
   { cat: "coyuntura", n: n.coyuntura, hija: true },
-  { cat: "didactica", n: n.didactica, hija: false },
-  { cat: "investigacion", n: n.investigacion, hija: false },
 ] as const;
 const etiquetas = etiquetasDe(articulos);
 const eventos = await eventosFuturos(lang);
@@ -75,7 +76,6 @@ const eventos = await eventosFuturos(lang);
   .lateral { display: flex; flex-direction: column; gap: 0.75rem; }
   .caja {
     background: var(--blanco);
-    border: 1px solid var(--filete);
     border-top: 2px solid var(--grafito);
     padding: 1.4rem 1.35rem 1.5rem;
   }

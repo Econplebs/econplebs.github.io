@@ -154,9 +154,9 @@ const dos = (n: number) => String(n).padStart(2, "0");
     --grosor: 26px;                  /* ancho de la franja roja */
     --izq: max(48px, calc((100% - 1200px) / 2));
     position: relative;
-    background: var(--blanco);
+    background: var(--banda);   /* panel grafito, como en la 4.0 */
+    color: #FFFFFF;
     overflow: hidden;
-    border-bottom: 1px solid var(--filete);
   }
   .diapo { position: relative; height: var(--alto); }
   :global(.js) .carrusel.listo .diapo:not(.activa) { display: none; }
@@ -165,7 +165,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
     position: absolute;
     top: 0; bottom: 0; right: 0;
     left: calc(var(--b) - 40px);
-    background: var(--blanco);
+    background: var(--banda);
   }
   .diapo__foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
   .diapo__foto--obra { background: var(--papel); }
@@ -173,7 +173,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
 
   .diapo__panel {
     position: absolute; inset: 0;
-    background: var(--blanco);
+    background: var(--banda);
     clip-path: polygon(0 0, var(--a) 0, var(--b) 100%, 0 100%);
   }
   /* la caja de la franja solo ocupa la zona de la diagonal */
@@ -190,31 +190,32 @@ const dos = (n: number) => String(n).padStart(2, "0");
     padding: 3.5rem 0 0 var(--izq);
     max-width: calc(var(--izq) + 25rem);
   }
-  .diapo__rotulo { display: flex; align-items: center; gap: 0.6rem; color: var(--gris); }
+  .diapo__rotulo { display: flex; align-items: center; gap: 0.6rem; color: #D9DBD8; }
   .diapo__num {
-    background: var(--rojo); color: #FFFFFF;
-    padding: 0.2rem 0.45rem;
+    background: #FFFFFF; color: var(--rojo);
+    padding: 0.15rem 0.4rem;
     font-size: 0.68rem;
   }
   .diapo__titulo {
-    font-size: clamp(2.4rem, 4vw, 3.4rem);
-    line-height: 1.12;
-    margin: 1.1rem 0 1.4rem;
-    max-width: 22rem;
+    font-size: clamp(2.3rem, 4vw, 3.4rem);
+    line-height: 0.98;
+    margin: 1.1rem 0 1.2rem;
+    max-width: 26rem;
   }
   .diapo__titulo a { text-decoration: none; }
-  .diapo__titulo a:hover { color: var(--rojo-texto); }
-  .diapo__extracto { font-size: 1.1rem; line-height: 1.5; max-width: 21rem; }
+  .diapo__titulo a:hover { color: #E8735F; }
+  .diapo__extracto { font-size: 1.1rem; line-height: 1.5; max-width: 21rem; color: #E4E5E2; }
   .diapo__leer { display: inline-block; margin-top: 1.6rem; }
 
   .diapo__credito {
     position: absolute; right: 1rem; bottom: 1.1rem; z-index: 2;
-    background: var(--blanco);
+    background: var(--banda); color: #FFFFFF;
     padding: 0.4rem 0.6rem;
     font-size: 0.6rem;
     text-decoration: none;
   }
-  .diapo__credito:hover { color: var(--rojo-texto); }
+  .diapo__credito:hover { color: #E8735F; }
+  .diapo__leer:hover { color: #E8735F; }
 
   .carrusel__controles {
     position: absolute; left: var(--izq); bottom: 2.9rem; z-index: 3;
@@ -222,17 +223,17 @@ const dos = (n: number) => String(n).padStart(2, "0");
   }
   :global(.js) .carrusel.listo .carrusel__controles { display: flex; }
   .carrusel__cuenta { margin-right: 1rem; }
-  .carrusel__controles button { cursor: pointer; color: var(--grafito); background: var(--blanco); }
+  .carrusel__controles button { cursor: pointer; color: #FFFFFF; background: transparent; }
   .carrusel__flecha, .carrusel__pausa {
-    border: 1px solid var(--grafito);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     min-width: 40px; min-height: 40px;
     font-size: 1rem;
   }
   .carrusel__pausa { padding: 0 0.8rem; font-size: 0.66rem; margin-left: 0.2rem; }
-  .carrusel__flecha:hover, .carrusel__pausa:hover { color: var(--rojo-texto); border-color: var(--rojo); }
+  .carrusel__flecha:hover, .carrusel__pausa:hover { color: #E8735F; border-color: var(--rojo); }
   .carrusel__puntos { display: flex; gap: 6px; margin: 0 1.1rem; }
   .carrusel__puntos button { border: 0; padding: 0; min-width: 36px; min-height: 40px; background: transparent !important; }
-  .carrusel__puntos button::before { content: ""; display: block; height: 3px; background: var(--filete); }
+  .carrusel__puntos button::before { content: ""; display: block; height: 3px; background: rgba(255, 255, 255, 0.35); }
   .carrusel__puntos button[aria-current="true"]::before { background: var(--rojo); }
 
   /* Diagonales vivas: la cuña y la franja entran como un cartel que se compone */

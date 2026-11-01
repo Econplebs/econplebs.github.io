@@ -15,16 +15,9 @@ const menu = [
     hijos: [
       { texto: t("lineas", lang), href: ruta("investigacion", lang) },
       { texto: t("avances", lang), href: ruta("avances", lang) },
+      { texto: t("didactica", lang), href: ruta("didactica", lang) },
+      { texto: t("datosYMateriales", lang), href: ruta("recursos", lang) },
       ...(conPublicaciones ? [{ texto: t("publicaciones", lang), href: ruta("publicaciones", lang) }] : []),
-    ],
-  },
-  {
-    texto: t("enElAula", lang),
-    hijos: [
-      { texto: t("enfoque", lang), href: ruta("enElAula", lang) },
-      { texto: t("propuestas", lang), href: ruta("propuestas", lang) },
-      { texto: t("materiales", lang), href: ruta("recursos", lang) },
-      ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
     ],
   },
   {
@@ -75,6 +68,11 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
             </ul>
           </li>
         ))}
+        {HERRAMIENTAS_URL && (
+          <li class="menu__item">
+            <a class="menu__boton menu__externo rotulo" href={HERRAMIENTAS_URL}>{t("herramientas", lang)}</a>
+          </li>
+        )}
       </ul>
     </nav>
 
@@ -152,8 +150,8 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
 
 <style>
   .cabecera {
-    background: var(--blanco);
-    border-bottom: 1px solid var(--filete);
+    background: var(--papel);
+    border-bottom: 2px solid var(--grafito);
     position: relative;
     z-index: 20;
   }
@@ -182,26 +180,28 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     border-bottom: 3px solid transparent;
   }
   .menu__flecha { color: var(--gris); transition: transform 0.15s ease; }
+  .menu__externo { text-decoration: none; }
+  .menu__externo:hover { border-bottom-color: var(--rojo); }
   .menu__boton[aria-expanded="true"] { border-bottom-color: var(--rojo); }
   .menu__boton[aria-expanded="true"] .menu__flecha { transform: rotate(180deg); }
 
   .submenu {
     position: absolute;
     left: 0; top: 100%;
-    min-width: 13.5rem;
-    background: var(--blanco);
-    border: 1px solid var(--filete);
-    border-top: 2px solid var(--rojo);
-    padding: 0.5rem 0;
+    min-width: 15rem;
+    background: #1F2224;          /* desplegable grafito, como en la 4.0 */
+    color: #FFFFFF;
+    padding: 0.4rem 0;
     display: none;
   }
   .submenu a {
     display: block;
-    padding: 0.6rem 1rem;
+    padding: 0.65rem 1rem;
     text-decoration: none;
     white-space: nowrap;
+    font-size: 0.7rem;
   }
-  .submenu a:hover { color: var(--rojo-texto); }
+  .submenu a:hover { background: var(--rojo); color: #FFFFFF; }
   .menu__boton[aria-expanded="true"] + .submenu { display: block; }
   @media (hover: hover) and (min-width: 1000px) {
     .menu__item:hover .submenu { display: block; }
@@ -230,7 +230,7 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
 
   .buscador {
     display: flex;
-    border: 1px solid var(--grafito);
+    border: 2px solid var(--grafito);
     padding: 3px;
     background: var(--blanco);
   }
@@ -289,6 +289,7 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     .menu__item { border-bottom: 1px solid var(--filete); }
     .menu__boton { width: 100%; justify-content: space-between; padding: 0.9rem 0; border-bottom: 0; }
     .menu__boton[aria-expanded="true"] { border-bottom: 0; color: var(--rojo-texto); }
-    .submenu { position: static; border: 0; border-left: 2px solid var(--rojo); padding: 0 0 0.6rem; min-width: 0; }
+    .submenu { position: static; border: 0; border-left: 2px solid var(--rojo); padding: 0 0 0.6rem; min-width: 0; background: none; color: inherit; }
+    .submenu a:hover { background: none; color: var(--rojo-texto); }
   }
 </style>

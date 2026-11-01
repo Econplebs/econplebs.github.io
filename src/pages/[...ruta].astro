@@ -27,10 +27,9 @@ export async function getStaticPaths() {
     const de = (...cats: string[]) => lista.filter((a) => cats.includes(a.data.category));
 
     fija("portada", { vista: "portada" });
-    fija("investigacion", { vista: "seccion", tipo: "investigacion", pagina: pagina("investigacion") });
-    fija("enElAula", { vista: "seccion", tipo: "aula", pagina: pagina("en-el-aula") });
+    fija("investigacion", { vista: "seccion", pagina: pagina("investigacion") });
     fija("avances", { vista: "lista", titulo: t("avances", lang), articulos: de("investigacion"), categoria: false, vacio: t("sinAvances", lang) });
-    fija("propuestas", { vista: "lista", titulo: t("propuestas", lang), articulos: de("didactica"), categoria: false, vacio: t("sinPropuestas", lang) });
+    fija("didactica", { vista: "lista", titulo: t("didactica", lang), articulos: de("didactica"), categoria: false, vacio: t("sinDidactica", lang) });
     fija("opinion", {
       vista: "lista", titulo: t("opinion", lang), articulos: de("opinion", "coyuntura"), imagenes: true,
       intro: { rotulo: t("ideasEnDebate", lang), titulo: t("opinionTitulo", lang), texto: t("opinionTexto", lang) },
@@ -75,7 +74,7 @@ const otraLengua = p.otraLengua ?? (p.clave ? ruta(p.clave, otro(p.lang)) : unde
   <Lista lang={p.lang} titulo={p.titulo} otraLengua={otraLengua} articulos={p.articulos}
     categoria={p.categoria} imagenes={p.imagenes} vacio={p.vacio} intro={p.intro} />
 )}
-{p.vista === "seccion" && <Seccion lang={p.lang} tipo={p.tipo} pagina={p.pagina} />}
+{p.vista === "seccion" && <Seccion lang={p.lang} pagina={p.pagina} />}
 {p.vista === "pagina" && <Pagina lang={p.lang} pagina={p.pagina} clave={p.clave} />}
 {p.vista === "recursos" && <Recursos lang={p.lang} pagina={p.pagina} />}
 {p.vista === "buscar" && <Buscar lang={p.lang} />}
