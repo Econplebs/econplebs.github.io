@@ -59,8 +59,8 @@ const textos = {
   investigacionDidactica: { es: "Economía política", ca: "Economia política" },
   queInvestigo: { es: "Qué estoy investigando", ca: "Què estic investigant" },
   queInvestigoTexto: {
-    es: "Cómo se produce y se reparte la riqueza: salarios, beneficios y crisis, con datos abiertos. Y, como segunda línea, cómo se forman estos conceptos en el aula.",
-    ca: "Com es produeix i es reparteix la riquesa: salaris, beneficis i crisis, amb dades obertes. I, com a segona línia, com es formen aquests conceptes a l’aula.",
+    es: "Cómo se produce y se reparte la riqueza: salarios, beneficios y crisis, con datos abiertos y al servicio de quienes trabajan.",
+    ca: "Com es produeix i es reparteix la riquesa: salaris, beneficis i crisis, amb dades obertes i al servei de qui treballa.",
   },
   lineasCorto: { es: "Líneas", ca: "Línies" },
   abstracto: { es: "abstracto", ca: "abstracte" },
@@ -151,8 +151,8 @@ const textos = {
   },
   // Investigación
   investigacionLead: {
-    es: "Economía política aplicada, con datos abiertos y métodos que cualquiera puede comprobar. Y una segunda línea: cómo se forman los conceptos económicos en el aula.",
-    ca: "Economia política aplicada, amb dades obertes i mètodes que qualsevol pot comprovar. I una segona línia: com es formen els conceptes econòmics a l’aula.",
+    es: "Economía política desde tres frentes: investigación aplicada, con datos abiertos y métodos que cualquiera puede comprobar; un cuaderno sindical, para quien negocia y se organiza; y un cuaderno de teoría, donde pienso en voz alta autores y conceptos.",
+    ca: "Economia política des de tres fronts: recerca aplicada, amb dades obertes i mètodes que qualsevol pot comprovar; un quadern sindical, per a qui negocia i s’organitza; i un quadern de teoria, on pense en veu alta autors i conceptes.",
   },
   sinAvances: { es: "Todavía no hay avances publicados.", ca: "Encara no hi ha avanços publicats." },
   todosAvances: { es: "Todos los avances →", ca: "Tots els avanços →" },
