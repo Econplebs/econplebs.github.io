@@ -1,7 +1,7 @@
 ---
 // Genera todas las páginas de la web en los dos idiomas (direcciones en ENCARGO §4).
 import { getCollection } from "astro:content";
-import { HERRAMIENTAS_URL } from "../configuracion.mjs";
+import { HERRAMIENTAS_URL, MOSTRAR_SECCIONES_VACIAS } from "../configuracion.mjs";
 import Portada from "../vistas/Portada.astro";
 import Articulo from "../vistas/Articulo.astro";
 import Lista from "../vistas/Lista.astro";
@@ -42,7 +42,7 @@ export async function getStaticPaths() {
     // Páginas generales de Intervención y Docencia: todo lo de la pestaña, con enlaces a sus secciones (las que tienen contenido)
     const archivosRecursos = Object.keys(import.meta.glob("/contenido/recursos/[!_]*.md")).length > 0;
     const hayMateriales = archivosRecursos && (await getCollection("recursos", (r) => (!r.data.lang || r.data.lang === lang) && r.data.area !== "investigacion")).length > 0;
-    const enlace = (cat: string, clave: ClaveRuta, texto: string) => (de(cat).length ? [{ texto, href: ruta(clave, lang) }] : []);
+    const enlace = (cat: string, clave: ClaveRuta, texto: string) => (MOSTRAR_SECCIONES_VACIAS || de(cat).length ? [{ texto, href: ruta(clave, lang) }] : []);
     fija("intervencion", {
       vista: "lista", titulo: t("intervencion", lang), articulos: de("opinion", "coyuntura", "sindical"), imagenes: true,
       intro: {
@@ -56,7 +56,7 @@ export async function getStaticPaths() {
         rotulo: t("enElAula", lang), titulo: t("docencia", lang), texto: t("docenciaTexto", lang), lista: t("articulos", lang),
         enlaces: [
           ...enlace("didactica", "didactica", t("didactica", lang)), ...enlace("aula", "aula", t("propuestasAula", lang)),
-          ...(hayMateriales ? [{ texto: t("materiales", lang), href: ruta("materiales", lang) }] : []),
+          ...(MOSTRAR_SECCIONES_VACIAS || hayMateriales ? [{ texto: t("materiales", lang), href: ruta("materiales", lang) }] : []),
           ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
         ],
       },

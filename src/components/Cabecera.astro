@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { t, ruta, hayPublicaciones, articulosDe, type Lang } from "../lib/sitio";
-import { HERRAMIENTAS_URL } from "../configuracion.mjs";
+import { HERRAMIENTAS_URL, MOSTRAR_SECCIONES_VACIAS } from "../configuracion.mjs";
 
 interface Props {
   lang: Lang;
@@ -10,12 +10,12 @@ interface Props {
 const { lang, otraLengua } = Astro.props;
 const conPublicaciones = await hayPublicaciones();
 
-// Las secciones solo salen en el menú cuando tienen contenido
+// Las secciones salen siempre o solo cuando tienen contenido (MOSTRAR_SECCIONES_VACIAS en configuracion.mjs)
 const articulos = await articulosDe(lang);
-const hay = (cat: string) => articulos.some((a) => a.data.category === cat);
+const hay = (cat: string) => MOSTRAR_SECCIONES_VACIAS || articulos.some((a) => a.data.category === cat);
 const hayArchivos = Object.keys(import.meta.glob("/contenido/recursos/[!_]*.md")).length > 0;
 const recursos = hayArchivos ? await getCollection("recursos", (r) => !r.data.lang || r.data.lang === lang) : [];
-const hayRecursos = (area: string) => recursos.some((r) => r.data.area === area || r.data.area === "general");
+const hayRecursos = (area: string) => MOSTRAR_SECCIONES_VACIAS || recursos.some((r) => r.data.area === area || r.data.area === "general");
 const si = <T,>(condicion: boolean, cosa: T) => (condicion ? [cosa] : []);
 
 // Cada pestaña lleva a su página general; el desplegable, a sus secciones

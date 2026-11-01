@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import { MOSTRAR_SECCIONES_VACIAS } from "../configuracion.mjs";
 import imagenesBanco from "../datos/imagenes.json";
 import Carrusel from "../components/Carrusel.astro";
 import Lateral from "../components/Lateral.astro";
@@ -38,8 +39,8 @@ const [destacado, ...tarjetas] = resto;
           <p class="franja__entrada">{t("queInvestigoTexto", lang)}</p>
           <p class="franja__enlaces">
             <a class="rotulo enlace-subrayado" href={ruta("investigacion", lang)}>{t("investigacion", lang)}</a>
-            {todos.some((a) => a.data.category === "investigacion") && <a class="rotulo enlace-subrayado" href={ruta("avances", lang)}>{t("economiaPolitica", lang)}</a>}
-            {todos.some((a) => a.data.category === "teoria") && <a class="rotulo enlace-subrayado" href={ruta("teoria", lang)}>{t("cuadernoTeoria", lang)}</a>}
+            {(MOSTRAR_SECCIONES_VACIAS || todos.some((a) => a.data.category === "investigacion")) && <a class="rotulo enlace-subrayado" href={ruta("avances", lang)}>{t("economiaPolitica", lang)}</a>}
+            {(MOSTRAR_SECCIONES_VACIAS || todos.some((a) => a.data.category === "teoria")) && <a class="rotulo enlace-subrayado" href={ruta("teoria", lang)}>{t("cuadernoTeoria", lang)}</a>}
             {conPublicaciones && <a class="rotulo enlace-subrayado" href={ruta("publicaciones", lang)}>{t("publicaciones", lang)}</a>}
           </p>
         </div>

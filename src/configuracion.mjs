@@ -17,6 +17,10 @@ export const CORREO_PUBLICO = "";
 // Vacío = el enlace no aparece. Activado por decisión del autor el 31-10-2026.
 export const HERRAMIENTAS_URL = "https://observatorio-economia.github.io";
 
+// Mostrar en el menú y en las páginas generales las secciones que todavía no tienen textos.
+// true = se ven siempre (con «Todavía no hay…»); false = cada sección aparece al publicar su primer texto.
+export const MOSTRAR_SECCIONES_VACIAS = true;
+
 // Mostrar los artículos de muestra (sample: true).
 // En la versión publicada tiene que ser false (true solo para ver ejemplos en tu Mac).
 export const MOSTRAR_MUESTRAS = false;
