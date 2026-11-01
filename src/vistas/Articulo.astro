@@ -45,7 +45,7 @@ const jsonLd = {
 };
 ---
 
-<Base lang={lang} titulo={data.title} descripcion={data.excerpt} otraLengua={otraLengua} tipo="article">
+<Base lang={lang} titulo={data.title} descripcion={data.excerpt} otraLengua={otraLengua} tipo="article" tarjeta={`/tarjetas/${lang}-${data.slug}.jpg`}>
   <Fragment slot="head">
     <meta name="citation_title" content={data.title} />
     <meta name="citation_author" content="Econplebs" />

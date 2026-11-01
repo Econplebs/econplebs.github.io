@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import imagenesBanco from "../datos/imagenes.json";
 import Carrusel from "../components/Carrusel.astro";
-import Esquema from "../components/Esquema.astro";
 import Lateral from "../components/Lateral.astro";
 import {
   t, ruta, rutaArticulo, articulosDe, fecha, fechaISO, nombreCategoria, imagenDe, otro, hayPublicaciones,
@@ -43,7 +42,6 @@ const [destacado, ...tarjetas] = resto;
             {conPublicaciones && <a class="rotulo enlace-subrayado" href={ruta("publicaciones", lang)}>{t("publicaciones", lang)}</a>}
           </p>
         </div>
-        <Esquema lang={lang} />
       </section>
 
       <section class="lecturas" aria-labelledby="lecturas-titulo">
@@ -102,7 +100,7 @@ const [destacado, ...tarjetas] = resto;
     border-top: 3px solid var(--rojo);
     padding: 1.8rem 1.6rem 1.6rem;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 220px;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
     align-items: center;
   }
