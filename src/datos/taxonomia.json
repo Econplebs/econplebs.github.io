@@ -31,11 +31,11 @@
   "investigacion": {
    "es": {
     "slug": "investigacion",
-    "name": "Economía política"
+    "name": "Investigación aplicada"
    },
    "ca": {
     "slug": "recerca",
-    "name": "Economia política"
+    "name": "Recerca aplicada"
    }
   },
   "opinion": {
@@ -66,6 +66,16 @@
    "ca": {
     "slug": "quadern-sindical",
     "name": "Quadern sindical"
+   }
+  },
+  "teoria": {
+   "es": {
+    "slug": "cuaderno-de-teoria",
+    "name": "Cuaderno de teoría"
+   },
+   "ca": {
+    "slug": "quadern-de-teoria",
+    "name": "Quadern de teoria"
    }
   }
  }

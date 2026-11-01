@@ -17,7 +17,21 @@ const lang = data.lang;
 // Los artículos .mdx pueden llevar componentes interactivos (src/components/didactica)
 const esMdx = articulo.filePath?.endsWith(".mdx") ?? false;
 const { Content, headings } = esMdx ? await render(articulo) : { Content: null, headings: [] };
-const html = esMdx ? "" : prepararCuerpo(articulo.rendered?.html ?? "", lang);
+const esNota = data.category === "teoria";
+// Enlaces de Obsidian [[Título]] o [[Título|texto]]: se convierten en enlaces si el texto
+// está publicado en el mismo idioma; si no, queda el texto marcado como pendiente.
+const enlazar = (cuerpo: string) =>
+  cuerpo.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, destino: string, texto?: string) => {
+    const buscado = destino.trim().toLowerCase();
+    const encontrado = lista.find((a) => a.data.title.toLowerCase() === buscado || a.data.slug === buscado);
+    const visible = (texto ?? destino).trim();
+    return encontrado
+      ? `<a class="enlace-nota" href="${rutaArticulo(encontrado)}">${visible}</a>`
+      : `<span class="enlace-pendiente" title="${t("notaPendiente", lang)}">${visible}</span>`;
+  });
+// Las tablas (comparaciones) van en una caja que se desplaza en el móvil
+const envolverTablas = (cuerpo: string) => cuerpo.replace(/<table>/g, '<div class="tabla"><table>').replace(/<\/table>/g, "</table></div>");
+const html = esMdx ? "" : envolverTablas(enlazar(prepararCuerpo(articulo.rendered?.html ?? "", lang)));
 const apartados = (esMdx ? headings : articulo.rendered?.metadata?.headings ?? []).filter((h) => h.depth === 2 && h.slug !== "footnote-label");
 const conIndice = apartados.length >= 3;
 
@@ -29,6 +43,7 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
 // Datos para Google Scholar, Zotero y buscadores (no se ven en la página)
 const fechaScholar = fechaISO(data.date).replaceAll("-", "/");
 const academico = data.category === "investigacion" || data.category === "didactica";
+// Las notas de trabajo del cuaderno de teoría no se ofrecen a Google Scholar como artículos
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": academico ? "ScholarlyArticle" : "Article",
@@ -47,7 +62,7 @@ const jsonLd = {
 
 <Base lang={lang} titulo={data.title} descripcion={data.excerpt} otraLengua={otraLengua} tipo="article" tarjeta={`/tarjetas/${lang}-${data.slug}.jpg`}>
   <Fragment slot="head">
-    <meta name="citation_title" content={data.title} />
+    {!esNota && <meta name="citation_title" content={data.title} />}
     <meta name="citation_author" content="Econplebs" />
     <meta name="citation_publication_date" content={fechaScholar} />
     <meta name="citation_online_date" content={fechaScholar} />
@@ -84,6 +99,22 @@ const jsonLd = {
       </p>
       <h1 class="articulo__titulo">{data.title}</h1>
       {data.excerpt && <p class="articulo__entradilla">{data.excerpt}</p>}
+      {esNota && (
+        <div class="nota-estado" data-pagefind-ignore>
+          {data.estado && (
+            <p class="rotulo"><span class="solo-lectores">{t("estadoNota", lang)}: </span>
+              <span class:list={["nota-estado__marca", `nota-estado__marca--${data.estado}`]}>{t(`estado_${data.estado}`, lang)}</span>
+            </p>
+          )}
+          {data.updated && (
+            <p class="nota-estado__revision">
+              <span class="rotulo">{t("revisada", lang)}: <time datetime={fechaISO(data.updated)}>{fecha(data.updated, lang)}</time></span>
+              {data.cambio && <span> — {data.cambio}</span>}
+            </p>
+          )}
+          <p class="nota-estado__aviso">{t("notaProvisional", lang)}</p>
+        </div>
+      )}
       <p class="rotulo rotulo--gris articulo__firma" data-pagefind-ignore>Econplebs</p>
     </header>
 
@@ -281,6 +312,36 @@ const jsonLd = {
   }
   .articulo__firma { margin: 1.5rem 0 1.9rem; }
 
+  /* Cuaderno de teoría: estado y revisión de la nota */
+  .nota-estado {
+    margin-top: 1.4rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--blanco);
+    border-left: 3px solid var(--grafito);
+    display: grid; gap: 0.5rem;
+  }
+  .nota-estado p { margin: 0; }
+  .nota-estado__marca { display: inline-block; padding: 0.2rem 0.5rem; border: 1px solid currentColor; }
+  .nota-estado__marca--borrador { color: var(--gris); border-style: dashed; }
+  .nota-estado__marca--madurando { color: var(--rojo-texto); }
+  .nota-estado__marca--asentada { color: var(--blanco); background: var(--grafito); border-color: var(--grafito); }
+  .nota-estado__revision { font-size: 0.92rem; }
+  .nota-estado__aviso { font-size: 0.88rem; color: var(--gris); font-style: italic; }
+
+  /* Enlaces entre notas */
+  .cuerpo :global(.enlace-nota) { text-decoration-style: dotted; text-decoration-thickness: 2px; }
+  .cuerpo :global(.enlace-pendiente) { border-bottom: 1px dashed var(--filete); cursor: help; }
+
+  /* Tablas de comparación */
+  .cuerpo :global(.tabla) { overflow-x: auto; margin: 1.8rem 0; max-width: 100%; }
+  .cuerpo :global(table) { border-collapse: collapse; width: 100%; min-width: 32rem; font-size: 0.95rem; background: var(--blanco); }
+  .cuerpo :global(th) {
+    font: 500 0.7rem/1.3 var(--f-rotulo); letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: left; padding: 0.8rem 0.9rem; border-bottom: 2px solid var(--grafito);
+  }
+  .cuerpo :global(td) { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--filete); vertical-align: top; line-height: 1.5; }
+  .cuerpo :global(td:first-child) { font-weight: 600; }
+
   /* Índice */
   .indice {
     border-top: 1px solid var(--grafito);
@@ -386,7 +447,7 @@ const jsonLd = {
 
   /* Pie del artículo */
   .articulo__pie { border-top: 1px solid var(--grafito); margin-top: 1.4rem; padding-top: 1.1rem; }
-  .articulo__etiquetas { margin-top: 1.4rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .articulo__etiquetas { margin-top: 1.4rem; display: flex; gap: 0.4rem 1.2rem; flex-wrap: wrap; }
   .articulo__etiquetas a { text-decoration: none; }
   .articulo__etiquetas a:hover { text-decoration: underline; }
   .articulo__licencia { font-size: 0.85rem; margin-top: 1.4rem; }

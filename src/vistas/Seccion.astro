@@ -1,6 +1,6 @@
 ---
 // Página de Investigación: texto fijo de plantilla + el cuerpo de la página (Markdown),
-// las dos líneas (economía política y cuaderno sindical) y una caja con los enlaces de la sección.
+// las tres líneas (economía política, cuaderno sindical y cuaderno de teoría) y una caja de enlaces.
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
 import ListaArticulos from "../components/ListaArticulos.astro";
@@ -15,6 +15,8 @@ const lineas = [
     vacio: t("sinAvances", lang), mas: `${t("economiaPolitica", lang)} →`, href: ruta("avances", lang) },
   { id: "sindical", titulo: t("cuadernoSindical", lang), lista: todos.filter((a) => a.data.category === "sindical"),
     vacio: t("sinSindical", lang), mas: `${t("cuadernoSindical", lang)} →`, href: ruta("sindical", lang) },
+  { id: "teoria", titulo: t("cuadernoTeoria", lang), lista: todos.filter((a) => a.data.category === "teoria"),
+    vacio: t("sinTeoria", lang), mas: `${t("cuadernoTeoria", lang)} →`, href: ruta("teoria", lang) },
 ];
 const cuerpo = prepararCuerpo(pagina?.rendered?.html ?? "", lang);
 const titulo = pagina?.data.title ?? t("investigacion", lang);
@@ -52,8 +54,9 @@ const titulo = pagina?.data.title ?? t("investigacion", lang);
       <ul>
         <li><a href={ruta("avances", lang)}>{t("economiaPolitica", lang)} →</a></li>
         <li><a href={ruta("sindical", lang)}>{t("cuadernoSindical", lang)} →</a></li>
+        <li><a href={ruta("teoria", lang)}>{t("cuadernoTeoria", lang)} →</a></li>
         {conPublicaciones && <li><a href={ruta("publicaciones", lang)}>{t("publicacionesFlecha", lang)}</a></li>}
-        <li><a href={`${ruta("recursos", lang)}?area=investigacion`}>{t("datosMateriales", lang)}</a></li>
+        <li><a href={ruta("datos", lang)}>{t("datosYCodigo", lang)} →</a></li>
       </ul>
     </aside>
   </div>

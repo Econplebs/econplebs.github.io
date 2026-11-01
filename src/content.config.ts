@@ -14,7 +14,10 @@ const articulos = defineCollection({
     translationKey: z.string(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
-    category: z.enum(["investigacion", "sindical", "didactica", "aula", "opinion", "coyuntura"]),
+    category: z.enum(["investigacion", "sindical", "teoria", "didactica", "aula", "opinion", "coyuntura"]),
+    // Solo para el cuaderno de teoría: madurez de la nota y qué cambió en la última revisión
+    estado: z.enum(["borrador", "madurando", "asentada"]).optional(),
+    cambio: z.string().optional(),
     tags: z.array(z.string()).default([]),
     excerpt: z.string().default(""),
     featured: z.boolean().default(false),

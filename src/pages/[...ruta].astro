@@ -31,6 +31,10 @@ export async function getStaticPaths() {
     fija("avances", { vista: "lista", titulo: t("economiaPolitica", lang), articulos: de("investigacion"), categoria: false, vacio: t("sinAvances", lang) });
     fija("didactica", { vista: "lista", titulo: t("didactica", lang), articulos: de("didactica"), categoria: false, vacio: t("sinDidactica", lang) });
     fija("sindical", { vista: "lista", titulo: t("cuadernoSindical", lang), articulos: de("sindical"), categoria: false, imagenes: true, vacio: t("sinSindical", lang) });
+    fija("teoria", {
+      vista: "lista", titulo: t("cuadernoTeoria", lang), articulos: de("teoria"), categoria: false, vacio: t("sinTeoria", lang),
+      intro: { rotulo: t("investigacion", lang), titulo: t("cuadernoTeoria", lang), texto: t("teoriaLead", lang), lista: t("notas", lang) },
+    });
     fija("aula", { vista: "lista", titulo: t("propuestasAula", lang), articulos: de("aula"), categoria: false, imagenes: true, vacio: t("sinPropuestas", lang) });
     fija("opinion", {
       vista: "lista", titulo: t("opinion", lang), articulos: de("opinion", "coyuntura"), imagenes: true,
@@ -39,6 +43,8 @@ export async function getStaticPaths() {
     fija("coyuntura", { vista: "lista", titulo: nombreCategoria("coyuntura", lang), articulos: de("coyuntura"), categoria: false, imagenes: true });
     fija("articulos", { vista: "lista", titulo: t("articulos", lang), articulos: lista });
     fija("recursos", { vista: "recursos", pagina: pagina("recursos") });
+    fija("datos", { vista: "recursos", area: "investigacion" });
+    fija("materiales", { vista: "recursos", area: "docencia" });
     fija("sobreMi", { vista: "pagina", pagina: pagina("sobre-mi") });
     fija("contacto", { vista: "pagina", pagina: pagina("contacto") });
     fija("privacidad", { vista: "pagina", pagina: pagina("privacidad") });
@@ -78,5 +84,5 @@ const otraLengua = p.otraLengua ?? (p.clave ? ruta(p.clave, otro(p.lang)) : unde
 )}
 {p.vista === "seccion" && <Seccion lang={p.lang} pagina={p.pagina} />}
 {p.vista === "pagina" && <Pagina lang={p.lang} pagina={p.pagina} clave={p.clave} />}
-{p.vista === "recursos" && <Recursos lang={p.lang} pagina={p.pagina} />}
+{p.vista === "recursos" && <Recursos lang={p.lang} pagina={p.pagina} area={p.area} />}
 {p.vista === "buscar" && <Buscar lang={p.lang} />}

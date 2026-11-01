@@ -77,9 +77,36 @@ const textos = {
     ca: "Un quadern de recerca econòmica: com es produeix i es reparteix la riquesa, i per què arriben les crisis. Els primers avanços, molt prompte.",
   },
   docencia: { es: "Docencia", ca: "Docència" },
-  economiaPolitica: { es: "Economía política", ca: "Economia política" },
+  economiaPolitica: { es: "Investigación aplicada", ca: "Recerca aplicada" },
+  datosYCodigo: { es: "Datos y código", ca: "Dades i codi" },
+  datosLead: {
+    es: "Los datos, las hojas de cálculo y el código de la investigación aplicada, para que cualquiera pueda comprobar los resultados y reutilizarlos. Cada conjunto indica su fuente, su versión y su licencia.",
+    ca: "Les dades, els fulls de càlcul i el codi de la recerca aplicada, perquè qualsevol puga comprovar els resultats i reutilitzar-los. Cada conjunt indica la seua font, la seua versió i la seua llicència.",
+  },
+  sinDatos: { es: "Todavía no hay datos publicados.", ca: "Encara no hi ha dades publicades." },
+  materialesLead: {
+    es: "Material de clase para descargar y adaptar: fichas, secuencias y hojas de trabajo para otros docentes.",
+    ca: "Material de classe per a descarregar i adaptar: fitxes, seqüències i fulls de treball per a altres docents.",
+  },
+  sinMateriales: { es: "Todavía no hay materiales publicados.", ca: "Encara no hi ha materials publicats." },
   propuestasAula: { es: "Propuestas de aula", ca: "Propostes d’aula" },
   cuadernoSindical: { es: "Cuaderno sindical", ca: "Quadern sindical" },
+  cuadernoTeoria: { es: "Cuaderno de teoría", ca: "Quadern de teoria" },
+  sinTeoria: { es: "Todavía no hay notas en el cuaderno de teoría.", ca: "Encara no hi ha notes al quadern de teoria." },
+  teoriaLead: {
+    es: "Notas de trabajo sobre teorías económicas, autores y comparaciones: un diario para aclarar ideas. Son provisionales y cambian con el tiempo.",
+    ca: "Notes de treball sobre teories econòmiques, autors i comparacions: un diari per a aclarir idees. Són provisionals i canvien amb el temps.",
+  },
+  estado_borrador: { es: "En borrador", ca: "En esborrany" },
+  estado_madurando: { es: "Madurando", ca: "Madurant" },
+  estado_asentada: { es: "Asentada", ca: "Assentada" },
+  estadoNota: { es: "Estado de la nota", ca: "Estat de la nota" },
+  revisada: { es: "Revisada", ca: "Revisada" },
+  notaPendiente: { es: "Nota todavía no publicada", ca: "Nota encara no publicada" },
+  notaProvisional: {
+    es: "Nota de trabajo: refleja cómo pienso el tema ahora y puede cambiar.",
+    ca: "Nota de treball: reflectix com pense el tema ara i pot canviar.",
+  },
   sinSindical: { es: "Todavía no hay entradas del cuaderno sindical.", ca: "Encara no hi ha entrades del quadern sindical." },
   datosInvestigacion: { es: "Datos", ca: "Dades" },
   archivoCompleto: { es: "Ver el archivo completo ↗", ca: "Veure l’arxiu complet ↗" },
@@ -207,9 +234,12 @@ export function t(clave: keyof typeof textos, lang: Lang): string {
 const rutas = {
   portada: { es: "/", ca: "/ca/" },
   investigacion: { es: "/investigacion/", ca: "/ca/recerca/" },
-  avances: { es: "/investigacion/avances/", ca: "/ca/recerca/avancos/" },
+  avances: { es: "/investigacion/aplicada/", ca: "/ca/recerca/aplicada/" },
+  datos: { es: "/investigacion/datos/", ca: "/ca/recerca/dades/" },
+  materiales: { es: "/docencia/materiales/", ca: "/ca/docencia/materials/" },
   publicaciones: { es: "/publicaciones/", ca: "/ca/publicacions/" },
   sindical: { es: "/investigacion/cuaderno-sindical/", ca: "/ca/recerca/quadern-sindical/" },
+  teoria: { es: "/investigacion/cuaderno-de-teoria/", ca: "/ca/recerca/quadern-de-teoria/" },
   didactica: { es: "/docencia/didactica/", ca: "/ca/docencia/didactica/" },
   aula: { es: "/docencia/", ca: "/ca/docencia/" },
   recursos: { es: "/recursos/", ca: "/ca/recursos/" },
@@ -241,7 +271,7 @@ export function rutaEtiqueta(etiqueta: string, lang: Lang): string {
 
 // Página de cada categoría: economía política y cuaderno sindical en Investigación; didáctica y propuestas de aula en Docencia.
 export function rutaCategoria(cat: Categoria, lang: Lang): string {
-  const mapa = { investigacion: "avances", sindical: "sindical", didactica: "didactica", aula: "aula", opinion: "opinion", coyuntura: "coyuntura" } as const;
+  const mapa = { investigacion: "avances", sindical: "sindical", teoria: "teoria", didactica: "didactica", aula: "aula", opinion: "opinion", coyuntura: "coyuntura" } as const;
   return ruta(mapa[cat], lang);
 }
 
@@ -338,6 +368,7 @@ export function recuentos(lista: Articulo[]) {
     opinion: n("opinion") + n("coyuntura"),
     coyuntura: n("coyuntura"),
     sindical: n("sindical"),
+    teoria: n("teoria"),
     didactica: n("didactica"),
     aula: n("aula"),
     investigacion: n("investigacion"),

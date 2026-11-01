@@ -49,12 +49,19 @@ const final = {
   image: datos.image ? String(datos.image) : "",
   sample: args.includes("--muestra") || datos.sample === true,
   draft: datos.draft === true,
+  // Cuaderno de teoría
+  ...(datos.estado ? { estado: String(datos.estado).trim().toLowerCase() } : {}),
+  ...(datos.cambio ? { cambio: String(datos.cambio).trim() } : {}),
 };
+if (final.estado && !["borrador", "madurando", "asentada"].includes(final.estado))
+  errores.push("estado tiene que ser borrador, madurando o asentada.");
+if (final.category === "teoria" && !final.estado)
+  avisos.push("La nota no tiene estado (borrador, madurando o asentada): no se mostrará.");
 
 // --- Comprobaciones ---
 if (!/^\d{4}-\d{2}-\d{2}$/.test(final.date)) errores.push(`La fecha «${final.date}» tiene que ser AAAA-MM-DD.`);
-if (!["investigacion", "sindical", "didactica", "aula", "opinion", "coyuntura"].includes(final.category))
-  errores.push("category tiene que ser investigacion, sindical, didactica, aula, opinion o coyuntura.");
+if (!["investigacion", "sindical", "teoria", "didactica", "aula", "opinion", "coyuntura"].includes(final.category))
+  errores.push("category tiene que ser investigacion, sindical, teoria, didactica, aula, opinion o coyuntura.");
 if (!final.excerpt) avisos.push("No hay extracto (excerpt): en portada y listas saldrá vacío.");
 if (final.excerpt.length > 220) avisos.push("El extracto es largo (más de 220 caracteres).");
 const banco = JSON.parse(fs.readFileSync(path.join(raiz, "src/datos/imagenes.json"), "utf8"));
@@ -67,7 +74,9 @@ if (/!\[[^\]]*\]\(\s*https?:/i.test(cuerpo) || /<(img|iframe|script|video|audio|
   errores.push("Hay imágenes, vídeos o incrustados de otras webs. Solo se pueden usar imágenes del banco.");
 if (/!\[\[/.test(cuerpo)) errores.push("Hay imágenes pegadas de Obsidian (![[...]]). Usa una imagen del banco en «image».");
 const wikis = [...cuerpo.matchAll(/\[\[([^\]]+)\]\]/g)].map((x) => x[0]);
-if (wikis.length) errores.push(`Hay enlaces internos de Obsidian (${wikis.slice(0, 3).join(", ")}). Escríbelos como [texto](/articulos/slug/).`);
+if (wikis.length && final.category === "teoria")
+  avisos.push(`Enlaces entre notas (${wikis.length}): se convertirán en enlaces si la nota de destino está publicada.`);
+else if (wikis.length) errores.push(`Hay enlaces internos de Obsidian (${wikis.slice(0, 3).join(", ")}). Escríbelos como [texto](/articulos/slug/).`);
 if (/%%[\s\S]*?%%/.test(cuerpo)) {
   cuerpo = cuerpo.replace(/%%[\s\S]*?%%/g, "").replace(/\n{3,}/g, "\n\n");
   avisos.push("He quitado los comentarios de Obsidian (%% … %%).");

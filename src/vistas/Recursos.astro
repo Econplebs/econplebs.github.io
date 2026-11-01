@@ -1,31 +1,38 @@
 ---
-// Materiales: biblioteca de recursos descargables con buscador y filtros (área y formato).
+// Biblioteca de recursos descargables con buscador y filtros.
+// Con «area»: Datos y código (investigación) o Materiales (docencia); los de área «general» salen en las dos.
 import { getCollection, type CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
 import { t, ruta, otro, type Lang } from "../lib/sitio";
 
-interface Props { lang: Lang; pagina?: CollectionEntry<"paginas"> }
-const { lang, pagina } = Astro.props;
-const titulo = pagina?.data.title ?? t("datosYMateriales", lang);
+interface Props { lang: Lang; pagina?: CollectionEntry<"paginas">; area?: "investigacion" | "docencia" }
+const { lang, pagina, area } = Astro.props;
+const textos = area === "investigacion"
+  ? { rotulo: t("investigacion", lang), titulo: t("datosYCodigo", lang), lead: t("datosLead", lang), vacio: t("sinDatos", lang), clave: "datos" as const }
+  : area === "docencia"
+    ? { rotulo: t("docencia", lang), titulo: t("materiales", lang), lead: t("materialesLead", lang), vacio: t("sinMateriales", lang), clave: "materiales" as const }
+    : { rotulo: t("bibliotecaAbierta", lang), titulo: pagina?.data.title ?? t("datosYMateriales", lang), lead: t("recursosLead", lang), vacio: t("sinRecursos", lang), clave: "recursos" as const };
+const titulo = textos.titulo;
 
 const hayArchivos = Object.keys(import.meta.glob("/contenido/recursos/[!_]*.md")).length > 0;
-const recursos = (hayArchivos ? await getCollection("recursos", (r) => !r.data.lang || r.data.lang === lang) : [])
+const recursos = (hayArchivos ? await getCollection("recursos", (r) =>
+    (!r.data.lang || r.data.lang === lang) && (!area || r.data.area === area || r.data.area === "general")) : [])
   .sort((a, b) => a.data.title.localeCompare(b.data.title, lang));
 const formato = (archivo: string) =>
   /\.(xlsx?|ods|csv|json|tsv)$/i.test(archivo) ? "datos" : "documento";
 const nombreArea = { investigacion: t("investigacion", lang), docencia: t("docencia", lang), general: t("general", lang) };
 ---
 
-<Base lang={lang} titulo={titulo} otraLengua={ruta("recursos", otro(lang))}>
+<Base lang={lang} titulo={titulo} otraLengua={ruta(textos.clave, otro(lang))}>
   <header class="intro">
-    <p class="rotulo">{t("bibliotecaAbierta", lang)}</p>
+    <p class="rotulo">{textos.rotulo}</p>
     <h1>{titulo}</h1>
-    <p class="intro__texto">{t("recursosLead", lang)}</p>
+    <p class="intro__texto">{textos.lead}</p>
   </header>
 
   <div class="biblioteca">
     {recursos.length === 0 ? (
-      <p class="vacio">{t("sinRecursos", lang)}</p>
+      <p class="vacio">{textos.vacio}</p>
     ) : (
       <>
         <form class="filtros" role="search" aria-label={t("filtrarRecursos", lang)} data-filtros>
@@ -33,15 +40,17 @@ const nombreArea = { investigacion: t("investigacion", lang), docencia: t("docen
             <span class="rotulo">{t("buscarRecursos", lang)}</span>
             <input type="search" name="q" placeholder={t("tituloPalabra", lang)} />
           </label>
+          {!area && (
           <label>
-            <span class="rotulo">{t("areaRecurso", lang)}</span>
-            <select name="area">
-              <option value="">{t("todasAreas", lang)}</option>
-              <option value="investigacion">{nombreArea.investigacion}</option>
-              <option value="docencia">{nombreArea.docencia}</option>
-              <option value="general">{nombreArea.general}</option>
-            </select>
-          </label>
+              <span class="rotulo">{t("areaRecurso", lang)}</span>
+              <select name="area">
+                <option value="">{t("todasAreas", lang)}</option>
+                <option value="investigacion">{nombreArea.investigacion}</option>
+                <option value="docencia">{nombreArea.docencia}</option>
+                <option value="general">{nombreArea.general}</option>
+              </select>
+            </label>
+          )}
           <fieldset>
             <legend class="rotulo">{t("filtrarRecursos", lang)}</legend>
             <label><input type="radio" name="formato" value="" checked /> {t("todos", lang)}</label>

@@ -17,7 +17,7 @@ const todos = await articulosDe(lang);
 const orden = [
   ...todos.filter((a) => a.data.featured),
   ...todos.filter((a) => a.data.category === "investigacion" || a.data.category === "sindical"),
-  ...todos,
+  ...todos.filter((a) => a.data.category !== "teoria"), // las notas de trabajo no van al carrusel
 ];
 const carrusel: Articulo[] = [...new Set(orden)].slice(0, 3);
 

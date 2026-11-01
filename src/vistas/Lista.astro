@@ -13,7 +13,7 @@ interface Props {
   categoria?: boolean;
   imagenes?: boolean;
   vacio?: string;
-  intro?: { rotulo: string; titulo: string; texto: string }; // cabecera grande (Opinión)
+  intro?: { rotulo: string; titulo: string; texto: string; lista?: string }; // cabecera grande (Opinión, Cuaderno de teoría)
 }
 const { lang, titulo, otraLengua, articulos, categoria = true, imagenes = false, vacio, intro } = Astro.props;
 const todos = await articulosDe(lang);
@@ -31,7 +31,7 @@ const H = intro ? "h2" : "h1";
   <div class="envoltorio archivo">
     <section class="archivo__principal">
       <div class="archivo__cabecera">
-        <H class:list={["archivo__titulo", { "archivo__titulo--pequeno": intro }]}>{intro ? t("articulos", lang) : titulo}</H>
+        <H class:list={["archivo__titulo", { "archivo__titulo--pequeno": intro }]}>{intro ? intro.lista ?? t("articulos", lang) : titulo}</H>
         <a class="rotulo" href={ruta("rss", lang)}>RSS</a>
       </div>
       <ListaArticulos lang={lang} articulos={articulos} categoria={categoria} imagenes={imagenes} vacio={vacio} />

@@ -16,7 +16,8 @@ const menu = [
       { texto: t("lineas", lang), href: ruta("investigacion", lang) },
       { texto: t("economiaPolitica", lang), href: ruta("avances", lang) },
       { texto: t("cuadernoSindical", lang), href: ruta("sindical", lang) },
-      { texto: t("datosInvestigacion", lang), href: `${ruta("recursos", lang)}?area=investigacion` },
+      { texto: t("cuadernoTeoria", lang), href: ruta("teoria", lang) },
+      { texto: t("datosYCodigo", lang), href: ruta("datos", lang) },
       ...(conPublicaciones ? [{ texto: t("publicaciones", lang), href: ruta("publicaciones", lang) }] : []),
     ],
   },
@@ -25,7 +26,7 @@ const menu = [
     hijos: [
       { texto: t("didactica", lang), href: ruta("didactica", lang) },
       { texto: t("propuestasAula", lang), href: ruta("aula", lang) },
-      { texto: t("materiales", lang), href: `${ruta("recursos", lang)}?area=docencia` },
+      { texto: t("materiales", lang), href: ruta("materiales", lang) },
       ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
     ],
   },
