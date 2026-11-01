@@ -1,5 +1,5 @@
 {
- "nota": "Banco de imágenes de Econplebs (30). Fotos: se muestran en gris (filter grayscale + contraste). color=true: carteles y obras, se muestran tal cual (las de vanguardia ya vienen con el color adaptado a la paleta). Registro completo con licencias: diseno/imagenes.md. Asignación automática: la imagen elegida a mano manda; si no, se toma del grupo de la categoría con (id del artículo mod n). La cuña roja no se asigna sola: solo a mano. Reparto (01-11-2026): investigación, opinión y coyuntura usan solo las fotos de archivo industrial del carrusel 4.0; las imágenes educativas, solo Docencia.",
+ "nota": "Banco de imágenes de Econplebs (30). Fotos: se muestran en gris (filter grayscale + contraste). color=true: carteles y obras, se muestran tal cual (las de vanguardia ya vienen con el color adaptado a la paleta). Registro completo con licencias: diseno/imagenes.md. Asignación automática: la imagen elegida a mano manda; si no, se toma del grupo de la categoría con (id del artículo mod n). La cuña roja no se asigna sola: solo a mano. Reparto (01-11-2026): investigación, opinión y coyuntura usan solo las fotos de archivo industrial del carrusel 4.0; las imágenes educativas, solo Docencia. «recorte» (píxeles de cada borde) quita el marco del negativo escaneado; width y height son ya las medidas recortadas.",
  "images": [
   {
    "key": "trabajo",
@@ -11,10 +11,16 @@
    },
    "credit": "KINEX · CC BY-SA 3.0",
    "source": "https://commons.wikimedia.org/wiki/File:Worker_9.JPG",
-   "width": 960,
-   "height": 745,
+   "width": 755,
+   "height": 653,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 205,
+    "der": 0,
+    "arr": 92,
+    "aba": 0
+   }
   },
   {
    "key": "puerto",
@@ -26,10 +32,16 @@
    },
    "credit": "Steven Lek · CC BY-SA 4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Port_of_Valencia_2019.jpg",
-   "width": 1280,
-   "height": 848,
+   "width": 1238,
+   "height": 812,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 42,
+    "der": 0,
+    "arr": 36,
+    "aba": 0
+   }
   },
   {
    "key": "archivo",
@@ -41,10 +53,16 @@
    },
    "credit": "M. Post Wolcott · Library of Congress",
    "source": "https://www.loc.gov/pictures/item/2017754233/",
-   "width": 2400,
+   "width": 2321,
    "height": 1043,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 40,
+    "der": 39,
+    "arr": 0,
+    "aba": 0
+   }
   },
   {
    "key": "cooperativa",
@@ -56,10 +74,16 @@
    },
    "credit": "Russell Lee · Library of Congress",
    "source": "https://www.loc.gov/pictures/item/2017734800/",
-   "width": 719,
-   "height": 1024,
+   "width": 651,
+   "height": 981,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 20,
+    "der": 48,
+    "arr": 25,
+    "aba": 18
+   }
   },
   {
    "key": "salida",
@@ -71,10 +95,16 @@
    },
    "credit": "M. Post Wolcott · Library of Congress",
    "source": "https://www.loc.gov/pictures/item/2017756155/",
-   "width": 1024,
-   "height": 707,
+   "width": 954,
+   "height": 647,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 22,
+    "der": 48,
+    "arr": 36,
+    "aba": 24
+   }
   },
   {
    "key": "migracion",
@@ -86,10 +116,16 @@
    },
    "credit": "Dorothea Lange · Library of Congress",
    "source": "https://www.loc.gov/pictures/item/2017769844/",
-   "width": 786,
-   "height": 1024,
+   "width": 724,
+   "height": 931,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 30,
+    "der": 32,
+    "arr": 33,
+    "aba": 60
+   }
   },
   {
    "key": "industria",
@@ -101,10 +137,16 @@
    },
    "credit": "M. Post Wolcott · Library of Congress",
    "source": "https://www.loc.gov/pictures/item/2017801088/",
-   "width": 1024,
-   "height": 783,
+   "width": 926,
+   "height": 704,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 36,
+    "der": 62,
+    "arr": 34,
+    "aba": 45
+   }
   },
   {
    "key": "escuela",
@@ -116,10 +158,16 @@
    },
    "credit": "Russell Lee · Library of Congress",
    "source": "https://www.loc.gov/pictures/item/2017781881/",
-   "width": 1024,
-   "height": 780,
+   "width": 947,
+   "height": 717,
    "color": false,
-   "group": "trabajo-economia"
+   "group": "trabajo-economia",
+   "recorte": {
+    "izq": 15,
+    "der": 62,
+    "arr": 11,
+    "aba": 52
+   }
   },
   {
    "key": "sociales",

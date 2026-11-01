@@ -57,7 +57,7 @@ const dos = (n: number) => String(n).padStart(2, "0");
         <div class="diapo__panel">
           <div class="diapo__texto">
             <p class="diapo__rotulo rotulo">
-              <span class="diapo__num">{dos(i + 1)}</span>
+              {total > 1 && <span class="diapo__num">{dos(i + 1)}</span>}
               <span>{d.rotulo}</span>
             </p>
             <h2 class="diapo__titulo"><a href={d.href}>{d.titulo}</a></h2>

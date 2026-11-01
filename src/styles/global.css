@@ -8,7 +8,7 @@
 :root {
   color-scheme: light;
   --papel: #E6E7E3;
-  --blanco: #EFEFEC;
+  --blanco: #F4F4F1;          /* esmalte, un punto más claro que en la 4.0 para despegar las cajas */
   --grafito: #1F2224;
   --banda: #16181A;
   --rojo: #C8412F;

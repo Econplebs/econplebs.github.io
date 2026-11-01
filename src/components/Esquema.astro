@@ -48,9 +48,11 @@ const nodos = [
           if (en.isIntersecting) {
             en.target.classList.add("visto");
             obs.unobserve(en.target);
+            // Salvaguarda: pase lo que pase, al poco queda dibujado del todo
+            setTimeout(() => en.target.classList.add("dibujado"), 1200);
           }
         }),
-      { threshold: 0.5 },
+      { threshold: 0.25 },
     );
     esquemas.forEach((e) => obs.observe(e));
   }
@@ -92,5 +94,6 @@ const nodos = [
     .visto .esquema__nodo { transform: scale(1) !important; }
     .visto .esquema__tronco,
     .visto .esquema__rama { stroke-dashoffset: 0 !important; }
+    .dibujado * { transition: none !important; }
   }
 </style>

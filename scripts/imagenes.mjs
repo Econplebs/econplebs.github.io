@@ -43,11 +43,17 @@ let hechas = 0, saltadas = 0;
 for (const img of banco.images) {
   const origen = path.join(raiz, "imagenes", img.file);
   if (!fs.existsSync(origen)) { console.warn(`Falta la imagen ${img.file}`); continue; }
-  const fechaOrigen = fs.statSync(origen).mtimeMs;
+  // Se rehace si cambia la foto o la ficha (imagenes.json), por ejemplo al ajustar un recorte
+  const fechaOrigen = Math.max(fs.statSync(origen).mtimeMs, fs.statSync(path.join(raiz, "src/datos/imagenes.json")).mtimeMs);
   for (const w of anchosDe(img.width)) {
     const destino = path.join(salida, nombreCopia(img.file, w));
     if (fs.existsSync(destino) && fs.statSync(destino).mtimeMs > fechaOrigen) { saltadas++; continue; }
     let tubo = img.adaptar ? await adaptarPaleta(origen) : sharp(origen);
+    // Quitar el marco del negativo escaneado (medidas en imagenes.json → recorte)
+    if (img.recorte) {
+      const r = img.recorte;
+      tubo = sharp(await tubo.extract({ left: r.izq, top: r.arr, width: img.width, height: img.height }).toBuffer());
+    }
     if (!img.color) tubo = tubo.grayscale().linear(1.08, -10);
     await tubo.resize({ width: w, withoutEnlargement: true }).webp({ quality: 74 }).toFile(destino);
     hechas++;

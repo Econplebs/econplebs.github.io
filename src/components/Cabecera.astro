@@ -88,13 +88,20 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
       <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor" /></svg>
     </button>
 
-    <form class="buscador" role="search" action={ruta("buscar", lang)} method="get">
-      <label class="solo-lectores" for="buscar-q">{t("buscar", lang)}</label>
-      <input id="buscar-q" name="q" type="search" placeholder={t("buscar", lang)} />
-      <button type="submit">
+    <!-- Buscador plegado en una lupa; sin JavaScript se ve el campo entero -->
+    <form class="buscador" role="search" action={ruta("buscar", lang)} method="get" data-buscador>
+      <button type="button" class="buscador__abrir" aria-expanded="false" aria-controls="buscar-campo" title={t("buscar", lang)}>
         <span class="solo-lectores">{t("buscar", lang)}</span>
-        <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="11.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" /><path d="M7.5 12.5L3 17" stroke="currentColor" stroke-width="1.6" /></svg>
+        <svg viewBox="0 0 20 20" width="19" height="19" aria-hidden="true"><circle cx="11.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.7" /><path d="M7.5 12.5L3 17" stroke="currentColor" stroke-width="1.7" /></svg>
       </button>
+      <div class="buscador__campo" id="buscar-campo">
+        <label class="solo-lectores" for="buscar-q">{t("buscar", lang)}</label>
+        <input id="buscar-q" name="q" type="search" placeholder={t("buscar", lang)} />
+        <button type="submit" class="buscador__ir">
+          <span class="solo-lectores">{t("buscar", lang)}</span>
+          <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="11.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6" /><path d="M7.5 12.5L3 17" stroke="currentColor" stroke-width="1.6" /></svg>
+        </button>
+      </div>
     </form>
   </div>
 </header>
@@ -140,6 +147,23 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
   });
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", pintarTema);
   pintarTema();
+
+  // Buscador: la lupa abre y cierra el campo
+  const buscador = document.querySelector<HTMLFormElement>("[data-buscador]");
+  const abrirBusqueda = buscador?.querySelector<HTMLButtonElement>(".buscador__abrir");
+  const campoBusqueda = buscador?.querySelector<HTMLInputElement>("input");
+  const plegar = (abierto: boolean) => {
+    buscador?.classList.toggle("buscador--abierto", abierto);
+    abrirBusqueda?.setAttribute("aria-expanded", String(abierto));
+    if (abierto) campoBusqueda?.focus();
+  };
+  abrirBusqueda?.addEventListener("click", () => plegar(!buscador!.classList.contains("buscador--abierto")));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && buscador?.classList.contains("buscador--abierto")) { plegar(false); abrirBusqueda?.focus(); }
+  });
+  document.addEventListener("click", (e) => {
+    if (buscador && !buscador.contains(e.target as Node) && !campoBusqueda?.value) plegar(false);
+  });
 
   const hamburguesa = document.querySelector<HTMLButtonElement>(".cabecera__hamburguesa");
   hamburguesa?.addEventListener("click", () => {
@@ -227,14 +251,34 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
   }
   .tema:hover { color: var(--rojo-texto); }
 
-  .buscador {
+  .cabecera__fila { position: relative; }
+  .buscador__abrir {
+    display: none;
+    background: none; border: 0; cursor: pointer;
+    color: var(--grafito);
+    width: 40px; height: 40px;
+    place-items: center;
+  }
+  .buscador__abrir:hover, .buscador--abierto .buscador__abrir { color: var(--rojo-texto); }
+  .buscador__campo {
     display: flex;
     border: 2px solid var(--grafito);
     padding: 3px;
     background: var(--blanco);
   }
+  /* Con JavaScript: solo la lupa; el campo se despliega debajo de la cabecera */
+  :global(.js) .buscador__abrir { display: grid; }
+  :global(.js) .buscador__campo {
+    display: none;
+    position: absolute;
+    top: calc(100% + 2px); right: var(--margen);
+    width: min(24rem, calc(100% - 2 * var(--margen)));
+    z-index: 30;
+  }
+  :global(.js) .buscador--abierto .buscador__campo { display: flex; }
   .buscador input {
-    width: 3.6rem;
+    flex: 1;
+    width: 9rem;
     border: 0;
     padding: 0 0.6rem;
     font: 400 0.8rem var(--f-rotulo);
@@ -243,7 +287,8 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     min-width: 0;
   }
   .buscador input::placeholder { color: var(--gris); }
-  .buscador button {
+  .buscador__ir {
+    flex: none;
     background: var(--grafito);
     color: var(--blanco);
     border: 0;
@@ -251,18 +296,17 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     display: grid; place-items: center;
     cursor: pointer;
   }
-  .buscador button:hover { background: var(--rojo); color: #FFFFFF; }
+  .buscador__ir:hover { background: var(--rojo); color: #FFFFFF; }
 
   /* Móvil: logo arriba, debajo menú + idiomas, y el buscador */
   @media (max-width: 999px) {
     .cabecera__fila {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr auto auto;
       grid-template-areas:
-        "logo logo logo"
-        "ham tem idi"
-        "bus bus bus"
-        "menu menu menu";
+        "logo logo logo logo"
+        "ham tem idi bus"
+        "menu menu menu menu";
       row-gap: 0.6rem;
       padding-top: 0.9rem;
       padding-bottom: 1rem;
@@ -278,9 +322,10 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     }
     .idiomas { grid-area: idi; }
     .tema { grid-area: tem; justify-self: end; margin: 0 0.4rem 0 0; }
-    .buscador { grid-area: bus; justify-self: start; width: 110px; }
-    .buscador input { width: 100%; font-size: 1rem; }
-    .buscador button { width: 43px; height: 43px; flex: none; }
+    .buscador { grid-area: bus; margin-right: -8px; }
+    .buscador input { font-size: 1rem; }
+    .buscador__ir { width: 43px; height: 43px; }
+    :global(.js) .buscador__campo { left: var(--margen); right: var(--margen); width: auto; top: calc(100% + 2px); }
 
     .menu { grid-area: menu; display: none; }
     .cabecera--abierta .menu { display: block; }
