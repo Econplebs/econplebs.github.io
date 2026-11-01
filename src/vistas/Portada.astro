@@ -16,7 +16,7 @@ const todos = await articulosDe(lang);
 // Carrusel: primero los destacados, luego avances de investigación, luego lo más reciente.
 const orden = [
   ...todos.filter((a) => a.data.featured),
-  ...todos.filter((a) => a.data.category === "investigacion" || a.data.category === "sindical"),
+  ...todos.filter((a) => a.data.category === "investigacion"),
   ...todos.filter((a) => a.data.category !== "teoria"), // las notas de trabajo no van al carrusel
 ];
 const carrusel: Articulo[] = [...new Set(orden)].slice(0, 3);
@@ -37,9 +37,9 @@ const [destacado, ...tarjetas] = resto;
           <h2 id="franja-titulo">{t("queInvestigo", lang)}</h2>
           <p class="franja__entrada">{t("queInvestigoTexto", lang)}</p>
           <p class="franja__enlaces">
-            <a class="rotulo enlace-subrayado" href={ruta("investigacion", lang)}>{t("lineasCorto", lang)}</a>
-            <a class="rotulo enlace-subrayado" href={ruta("avances", lang)}>{t("economiaPolitica", lang)}</a>
-            <a class="rotulo enlace-subrayado" href={ruta("sindical", lang)}>{t("cuadernoSindical", lang)}</a>
+            <a class="rotulo enlace-subrayado" href={ruta("investigacion", lang)}>{t("investigacion", lang)}</a>
+            {todos.some((a) => a.data.category === "investigacion") && <a class="rotulo enlace-subrayado" href={ruta("avances", lang)}>{t("economiaPolitica", lang)}</a>}
+            {todos.some((a) => a.data.category === "teoria") && <a class="rotulo enlace-subrayado" href={ruta("teoria", lang)}>{t("cuadernoTeoria", lang)}</a>}
             {conPublicaciones && <a class="rotulo enlace-subrayado" href={ruta("publicaciones", lang)}>{t("publicaciones", lang)}</a>}
           </p>
         </div>

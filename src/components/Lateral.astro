@@ -9,13 +9,13 @@ import {
 interface Props { lang: Lang; articulos: Articulo[] }
 const { lang, articulos } = Astro.props;
 const n = recuentos(articulos);
-// Investigación (economía política y cuaderno sindical), opinión (con la coyuntura) y docencia (didáctica y propuestas de aula)
+// En el orden del menú: Investigación, Intervención y Docencia
 const temas = [
   { cat: "investigacion", n: n.investigacion, hija: false },
-  { cat: "sindical", n: n.sindical, hija: false },
   { cat: "teoria", n: n.teoria, hija: false },
   { cat: "opinion", n: n.opinion, hija: false },
-  { cat: "coyuntura", n: n.coyuntura, hija: true },
+  { cat: "coyuntura", n: n.coyuntura, hija: false },
+  { cat: "sindical", n: n.sindical, hija: false },
   { cat: "didactica", n: n.didactica, hija: false },
   { cat: "aula", n: n.aula, hija: false },
 ] as const;

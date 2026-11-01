@@ -1,9 +1,10 @@
 ---
 // Página de Investigación: texto fijo de plantilla + el cuerpo de la página (Markdown),
-// las tres líneas (economía política, cuaderno sindical y cuaderno de teoría) y una caja de enlaces.
+// las líneas con contenido (investigación aplicada y cuaderno de teoría) y una caja de enlaces.
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
 import ListaArticulos from "../components/ListaArticulos.astro";
+import { getCollection } from "astro:content";
 import { t, ruta, otro, articulosDe, hayPublicaciones, prepararCuerpo, type Lang } from "../lib/sitio";
 
 interface Props { lang: Lang; pagina?: CollectionEntry<"paginas"> }
@@ -13,11 +14,11 @@ const todos = await articulosDe(lang);
 const lineas = [
   { id: "avances", titulo: t("economiaPolitica", lang), lista: todos.filter((a) => a.data.category === "investigacion"),
     vacio: t("sinAvances", lang), mas: `${t("economiaPolitica", lang)} →`, href: ruta("avances", lang) },
-  { id: "sindical", titulo: t("cuadernoSindical", lang), lista: todos.filter((a) => a.data.category === "sindical"),
-    vacio: t("sinSindical", lang), mas: `${t("cuadernoSindical", lang)} →`, href: ruta("sindical", lang) },
   { id: "teoria", titulo: t("cuadernoTeoria", lang), lista: todos.filter((a) => a.data.category === "teoria"),
     vacio: t("sinTeoria", lang), mas: `${t("cuadernoTeoria", lang)} →`, href: ruta("teoria", lang) },
-];
+].filter((l) => l.lista.length > 0);
+const hayArchivos = Object.keys(import.meta.glob("/contenido/recursos/[!_]*.md")).length > 0;
+const hayDatos = hayArchivos && (await getCollection("recursos", (r) => (!r.data.lang || r.data.lang === lang) && r.data.area !== "docencia")).length > 0;
 const cuerpo = prepararCuerpo(pagina?.rendered?.html ?? "", lang);
 const titulo = pagina?.data.title ?? t("investigacion", lang);
 ---
@@ -33,6 +34,7 @@ const titulo = pagina?.data.title ?? t("investigacion", lang);
     <div class="seccion__principal">
       {cuerpo.trim() && <div class="cuerpo-pagina" set:html={cuerpo} data-pagefind-body />}
 
+      {lineas.length === 0 && <p class="seccion__vacio">{t("sinAvances", lang)}</p>}
       {lineas.map((l) => (
         <section aria-labelledby={`linea-${l.id}`}>
           <h2 id={`linea-${l.id}`} class="seccion__h2">{l.titulo}</h2>
@@ -52,17 +54,16 @@ const titulo = pagina?.data.title ?? t("investigacion", lang);
     <aside class="caja-seccion">
       <p class="rotulo">{t("enEstaSeccion", lang)}</p>
       <ul>
-        <li><a href={ruta("avances", lang)}>{t("economiaPolitica", lang)} →</a></li>
-        <li><a href={ruta("sindical", lang)}>{t("cuadernoSindical", lang)} →</a></li>
-        <li><a href={ruta("teoria", lang)}>{t("cuadernoTeoria", lang)} →</a></li>
+        {lineas.map((l) => <li><a href={l.href}>{l.mas}</a></li>)}
         {conPublicaciones && <li><a href={ruta("publicaciones", lang)}>{t("publicacionesFlecha", lang)}</a></li>}
-        <li><a href={ruta("datos", lang)}>{t("datosYCodigo", lang)} →</a></li>
+        {hayDatos && <li><a href={ruta("datos", lang)}>{t("datosYCodigo", lang)} →</a></li>}
       </ul>
     </aside>
   </div>
 </Base>
 
 <style>
+  .seccion__vacio { color: var(--gris); font-size: 1.15rem; margin: 2.2rem 0; }
   .intro {
     max-width: calc(760px + 2 * var(--margen));
     margin: 0 auto;

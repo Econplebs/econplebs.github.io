@@ -2,12 +2,12 @@
 
 Web bilingüe (castellano / valenciano) de Econplebs, el cuaderno de
 investigación económica de un profesor de Economía de secundaria.
-Investigación: investigación aplicada (categoría `investigacion`), cuaderno
-sindical (`sindical`), cuaderno de teoría (`teoria`, notas con `estado` y
-enlaces `[[...]]` entre notas) y Datos y código (recursos del área
-`investigacion`). Opinión, con la coyuntura (`opinion`, `coyuntura`).
-Docencia: didáctica de la economía (`didactica`), propuestas de aula
-(`aula`), materiales y el Observatorio. Subtítulo: «Economía política desde abajo».
+Menú por públicos (02-11-2026): **Investigación** (investigación aplicada
+`investigacion`, cuaderno de teoría `teoria`, Datos y código, Publicaciones),
+**Intervención** (opinión `opinion`, coyuntura `coyuntura`, cuaderno sindical
+`sindical`), **Docencia** (didáctica `didactica`, propuestas de aula `aula`,
+Materiales, Observatorio) y **Sobre mí**. Cada pestaña enlaza a su página
+general; las secciones vacías no salen en el menú. Subtítulo: «Economía política desde abajo».
 Lo educativo para el alumnado vive en el Observatorio (otra web), enlazado
 desde el menú (decisión del autor, 01-11-2026).
 El encargo completo está en `ENCARGO.md` del paquete de traspaso

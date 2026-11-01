@@ -1,6 +1,7 @@
 ---
 // Genera todas las páginas de la web en los dos idiomas (direcciones en ENCARGO §4).
 import { getCollection } from "astro:content";
+import { HERRAMIENTAS_URL } from "../configuracion.mjs";
 import Portada from "../vistas/Portada.astro";
 import Articulo from "../vistas/Articulo.astro";
 import Lista from "../vistas/Lista.astro";
@@ -36,9 +37,29 @@ export async function getStaticPaths() {
       intro: { rotulo: t("investigacion", lang), titulo: t("cuadernoTeoria", lang), texto: t("teoriaLead", lang), lista: t("notas", lang) },
     });
     fija("aula", { vista: "lista", titulo: t("propuestasAula", lang), articulos: de("aula"), categoria: false, imagenes: true, vacio: t("sinPropuestas", lang) });
-    fija("opinion", {
-      vista: "lista", titulo: t("opinion", lang), articulos: de("opinion", "coyuntura"), imagenes: true,
-      intro: { rotulo: t("ideasEnDebate", lang), titulo: t("opinionTitulo", lang), texto: t("opinionTexto", lang) },
+    fija("opinion", { vista: "lista", titulo: t("opinion", lang), articulos: de("opinion"), categoria: false, imagenes: true });
+
+    // Páginas generales de Intervención y Docencia: todo lo de la pestaña, con enlaces a sus secciones (las que tienen contenido)
+    const archivosRecursos = Object.keys(import.meta.glob("/contenido/recursos/[!_]*.md")).length > 0;
+    const hayMateriales = archivosRecursos && (await getCollection("recursos", (r) => (!r.data.lang || r.data.lang === lang) && r.data.area !== "investigacion")).length > 0;
+    const enlace = (cat: string, clave: ClaveRuta, texto: string) => (de(cat).length ? [{ texto, href: ruta(clave, lang) }] : []);
+    fija("intervencion", {
+      vista: "lista", titulo: t("intervencion", lang), articulos: de("opinion", "coyuntura", "sindical"), imagenes: true,
+      intro: {
+        rotulo: t("ideasEnDebate", lang), titulo: t("intervencion", lang), texto: t("intervencionTexto", lang), lista: t("articulos", lang),
+        enlaces: [...enlace("opinion", "opinion", t("opinion", lang)), ...enlace("coyuntura", "coyuntura", t("coyuntura", lang)), ...enlace("sindical", "sindical", t("cuadernoSindical", lang))],
+      },
+    });
+    fija("docencia", {
+      vista: "lista", titulo: t("docencia", lang), articulos: de("didactica", "aula"), imagenes: true,
+      intro: {
+        rotulo: t("enElAula", lang), titulo: t("docencia", lang), texto: t("docenciaTexto", lang), lista: t("articulos", lang),
+        enlaces: [
+          ...enlace("didactica", "didactica", t("didactica", lang)), ...enlace("aula", "aula", t("propuestasAula", lang)),
+          ...(hayMateriales ? [{ texto: t("materiales", lang), href: ruta("materiales", lang) }] : []),
+          ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
+        ],
+      },
     });
     fija("coyuntura", { vista: "lista", titulo: nombreCategoria("coyuntura", lang), articulos: de("coyuntura"), categoria: false, imagenes: true });
     fija("articulos", { vista: "lista", titulo: t("articulos", lang), articulos: lista });

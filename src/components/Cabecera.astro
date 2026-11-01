@@ -1,5 +1,6 @@
 ---
-import { t, ruta, hayPublicaciones, type Lang } from "../lib/sitio";
+import { getCollection } from "astro:content";
+import { t, ruta, hayPublicaciones, articulosDe, type Lang } from "../lib/sitio";
 import { HERRAMIENTAS_URL } from "../configuracion.mjs";
 
 interface Props {
@@ -9,42 +10,51 @@ interface Props {
 const { lang, otraLengua } = Astro.props;
 const conPublicaciones = await hayPublicaciones();
 
+// Las secciones solo salen en el menú cuando tienen contenido
+const articulos = await articulosDe(lang);
+const hay = (cat: string) => articulos.some((a) => a.data.category === cat);
+const hayArchivos = Object.keys(import.meta.glob("/contenido/recursos/[!_]*.md")).length > 0;
+const recursos = hayArchivos ? await getCollection("recursos", (r) => !r.data.lang || r.data.lang === lang) : [];
+const hayRecursos = (area: string) => recursos.some((r) => r.data.area === area || r.data.area === "general");
+const si = <T,>(condicion: boolean, cosa: T) => (condicion ? [cosa] : []);
+
+// Cada pestaña lleva a su página general; el desplegable, a sus secciones
 const menu = [
   {
-    texto: t("investigacion", lang),
+    texto: t("investigacion", lang), href: ruta("investigacion", lang),
     hijos: [
-      { texto: t("lineas", lang), href: ruta("investigacion", lang) },
-      { texto: t("economiaPolitica", lang), href: ruta("avances", lang) },
-      { texto: t("cuadernoSindical", lang), href: ruta("sindical", lang) },
-      { texto: t("cuadernoTeoria", lang), href: ruta("teoria", lang) },
-      { texto: t("datosYCodigo", lang), href: ruta("datos", lang) },
-      ...(conPublicaciones ? [{ texto: t("publicaciones", lang), href: ruta("publicaciones", lang) }] : []),
+      ...si(hay("investigacion"), { texto: t("economiaPolitica", lang), href: ruta("avances", lang) }),
+      ...si(hay("teoria"), { texto: t("cuadernoTeoria", lang), href: ruta("teoria", lang) }),
+      ...si(hayRecursos("investigacion"), { texto: t("datosYCodigo", lang), href: ruta("datos", lang) }),
+      ...si(conPublicaciones, { texto: t("publicaciones", lang), href: ruta("publicaciones", lang) }),
     ],
   },
   {
-    texto: t("docencia", lang),
+    texto: t("intervencion", lang), href: ruta("intervencion", lang),
     hijos: [
-      { texto: t("didactica", lang), href: ruta("didactica", lang) },
-      { texto: t("propuestasAula", lang), href: ruta("aula", lang) },
-      { texto: t("materiales", lang), href: ruta("materiales", lang) },
-      ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
+      ...si(hay("opinion"), { texto: t("opinion", lang), href: ruta("opinion", lang) }),
+      ...si(hay("coyuntura"), { texto: t("coyuntura", lang), href: ruta("coyuntura", lang) }),
+      ...si(hay("sindical"), { texto: t("cuadernoSindical", lang), href: ruta("sindical", lang) }),
     ],
   },
   {
-    texto: t("opinion", lang),
+    texto: t("docencia", lang), href: ruta("docencia", lang),
     hijos: [
-      { texto: t("todo", lang), href: ruta("opinion", lang) },
-      { texto: t("coyuntura", lang), href: ruta("coyuntura", lang) },
+      ...si(hay("didactica"), { texto: t("didactica", lang), href: ruta("didactica", lang) }),
+      ...si(hay("aula"), { texto: t("propuestasAula", lang), href: ruta("aula", lang) }),
+      ...si(hayRecursos("docencia"), { texto: t("materiales", lang), href: ruta("materiales", lang) }),
+      ...si(!!HERRAMIENTAS_URL, { texto: t("herramientas", lang), href: HERRAMIENTAS_URL }),
     ],
   },
   {
-    texto: t("sobreMi", lang),
+    texto: t("sobreMi", lang), href: ruta("sobreMi", lang),
     hijos: [
       { texto: t("queEs", lang), href: ruta("sobreMi", lang) },
       { texto: t("contacto", lang), href: ruta("contacto", lang) },
     ],
   },
 ];
+const actual = (href: string) => Astro.url.pathname.startsWith(href);
 // En la página de error, «esta página» es la portada
 const aqui = /\/404(\.html|\/)?$/.test(Astro.url.pathname) ? ruta("portada", lang) : Astro.url.pathname;
 const hrefEs = lang === "es" ? aqui : otraLengua;
@@ -67,15 +77,22 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
       <ul class="menu__lista">
         {menu.map((item, i) => (
           <li class="menu__item">
-            <button class="menu__boton rotulo" type="button" aria-expanded="false" aria-controls={`submenu-${i}`}>
-              {item.texto}
-              <svg class="menu__flecha" viewBox="0 0 10 6" width="7" height="5" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
-            </button>
-            <ul class="submenu" id={`submenu-${i}`}>
-              {item.hijos.map((h) => (
-                <li><a class="rotulo" href={h.href}>{h.texto}</a></li>
-              ))}
-            </ul>
+            <div class="menu__cabeza">
+              <a class="menu__enlace rotulo" href={item.href} aria-current={actual(item.href) ? "true" : undefined}>{item.texto}</a>
+              {item.hijos.length > 0 && (
+                <button class="menu__boton" type="button" aria-expanded="false" aria-controls={`submenu-${i}`}>
+                  <span class="solo-lectores">{t("verSecciones", lang)} {item.texto}</span>
+                  <svg class="menu__flecha" viewBox="0 0 10 6" width="8" height="6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.2" /></svg>
+                </button>
+              )}
+            </div>
+            {item.hijos.length > 0 && (
+              <ul class="submenu" id={`submenu-${i}`}>
+                {item.hijos.map((h) => (
+                  <li><a class="rotulo" href={h.href}>{h.texto}</a></li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
@@ -227,15 +244,25 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
   .menu__lista, .submenu, .idiomas { list-style: none; margin: 0; padding: 0; }
   .menu__lista { display: flex; gap: 0.5rem; }
   .menu__item { position: relative; }
-  .menu__boton {
-    background: none; border: 0; cursor: pointer;
-    color: var(--grafito);
-    padding: 0.6rem 0.6rem;
-    display: inline-flex; align-items: center; gap: 0.3rem;
+  .menu__cabeza {
+    display: flex; align-items: center;
     border-bottom: 3px solid transparent;
   }
-  .menu__flecha { color: var(--gris); transition: transform 0.15s ease; }
-  .menu__boton[aria-expanded="true"] { border-bottom-color: var(--rojo); }
+  .menu__enlace {
+    color: var(--grafito);
+    text-decoration: none;
+    padding: 0.6rem 0.15rem 0.6rem 0.6rem;
+  }
+  .menu__enlace:hover { color: var(--rojo-texto); }
+  .menu__enlace[aria-current="true"] { color: var(--rojo-texto); }
+  .menu__boton {
+    background: none; border: 0; cursor: pointer;
+    color: var(--gris);
+    padding: 0.6rem 0.45rem 0.6rem 0.2rem;
+    display: inline-flex; align-items: center;
+  }
+  .menu__flecha { transition: transform 0.15s ease; }
+  .menu__item:has(.menu__boton[aria-expanded="true"]) .menu__cabeza { border-bottom-color: var(--rojo); }
   .menu__boton[aria-expanded="true"] .menu__flecha { transform: rotate(180deg); }
 
   .submenu {
@@ -255,11 +282,11 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     font-size: 0.7rem;
   }
   .submenu a:hover { background: var(--rojo); color: #FFFFFF; }
-  .menu__boton[aria-expanded="true"] + .submenu { display: block; }
+  .menu__item:has(.menu__boton[aria-expanded="true"]) > .submenu { display: block; }
   /* Sin JavaScript, el desplegable se abre al pasar el ratón */
   @media (hover: hover) and (min-width: 1000px) {
     :global(html:not(.js)) .menu__item:hover .submenu { display: block; }
-    :global(html:not(.js)) .menu__item:hover .menu__boton { border-bottom-color: var(--rojo); }
+    :global(html:not(.js)) .menu__item:hover .menu__cabeza { border-bottom-color: var(--rojo); }
   }
 
   .idiomas { display: flex; align-items: center; gap: 0.35rem; }
@@ -362,8 +389,11 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     .cabecera--abierta .menu { display: block; }
     .menu__lista { flex-direction: column; gap: 0; border-top: 1px solid var(--filete); }
     .menu__item { border-bottom: 1px solid var(--filete); }
-    .menu__boton { width: 100%; justify-content: space-between; padding: 0.9rem 0; border-bottom: 0; }
-    .menu__boton[aria-expanded="true"] { border-bottom: 0; color: var(--rojo-texto); }
+    .menu__cabeza { justify-content: space-between; border-bottom: 0; }
+    .menu__item:has(.menu__boton[aria-expanded="true"]) .menu__cabeza { border-bottom: 0; }
+    .menu__enlace { padding: 0.9rem 0; flex: 1; }
+    .menu__boton { width: 44px; height: 44px; justify-content: center; padding: 0; margin-right: -10px; }
+    .menu__boton[aria-expanded="true"] { color: var(--rojo-texto); }
     .submenu { position: static; border: 0; border-left: 2px solid var(--rojo); padding: 0 0 0.6rem; min-width: 0; background: none; color: inherit; }
     .submenu a:hover { background: none; color: var(--rojo-texto); }
   }

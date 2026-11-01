@@ -77,6 +77,16 @@ const textos = {
     ca: "Un quadern de recerca econòmica: com es produeix i es reparteix la riquesa, i per què arriben les crisis. Els primers avanços, molt prompte.",
   },
   docencia: { es: "Docencia", ca: "Docència" },
+  intervencion: { es: "Intervención", ca: "Intervenció" },
+  verSecciones: { es: "Secciones de", ca: "Seccions de" },
+  intervencionTexto: {
+    es: "Una posición explícita, abierta al contraste con los datos y con otras lecturas: columnas de opinión, análisis de coyuntura y un cuaderno sindical para quien negocia y se organiza.",
+    ca: "Una posició explícita, oberta al contrast amb les dades i amb altres lectures: columnes d’opinió, anàlisis de conjuntura i un quadern sindical per a qui negocia i s’organitza.",
+  },
+  docenciaTexto: {
+    es: "Cómo enseñar economía: reflexión didáctica, propuestas que funcionan en el aula y materiales para otros docentes.",
+    ca: "Com ensenyar economia: reflexió didàctica, propostes que funcionen a l’aula i materials per a altres docents.",
+  },
   economiaPolitica: { es: "Investigación aplicada", ca: "Recerca aplicada" },
   datosYCodigo: { es: "Datos y código", ca: "Dades i codi" },
   datosLead: {
@@ -238,13 +248,15 @@ const rutas = {
   datos: { es: "/investigacion/datos/", ca: "/ca/recerca/dades/" },
   materiales: { es: "/docencia/materiales/", ca: "/ca/docencia/materials/" },
   publicaciones: { es: "/publicaciones/", ca: "/ca/publicacions/" },
-  sindical: { es: "/investigacion/cuaderno-sindical/", ca: "/ca/recerca/quadern-sindical/" },
+  sindical: { es: "/intervencion/cuaderno-sindical/", ca: "/ca/intervencio/quadern-sindical/" },
   teoria: { es: "/investigacion/cuaderno-de-teoria/", ca: "/ca/recerca/quadern-de-teoria/" },
   didactica: { es: "/docencia/didactica/", ca: "/ca/docencia/didactica/" },
-  aula: { es: "/docencia/", ca: "/ca/docencia/" },
+  aula: { es: "/docencia/propuestas/", ca: "/ca/docencia/propostes/" },
   recursos: { es: "/recursos/", ca: "/ca/recursos/" },
-  opinion: { es: "/opinion/", ca: "/ca/opinio/" },
-  coyuntura: { es: "/opinion/coyuntura/", ca: "/ca/opinio/conjuntura/" },
+  intervencion: { es: "/intervencion/", ca: "/ca/intervencio/" },
+  opinion: { es: "/intervencion/opinion/", ca: "/ca/intervencio/opinio/" },
+  coyuntura: { es: "/intervencion/coyuntura/", ca: "/ca/intervencio/conjuntura/" },
+  docencia: { es: "/docencia/", ca: "/ca/docencia/" },
   sobreMi: { es: "/sobre-mi/", ca: "/ca/sobre-mi/" },
   contacto: { es: "/contacto/", ca: "/ca/contacte/" },
   privacidad: { es: "/privacidad/", ca: "/ca/privacitat/" },
@@ -365,7 +377,7 @@ export function copiasDe(img: Imagen) {
 export function recuentos(lista: Articulo[]) {
   const n = (c: string) => lista.filter((a) => a.data.category === c).length;
   return {
-    opinion: n("opinion") + n("coyuntura"),
+    opinion: n("opinion"),
     coyuntura: n("coyuntura"),
     sindical: n("sindical"),
     teoria: n("teoria"),
