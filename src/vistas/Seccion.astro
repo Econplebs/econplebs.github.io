@@ -1,6 +1,6 @@
 ---
 // Página de Investigación: texto fijo de plantilla + el cuerpo de la página (Markdown),
-// la lista de avances y una caja con los enlaces de la sección. (La didáctica está en Docencia.)
+// las dos líneas (economía política y didáctica de la economía) y una caja con los enlaces de la sección.
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
 import ListaArticulos from "../components/ListaArticulos.astro";
@@ -11,8 +11,10 @@ const { lang, pagina } = Astro.props;
 const conPublicaciones = await hayPublicaciones();
 const todos = await articulosDe(lang);
 const lineas = [
-  { id: "avances", titulo: t("avances", lang), lista: todos.filter((a) => a.data.category === "investigacion"),
-    vacio: t("sinAvances", lang), mas: t("todosAvances", lang), href: ruta("avances", lang) },
+  { id: "avances", titulo: t("economiaPolitica", lang), lista: todos.filter((a) => a.data.category === "investigacion"),
+    vacio: t("sinAvances", lang), mas: `${t("economiaPolitica", lang)} →`, href: ruta("avances", lang) },
+  { id: "didactica", titulo: t("didactica", lang), lista: todos.filter((a) => a.data.category === "didactica"),
+    vacio: t("sinDidactica", lang), mas: `${t("didactica", lang)} →`, href: ruta("didactica", lang) },
 ];
 const cuerpo = prepararCuerpo(pagina?.rendered?.html ?? "", lang);
 const titulo = pagina?.data.title ?? t("investigacion", lang);
@@ -48,7 +50,8 @@ const titulo = pagina?.data.title ?? t("investigacion", lang);
     <aside class="caja-seccion">
       <p class="rotulo">{t("enEstaSeccion", lang)}</p>
       <ul>
-        <li><a href={ruta("avances", lang)}>{t("avancesFlecha", lang)}</a></li>
+        <li><a href={ruta("avances", lang)}>{t("economiaPolitica", lang)} →</a></li>
+        <li><a href={ruta("didactica", lang)}>{t("didactica", lang)} →</a></li>
         {conPublicaciones && <li><a href={ruta("publicaciones", lang)}>{t("publicacionesFlecha", lang)}</a></li>}
         <li><a href={`${ruta("recursos", lang)}?area=investigacion`}>{t("datosMateriales", lang)}</a></li>
       </ul>

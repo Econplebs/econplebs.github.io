@@ -28,8 +28,9 @@ export async function getStaticPaths() {
 
     fija("portada", { vista: "portada" });
     fija("investigacion", { vista: "seccion", pagina: pagina("investigacion") });
-    fija("avances", { vista: "lista", titulo: t("avances", lang), articulos: de("investigacion"), categoria: false, vacio: t("sinAvances", lang) });
+    fija("avances", { vista: "lista", titulo: t("economiaPolitica", lang), articulos: de("investigacion"), categoria: false, vacio: t("sinAvances", lang) });
     fija("didactica", { vista: "lista", titulo: t("didactica", lang), articulos: de("didactica"), categoria: false, vacio: t("sinDidactica", lang) });
+    fija("aula", { vista: "lista", titulo: t("propuestasAula", lang), articulos: de("aula"), categoria: false, imagenes: true, vacio: t("sinPropuestas", lang) });
     fija("opinion", {
       vista: "lista", titulo: t("opinion", lang), articulos: de("opinion", "coyuntura"), imagenes: true,
       intro: { rotulo: t("ideasEnDebate", lang), titulo: t("opinionTitulo", lang), texto: t("opinionTexto", lang) },

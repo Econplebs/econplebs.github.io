@@ -16,7 +16,7 @@ const todos = await articulosDe(lang);
 // Carrusel: primero los destacados, luego avances de investigación, luego lo más reciente.
 const orden = [
   ...todos.filter((a) => a.data.featured),
-  ...todos.filter((a) => a.data.category === "investigacion"),
+  ...todos.filter((a) => a.data.category === "investigacion" || a.data.category === "didactica"),
   ...todos,
 ];
 const carrusel: Articulo[] = [...new Set(orden)].slice(0, 3);
@@ -38,7 +38,8 @@ const [destacado, ...tarjetas] = resto;
           <p class="franja__entrada">{t("queInvestigoTexto", lang)}</p>
           <p class="franja__enlaces">
             <a class="rotulo enlace-subrayado" href={ruta("investigacion", lang)}>{t("lineasCorto", lang)}</a>
-            <a class="rotulo enlace-subrayado" href={ruta("avances", lang)}>{t("avances", lang)}</a>
+            <a class="rotulo enlace-subrayado" href={ruta("avances", lang)}>{t("economiaPolitica", lang)}</a>
+            <a class="rotulo enlace-subrayado" href={ruta("didactica", lang)}>{t("didactica", lang)}</a>
             {conPublicaciones && <a class="rotulo enlace-subrayado" href={ruta("publicaciones", lang)}>{t("publicaciones", lang)}</a>}
           </p>
         </div>

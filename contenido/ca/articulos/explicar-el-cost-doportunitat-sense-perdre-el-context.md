@@ -5,7 +5,7 @@ lang: ca
 translationKey: explicar-el-coste-de-oportunidad-sin-perder-el-contexto
 date: 2026-09-23
 updated: 2026-09-30
-category: didactica
+category: aula
 tags: []
 excerpt: "Una activitat d’aula que parteix de decisions concretes i fa visibles les alternatives."
 featured: false

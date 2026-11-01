@@ -3,7 +3,9 @@
 Web bilingüe (castellano / valenciano) de Econplebs, el cuaderno de
 investigación económica de un profesor de Economía de secundaria: economía
 política, coyuntura y opinión, con la didáctica de la economía como segunda
-línea de investigación. Subtítulo: «Economía política desde abajo».
+línea de investigación (categorías `investigacion` y `didactica`). Docencia
+reúne lo práctico: propuestas de aula (categoría `aula`), materiales y el
+Observatorio. Subtítulo: «Economía política desde abajo».
 Lo educativo para el alumnado vive en el Observatorio (otra web), enlazado
 desde el menú (decisión del autor, 01-11-2026).
 El encargo completo está en `ENCARGO.md` del paquete de traspaso

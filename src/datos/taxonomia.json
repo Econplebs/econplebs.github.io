@@ -10,11 +10,11 @@
   "didactica": {
    "ca": {
     "slug": "didactica-va",
-    "name": "Didàctica"
+    "name": "Didàctica de l’economia"
    },
    "es": {
     "slug": "didactica",
-    "name": "Didáctica"
+    "name": "Didáctica de la economía"
    }
   },
   "coyuntura": {
@@ -31,11 +31,11 @@
   "investigacion": {
    "es": {
     "slug": "investigacion",
-    "name": "Investigación"
+    "name": "Economía política"
    },
    "ca": {
     "slug": "recerca",
-    "name": "Recerca"
+    "name": "Economia política"
    }
   },
   "opinion": {
@@ -46,6 +46,16 @@
    "es": {
     "slug": "opinion",
     "name": "Opinión"
+   }
+  },
+  "aula": {
+   "es": {
+    "slug": "aula",
+    "name": "Propuestas de aula"
+   },
+   "ca": {
+    "slug": "aula",
+    "name": "Propostes d’aula"
    }
   }
  }

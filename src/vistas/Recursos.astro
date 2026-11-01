@@ -13,7 +13,7 @@ const recursos = (hayArchivos ? await getCollection("recursos", (r) => !r.data.l
   .sort((a, b) => a.data.title.localeCompare(b.data.title, lang));
 const formato = (archivo: string) =>
   /\.(xlsx?|ods|csv|json|tsv)$/i.test(archivo) ? "datos" : "documento";
-const nombreArea = { investigacion: t("investigacion", lang), docencia: t("didactica", lang), general: t("general", lang) };
+const nombreArea = { investigacion: t("investigacion", lang), docencia: t("docencia", lang), general: t("general", lang) };
 ---
 
 <Base lang={lang} titulo={titulo} otraLengua={ruta("recursos", otro(lang))}>

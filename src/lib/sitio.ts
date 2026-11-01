@@ -77,6 +77,9 @@ const textos = {
     ca: "Un quadern de recerca econòmica: com es produeix i es reparteix la riquesa, i per què arriben les crisis. Els primers avanços, molt prompte.",
   },
   docencia: { es: "Docencia", ca: "Docència" },
+  economiaPolitica: { es: "Economía política", ca: "Economia política" },
+  propuestasAula: { es: "Propuestas de aula", ca: "Propostes d’aula" },
+  datosInvestigacion: { es: "Datos", ca: "Dades" },
   archivoCompleto: { es: "Ver el archivo completo ↗", ca: "Veure l’arxiu complet ↗" },
   // Barra lateral
   quienEscribe: { es: "Quién escribe", ca: "Qui escriu" },
@@ -204,7 +207,8 @@ const rutas = {
   investigacion: { es: "/investigacion/", ca: "/ca/recerca/" },
   avances: { es: "/investigacion/avances/", ca: "/ca/recerca/avancos/" },
   publicaciones: { es: "/publicaciones/", ca: "/ca/publicacions/" },
-  didactica: { es: "/docencia/", ca: "/ca/docencia/" },
+  didactica: { es: "/investigacion/didactica/", ca: "/ca/recerca/didactica/" },
+  aula: { es: "/docencia/", ca: "/ca/docencia/" },
   recursos: { es: "/recursos/", ca: "/ca/recursos/" },
   opinion: { es: "/opinion/", ca: "/ca/opinio/" },
   coyuntura: { es: "/opinion/coyuntura/", ca: "/ca/opinio/conjuntura/" },
@@ -232,9 +236,9 @@ export function rutaEtiqueta(etiqueta: string, lang: Lang): string {
   return `${lang === "ca" ? "/ca" : ""}/etiqueta/${etiquetaSlug(etiqueta)}/`;
 }
 
-// Página de cada categoría (las de investigación y didáctica son las listas de avances y propuestas).
+// Página de cada categoría: economía política (avances) y didáctica en Investigación; propuestas de aula en Docencia.
 export function rutaCategoria(cat: Categoria, lang: Lang): string {
-  const mapa = { investigacion: "avances", didactica: "didactica", opinion: "opinion", coyuntura: "coyuntura" } as const;
+  const mapa = { investigacion: "avances", didactica: "didactica", aula: "aula", opinion: "opinion", coyuntura: "coyuntura" } as const;
   return ruta(mapa[cat], lang);
 }
 
@@ -331,6 +335,7 @@ export function recuentos(lista: Articulo[]) {
     opinion: n("opinion") + n("coyuntura"),
     coyuntura: n("coyuntura"),
     didactica: n("didactica"),
+    aula: n("aula"),
     investigacion: n("investigacion"),
   };
 }
