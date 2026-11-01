@@ -6,6 +6,8 @@ import {
   t, ruta, rutaArticulo, rutaCategoria, rutaEtiqueta, fecha, fechaISO, mostrarActualizado,
   minutosLectura, nombreCategoria, prepararCuerpo, traduccionDe, otro, type Articulo,
 } from "../lib/sitio";
+import { citaTexto, rutaCita, urlArticulo } from "../lib/citas";
+import { SITIO } from "../configuracion.mjs";
 
 interface Props { articulo: Articulo; anterior?: Articulo; siguiente?: Articulo; lista: Articulo[] }
 const { articulo, anterior, siguiente, lista } = Astro.props;
@@ -23,14 +25,50 @@ const relacionados = lista.filter((a) => a !== articulo && a.data.category === d
 
 const traduccion = await traduccionDe(articulo);
 const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(lang));
+
+// Datos para Google Scholar, Zotero y buscadores (no se ven en la página)
+const fechaScholar = fechaISO(data.date).replaceAll("-", "/");
+const academico = data.category === "investigacion" || data.category === "didactica";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": academico ? "ScholarlyArticle" : "Article",
+  headline: data.title,
+  abstract: data.excerpt || undefined,
+  datePublished: fechaISO(data.date),
+  dateModified: fechaISO(data.updated ?? data.date),
+  inLanguage: lang === "es" ? "es" : "ca",
+  url: urlArticulo(articulo),
+  author: { "@type": "Organization", name: "Econplebs", url: SITIO },
+  publisher: { "@type": "Organization", name: "Econplebs", url: SITIO },
+  license: "https://creativecommons.org/licenses/by-sa/4.0/",
+  keywords: data.tags.length ? data.tags.join(", ") : undefined,
+};
 ---
 
 <Base lang={lang} titulo={data.title} descripcion={data.excerpt} otraLengua={otraLengua} tipo="article">
+  <Fragment slot="head">
+    <meta name="citation_title" content={data.title} />
+    <meta name="citation_author" content="Econplebs" />
+    <meta name="citation_publication_date" content={fechaScholar} />
+    <meta name="citation_online_date" content={fechaScholar} />
+    <meta name="citation_language" content={lang} />
+    <meta name="citation_publisher" content="Econplebs" />
+    <meta name="citation_fulltext_html_url" content={urlArticulo(articulo)} />
+    {data.excerpt && <meta name="citation_abstract" content={data.excerpt} />}
+    {data.tags.map((e) => <meta name="citation_keywords" content={e} />)}
+    <meta name="DC.title" content={data.title} />
+    <meta name="DC.creator" content="Econplebs" />
+    <meta name="DC.date" content={fechaISO(data.date)} />
+    <meta name="DC.language" content={lang} />
+    <meta name="DC.rights" content="CC BY-SA 4.0" />
+    <meta property="article:published_time" content={fechaISO(data.date)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
   <div slot="arriba" class="progreso" aria-hidden="true"><span data-progreso></span></div>
 
   <article class:list={["articulo", { "articulo--con-indice": conIndice }]} data-articulo data-pagefind-body data-muestra={data.sample ? "" : undefined}>
     <header class="articulo__cabecera">
-      <p class="solo-imprimir rotulo articulo__imprenta">Econplebs · econplebs.org{rutaArticulo(articulo)}</p>
+      <p class="solo-imprimir rotulo articulo__imprenta">Econplebs · {urlArticulo(articulo).replace(/^https:\/\//, "")}</p>
       <p class="rotulo articulo__ruta" data-pagefind-ignore>
         <a href={ruta("articulos", lang)}><span aria-hidden="true">← </span>{t("articulos", lang)}</a>
         <span aria-hidden="true">/</span>
@@ -73,7 +111,17 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
         </p>
       )}
       <p class="articulo__licencia">{t("licenciaTexto", lang)}</p>
-      <button class="rotulo articulo__imprimir" type="button" data-imprimir>{t("imprimir", lang)}</button>
+
+      <section class="citar" aria-labelledby="citar-titulo">
+        <h2 id="citar-titulo" class="rotulo">{t("comoCitar", lang)}</h2>
+        <p class="citar__texto" data-cita>{citaTexto(articulo)}</p>
+        <p class="citar__acciones">
+          <button class="rotulo" type="button" data-copiar-cita data-hecho={t("citaCopiada", lang)}>{t("copiarCita", lang)}</button>
+          <a class="rotulo" href={rutaCita(articulo, "bib")} download>BibTeX</a>
+          <a class="rotulo" href={rutaCita(articulo, "ris")} download>RIS (Zotero, Mendeley)</a>
+          <button class="rotulo" type="button" data-imprimir>{t("imprimir", lang)}</button>
+        </p>
+      </section>
 
       {relacionados.length > 0 && (
         <section class="relacionados" aria-labelledby="relacionados-titulo">
@@ -143,6 +191,27 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
     }
 
     document.querySelector("[data-imprimir]")?.addEventListener("click", () => print());
+
+    // Copiar la cita al portapapeles
+    const copiar = document.querySelector<HTMLButtonElement>("[data-copiar-cita]");
+    copiar?.addEventListener("click", async () => {
+      const cita = document.querySelector<HTMLElement>("[data-cita]")!;
+      let hecho = false;
+      try {
+        await navigator.clipboard.writeText(cita.textContent ?? "");
+        hecho = true;
+      } catch {
+        // Método clásico: seleccionar el texto y copiarlo
+        getSelection()?.selectAllChildren(cita);
+        hecho = document.execCommand("copy");
+        getSelection()?.removeAllRanges();
+      }
+      if (hecho) {
+        const antes = copiar.textContent;
+        copiar.textContent = copiar.dataset.hecho!;
+        setTimeout(() => (copiar.textContent = antes), 2000);
+      }
+    });
 
     // 3. Notas al margen en pantallas anchas (en el móvil se quedan al final)
     const ancho = matchMedia("(min-width: 1180px)");
@@ -321,11 +390,22 @@ const otraLengua = traduccion ? rutaArticulo(traduccion) : ruta("portada", otro(
   .articulo__etiquetas a { text-decoration: none; }
   .articulo__etiquetas a:hover { text-decoration: underline; }
   .articulo__licencia { font-size: 0.85rem; margin-top: 1.4rem; }
-  .articulo__imprimir {
-    margin-top: 1rem; padding: 0.5rem 0.8rem;
-    background: none; color: var(--grafito); border: 1px solid var(--grafito); cursor: pointer;
+  /* Cómo citar */
+  .citar {
+    background: var(--blanco);
+    border-left: 3px solid var(--grafito);
+    padding: 1.1rem 1.3rem 1.2rem;
+    margin-top: 1.4rem;
   }
-  .articulo__imprimir:hover { color: var(--rojo-texto); border-color: var(--rojo); }
+  .citar h2 { font: 500 0.72rem var(--f-rotulo); letter-spacing: 0.14em; margin-bottom: 0.7rem; }
+  .citar__texto { font-size: 0.95rem; line-height: 1.6; overflow-wrap: anywhere; user-select: all; }
+  .citar__acciones { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+  .citar__acciones button, .citar__acciones a {
+    padding: 0.5rem 0.8rem;
+    background: none; color: var(--grafito); border: 1px solid var(--grafito); cursor: pointer;
+    text-decoration: none; font-size: 0.66rem;
+  }
+  .citar__acciones button:hover, .citar__acciones a:hover { color: var(--rojo-texto); border-color: var(--rojo); }
   .articulo__imprenta { margin-bottom: 1.2rem; }
   @media print {
     .articulo { display: block; padding: 0; }
