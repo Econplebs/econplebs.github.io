@@ -7,8 +7,6 @@ kind: sobre-mi
 ---
 Econplebs és el quadern d’un professor d’Economia de secundària que investiga des de l’economia política: com es produeix la riquesa, com es reparteix i per què arriben les crisis. «Economia política des de baix» resumix el punt de vista: mirar l’economia des de qui treballa.
 
-El mètode és el d’ascendir de l’abstracte al concret: començar per la relació bàsica que explica un fenomen i arribar després als casos que s’entenen gràcies a ella. És el mètode de Marx, i també el que Iliénkov i Davídov van portar a l’ensenyament.
-
 Ací es publiquen tres coses:
 
 - **Avanços de recerca**, amb les dades i el codi perquè qualsevol puga comprovar-los.

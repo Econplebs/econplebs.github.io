@@ -7,8 +7,6 @@ kind: sobre-mi
 ---
 Econplebs es el cuaderno de un profesor de Economía de secundaria que investiga desde la economía política: cómo se produce la riqueza, cómo se reparte y por qué llegan las crisis. «Economía política desde abajo» resume el punto de vista: mirar la economía desde quienes trabajan.
 
-El método es el de ascender de lo abstracto a lo concreto: empezar por la relación básica que explica un fenómeno y llegar después a los casos que se entienden gracias a ella. Es el método de Marx, y también el que Iliénkov y Davídov llevaron a la enseñanza.
-
 Aquí se publican tres cosas:
 
 - **Avances de investigación**, con los datos y el código para que cualquiera pueda comprobarlos.
