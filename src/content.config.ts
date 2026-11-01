@@ -14,7 +14,7 @@ const articulos = defineCollection({
     translationKey: z.string(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
-    category: z.enum(["investigacion", "didactica", "aula", "opinion", "coyuntura"]),
+    category: z.enum(["investigacion", "sindical", "didactica", "aula", "opinion", "coyuntura"]),
     tags: z.array(z.string()).default([]),
     excerpt: z.string().default(""),
     featured: z.boolean().default(false),

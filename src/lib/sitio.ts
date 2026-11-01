@@ -79,6 +79,8 @@ const textos = {
   docencia: { es: "Docencia", ca: "Docència" },
   economiaPolitica: { es: "Economía política", ca: "Economia política" },
   propuestasAula: { es: "Propuestas de aula", ca: "Propostes d’aula" },
+  cuadernoSindical: { es: "Cuaderno sindical", ca: "Quadern sindical" },
+  sinSindical: { es: "Todavía no hay entradas del cuaderno sindical.", ca: "Encara no hi ha entrades del quadern sindical." },
   datosInvestigacion: { es: "Datos", ca: "Dades" },
   archivoCompleto: { es: "Ver el archivo completo ↗", ca: "Veure l’arxiu complet ↗" },
   // Barra lateral
@@ -207,7 +209,8 @@ const rutas = {
   investigacion: { es: "/investigacion/", ca: "/ca/recerca/" },
   avances: { es: "/investigacion/avances/", ca: "/ca/recerca/avancos/" },
   publicaciones: { es: "/publicaciones/", ca: "/ca/publicacions/" },
-  didactica: { es: "/investigacion/didactica/", ca: "/ca/recerca/didactica/" },
+  sindical: { es: "/investigacion/cuaderno-sindical/", ca: "/ca/recerca/quadern-sindical/" },
+  didactica: { es: "/docencia/didactica/", ca: "/ca/docencia/didactica/" },
   aula: { es: "/docencia/", ca: "/ca/docencia/" },
   recursos: { es: "/recursos/", ca: "/ca/recursos/" },
   opinion: { es: "/opinion/", ca: "/ca/opinio/" },
@@ -236,9 +239,9 @@ export function rutaEtiqueta(etiqueta: string, lang: Lang): string {
   return `${lang === "ca" ? "/ca" : ""}/etiqueta/${etiquetaSlug(etiqueta)}/`;
 }
 
-// Página de cada categoría: economía política (avances) y didáctica en Investigación; propuestas de aula en Docencia.
+// Página de cada categoría: economía política y cuaderno sindical en Investigación; didáctica y propuestas de aula en Docencia.
 export function rutaCategoria(cat: Categoria, lang: Lang): string {
-  const mapa = { investigacion: "avances", didactica: "didactica", aula: "aula", opinion: "opinion", coyuntura: "coyuntura" } as const;
+  const mapa = { investigacion: "avances", sindical: "sindical", didactica: "didactica", aula: "aula", opinion: "opinion", coyuntura: "coyuntura" } as const;
   return ruta(mapa[cat], lang);
 }
 
@@ -334,6 +337,7 @@ export function recuentos(lista: Articulo[]) {
   return {
     opinion: n("opinion") + n("coyuntura"),
     coyuntura: n("coyuntura"),
+    sindical: n("sindical"),
     didactica: n("didactica"),
     aula: n("aula"),
     investigacion: n("investigacion"),

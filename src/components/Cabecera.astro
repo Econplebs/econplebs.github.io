@@ -15,7 +15,7 @@ const menu = [
     hijos: [
       { texto: t("lineas", lang), href: ruta("investigacion", lang) },
       { texto: t("economiaPolitica", lang), href: ruta("avances", lang) },
-      { texto: t("didactica", lang), href: ruta("didactica", lang) },
+      { texto: t("cuadernoSindical", lang), href: ruta("sindical", lang) },
       { texto: t("datosInvestigacion", lang), href: `${ruta("recursos", lang)}?area=investigacion` },
       ...(conPublicaciones ? [{ texto: t("publicaciones", lang), href: ruta("publicaciones", lang) }] : []),
     ],
@@ -23,6 +23,7 @@ const menu = [
   {
     texto: t("docencia", lang),
     hijos: [
+      { texto: t("didactica", lang), href: ruta("didactica", lang) },
       { texto: t("propuestasAula", lang), href: ruta("aula", lang) },
       { texto: t("materiales", lang), href: `${ruta("recursos", lang)}?area=docencia` },
       ...(HERRAMIENTAS_URL ? [{ texto: t("herramientas", lang), href: HERRAMIENTAS_URL }] : []),
@@ -116,12 +117,38 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
     botones.forEach((b) => b !== excepto && b.setAttribute("aria-expanded", "false"));
 
   botones.forEach((b) =>
-    b.addEventListener("click", () => {
+    b.addEventListener("click", (e) => {
+      // Con ratón en escritorio, el desplegable ya lo abre el paso del ratón
+      if (matchMedia("(hover: hover) and (min-width: 1000px)").matches && (e as MouseEvent).detail > 0) return;
       const abierto = b.getAttribute("aria-expanded") === "true";
       cerrarTodos(b);
       b.setAttribute("aria-expanded", String(!abierto));
     }),
   );
+  // En escritorio, el ratón abre la pestaña que señala y cierra las demás
+  // (un solo mecanismo: así nunca quedan dos desplegables abiertos a la vez).
+  const conRaton = matchMedia("(hover: hover) and (min-width: 1000px)");
+  botones.forEach((b) => {
+    const item = b.closest<HTMLElement>(".menu__item")!;
+    let espera: number | undefined;
+    item.addEventListener("mouseenter", () => {
+      if (!conRaton.matches) return;
+      clearTimeout(espera);
+      cerrarTodos(b);
+      b.setAttribute("aria-expanded", "true");
+    });
+    item.addEventListener("mouseleave", () => {
+      if (!conRaton.matches) return;
+      espera = window.setTimeout(() => b.setAttribute("aria-expanded", "false"), 180);
+    });
+    // Con el teclado: al salir el foco de la pestaña, se cierra
+    item.addEventListener("focusout", (e) => {
+      if (!item.contains(e.relatedTarget as Node)) b.setAttribute("aria-expanded", "false");
+    });
+  });
+  // Al volver con el botón «atrás», el menú no debe quedar abierto
+  addEventListener("pageshow", () => cerrarTodos());
+
   document.addEventListener("click", (e) => {
     if (!(e.target as Element).closest(".menu__item")) cerrarTodos();
   });
@@ -228,9 +255,10 @@ const hrefCa = lang === "ca" ? aqui : otraLengua;
   }
   .submenu a:hover { background: var(--rojo); color: #FFFFFF; }
   .menu__boton[aria-expanded="true"] + .submenu { display: block; }
+  /* Sin JavaScript, el desplegable se abre al pasar el ratón */
   @media (hover: hover) and (min-width: 1000px) {
-    .menu__item:hover .submenu { display: block; }
-    .menu__item:hover .menu__boton { border-bottom-color: var(--rojo); }
+    :global(html:not(.js)) .menu__item:hover .submenu { display: block; }
+    :global(html:not(.js)) .menu__item:hover .menu__boton { border-bottom-color: var(--rojo); }
   }
 
   .idiomas { display: flex; align-items: center; gap: 0.35rem; }

@@ -1,5 +1,5 @@
 {
- "nota": "Banco de imágenes de Econplebs (30). Fotos: se muestran en gris (filter grayscale + contraste). color=true: carteles y obras, se muestran tal cual (las de vanguardia ya vienen con el color adaptado a la paleta). Registro completo con licencias: diseno/imagenes.md. Asignación automática: la imagen elegida a mano manda; si no, se toma del grupo de la categoría con (id del artículo mod n). La cuña roja no se asigna sola: solo a mano. Reparto (02-11-2026): las obras constructivistas, en todas las secciones; la educación obrera y popular, solo en didáctica y propuestas de aula; las fotos industriales, en economía política, opinión y coyuntura; las de aula, en propuestas de aula; la tradición teórica (Vigotski), en didáctica. «recorte» (píxeles de cada borde) quita el marco del negativo escaneado; width y height son ya las medidas recortadas.",
+ "nota": "Banco de imágenes de Econplebs (30). Fotos: se muestran en gris (filter grayscale + contraste). color=true: carteles y obras, se muestran tal cual (las de vanguardia ya vienen con el color adaptado a la paleta). Registro completo con licencias: diseno/imagenes.md. Asignación automática: la imagen elegida a mano manda; si no, se toma del grupo de la categoría con (id del artículo mod n). La cuña roja no se asigna sola: solo a mano. Reparto (02-11-2026): las obras constructivistas, en todas las secciones; la educación obrera y popular, solo en didáctica y propuestas de aula; las fotos industriales, en economía política, cuaderno sindical, opinión y coyuntura; las de aula, en propuestas de aula; la tradición teórica (Vigotski), en didáctica. «recorte» (píxeles de cada borde) quita el marco del negativo escaneado; width y height son ya las medidas recortadas.",
  "images": [
   {
    "key": "trabajo",
@@ -578,6 +578,22 @@
    "misiones",
    "alfabetizacion",
    "extraescolar",
+   "klutsis-construccion",
+   "chashnik",
+   "malevich",
+   "proun",
+   "vjutemas",
+   "dos-cuadrados",
+   "dos-cuadrados-tierra",
+   "dos-cuadrados-aqui"
+  ],
+  "sindical": [
+   "salida",
+   "trabajo",
+   "cooperativa",
+   "archivo",
+   "migracion",
+   "industria",
    "klutsis-construccion",
    "chashnik",
    "malevich",

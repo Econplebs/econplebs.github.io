@@ -57,6 +57,16 @@
     "slug": "aula",
     "name": "Propostes d’aula"
    }
+  },
+  "sindical": {
+   "es": {
+    "slug": "cuaderno-sindical",
+    "name": "Cuaderno sindical"
+   },
+   "ca": {
+    "slug": "quadern-sindical",
+    "name": "Quadern sindical"
+   }
   }
  }
 }

@@ -53,8 +53,8 @@ const final = {
 
 // --- Comprobaciones ---
 if (!/^\d{4}-\d{2}-\d{2}$/.test(final.date)) errores.push(`La fecha «${final.date}» tiene que ser AAAA-MM-DD.`);
-if (!["investigacion", "didactica", "aula", "opinion", "coyuntura"].includes(final.category))
-  errores.push("category tiene que ser investigacion, didactica, aula, opinion o coyuntura.");
+if (!["investigacion", "sindical", "didactica", "aula", "opinion", "coyuntura"].includes(final.category))
+  errores.push("category tiene que ser investigacion, sindical, didactica, aula, opinion o coyuntura.");
 if (!final.excerpt) avisos.push("No hay extracto (excerpt): en portada y listas saldrá vacío.");
 if (final.excerpt.length > 220) avisos.push("El extracto es largo (más de 220 caracteres).");
 const banco = JSON.parse(fs.readFileSync(path.join(raiz, "src/datos/imagenes.json"), "utf8"));

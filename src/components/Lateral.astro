@@ -9,12 +9,13 @@ import {
 interface Props { lang: Lang; articulos: Articulo[] }
 const { lang, articulos } = Astro.props;
 const n = recuentos(articulos);
-// Las dos líneas de investigación, la opinión (con la coyuntura) y las propuestas de aula
+// Investigación (economía política y cuaderno sindical), opinión (con la coyuntura) y docencia (didáctica y propuestas de aula)
 const temas = [
   { cat: "investigacion", n: n.investigacion, hija: false },
-  { cat: "didactica", n: n.didactica, hija: false },
+  { cat: "sindical", n: n.sindical, hija: false },
   { cat: "opinion", n: n.opinion, hija: false },
   { cat: "coyuntura", n: n.coyuntura, hija: true },
+  { cat: "didactica", n: n.didactica, hija: false },
   { cat: "aula", n: n.aula, hija: false },
 ] as const;
 const etiquetas = etiquetasDe(articulos);
